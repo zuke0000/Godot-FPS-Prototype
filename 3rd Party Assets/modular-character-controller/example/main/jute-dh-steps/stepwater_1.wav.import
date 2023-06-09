@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://btyn2jp6i5s8l"
+path="res://.godot/imported/stepwater_1.wav-092baba3a4be7e7e203e492297e635c6.sample"
+
+[deps]
+
+source_file="res://3rd Party Assets/modular-character-controller/example/main/jute-dh-steps/stepwater_1.wav"
+dest_files=["res://.godot/imported/stepwater_1.wav-092baba3a4be7e7e203e492297e635c6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

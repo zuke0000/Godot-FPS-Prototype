@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b2mpyratvtim0"
+path="res://.godot/imported/stepdirt_6.wav-27c5dac7cec4d990a02147fc40162e15.sample"
+
+[deps]
+
+source_file="res://3rd Party Assets/modular-character-controller/example/main/jute-dh-steps/stepdirt_6.wav"
+dest_files=["res://.godot/imported/stepdirt_6.wav-27c5dac7cec4d990a02147fc40162e15.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
