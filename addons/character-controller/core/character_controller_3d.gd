@@ -92,6 +92,11 @@ signal stopped_floating
 @export var sprint_speed_multiplier := 1.6
 
 
+@export_group("Dash")
+
+## Speed to be multiplied when active the ability
+@export var dash_speed_multiplier := 3
+
 @export_group("Footsteps")
 
 ## Maximum counter value to be computed one step
@@ -180,8 +185,12 @@ var _direction_base_node : Node3D
 ## Ability that adds extra speed when actived.
 @onready var sprint_ability: SprintAbility3D = get_node(NodePath("Sprint Ability 3D"))
 
+## Ability that adds a burst of  extra speed when actived.
+@onready var dash_ability: DashAbility3D = get_node(NodePath("Dash Ability 3D"))
+
 ## Simple ability that adds a vertical impulse when actived (Jump).
 @onready var jump_ability: JumpAbility3D = get_node(NodePath("Jump Ability 3D"))
+@onready var double_jump_ability: DoubleJumpAbility3D = get_node(NodePath("Double Jump Ability 3D"))
 
 ## Ability that gives free movement completely ignoring gravity.
 @onready var fly_ability: FlyAbility3D = get_node(NodePath("Fly Ability 3D"))
@@ -207,9 +216,6 @@ func setup():
 	_connect_signals()
 	_start_variables()
 
-var current_double_jumps = double_jumps
-var can_dash = true
-
 ## Moves the character controller.
 ## parameters are inputs that are sent to be handled by all abilities.
 func move(_delta: float, input_axis := Vector2.ZERO, input_jump := false, input_crouch := false, input_sprint := false, input_swim_down := false, input_swim_up := false) -> void:
@@ -222,28 +228,15 @@ func move(_delta: float, input_axis := Vector2.ZERO, input_jump := false, input_
 	
 	
 	swim_ability.set_active(!fly_ability.is_actived())
-	jump_ability.set_active(input_jump and (is_on_floor() or current_double_jumps>0) and not head_check.is_colliding())
+	jump_ability.set_active(input_jump and (is_on_floor()) and not head_check.is_colliding())
+	double_jump_ability.set_active(input_jump and (!is_on_floor()) and not head_check.is_colliding())
 	walk_ability.set_active(not is_fly_mode() and not swim_ability.is_floating())
 	crouch_ability.set_active(input_crouch and is_on_floor() and not is_floating() and not is_submerged() and not is_fly_mode())
 	#sprint_ability.set_active(input_sprint and is_on_floor() and  input_axis.x >= 0.5 and !is_crouching() and not is_fly_mode() and not swim_ability.is_floating() and not swim_ability.is_submerged())
+	dash_ability.set_active(input_sprint)
 	
-	# double jump available
-	if (input_jump and !is_on_floor() and current_double_jumps > 0):
-		velocity.x *= 1.5
-		velocity.z *= 1.5
-		current_double_jumps -= 1
-	
-	# can double jump again if touched ground
-	if (is_on_floor()):
-		current_double_jumps = double_jumps
 		
-	if (can_dash and input_sprint):
-		can_dash = false
-		velocity.x *= 4.0
-		velocity.z *= 4.0
-		velocity.y *= 1.5
-		await get_tree().create_timer(1.5).timeout
-		can_dash = true
+
 		
 
 	
@@ -331,6 +324,7 @@ func _start_variables():
 	walk_ability.deceleration = deceleration
 	walk_ability.air_control = air_control
 	sprint_ability.speed_multiplier = sprint_speed_multiplier
+	dash_ability.speed_multiplier = dash_speed_multiplier
 	crouch_ability.speed_multiplier = crouch_speed_multiplier
 	crouch_ability.default_height = _default_height
 	crouch_ability.height_in_crouch = height_in_crouch

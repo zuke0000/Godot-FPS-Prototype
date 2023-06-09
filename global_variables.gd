@@ -29,3 +29,4 @@ func set_frame_rate(limit):
 func show_debug_stats():
 	debug_stats = !debug_stats
 	
+

@@ -12,3 +12,5 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 	if is_actived():
 		velocity.y = height
 	return velocity
+
+

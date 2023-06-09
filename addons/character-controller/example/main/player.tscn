@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=7 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
 [ext_resource type="Environment" uid="uid://b3cn01u84faiy" path="res://addons/character-controller/example/main/underwater.tres" id="3_dxksd"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/Double Jump Ability 3D.gd" id="4_nkmo3"]
 [ext_resource type="PackedScene" uid="uid://cnivgg63mefat" path="res://addons/character-controller/example/main/audios/player_audios.tscn" id="4_ux8kv"]
-[ext_resource type="Script" path="res://addons/character-controller/example/main/DashTimer.gd" id="5_katsn"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/DashAbility3D.gd" id="5_uomfl"]
 
 [node name="Player" instance=ExtResource("1_fbpun")]
 script = ExtResource("2_8r0nc")
@@ -20,9 +21,18 @@ underwater_env = ExtResource("3_dxksd")
 mouse_sensitivity = 1.0
 angle_limit_for_rotation = 0.03
 acceleration = 20
+air_control = 0.2
 jump_height = 12
+double_jumps = 1
+abilities_path = Array[NodePath]([NodePath("Crouch Ability 3D"), NodePath("Sprint Ability 3D"), NodePath("Walk Ability 3D"), NodePath("Jump Ability 3D"), NodePath("Fly Ability 3D"), NodePath("Swim Ability 3D"), NodePath("Double Jump Ability 3D"), NodePath("Dash Ability 3D")])
 
-[node name="Player Audios" parent="." index="9" instance=ExtResource("4_ux8kv")]
+[node name="Double Jump Ability 3D" type="Node3D" parent="." index="6"]
+script = ExtResource("4_nkmo3")
+speed_multiplier = 2.0
 
-[node name="DashTimer" type="Timer" parent="." index="10"]
-script = ExtResource("5_katsn")
+[node name="Dash Ability 3D" type="Node3D" parent="." index="7"]
+script = ExtResource("5_uomfl")
+cooldown = 2.0
+speed_multiplier = 50
+
+[node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
