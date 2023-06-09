@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://example/script/leveltable.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+table_data = [ [ 1, 15.2223, 0, ExtResource( 2 ) ], [ 2, 45.1, 10, ExtResource( 2 ) ], [ 3, 77.867, 20, null ], [ 4, 100.0, 40, null ] ]

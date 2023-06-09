@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1ijj426mudu4"]
+
+[ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
+[ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
+[ext_resource type="Script" path="res://global_variables.gd" id="3_f448u"]
+[ext_resource type="Script" path="res://InputListener.gd" id="4_6x8e4"]
+[ext_resource type="Script" path="res://Label.gd" id="4_knbf0"]
+
+[node name="Main" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Sky" parent="World" instance=ExtResource("1_p33x6")]
+
+[node name="Grass" parent="World" instance=ExtResource("2_k1bmd")]
+
+[node name="Global" type="Node" parent="."]
+
+[node name="GlobalVariables" type="Node" parent="Global"]
+script = ExtResource("3_f448u")
+
+[node name="InputListener" type="Node" parent="Global"]
+script = ExtResource("4_6x8e4")
+
+[node name="CurrentFpsUI" type="Label" parent="Global"]
+offset_left = 448.0
+offset_right = 712.0
+offset_bottom = 280.0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_knbf0")

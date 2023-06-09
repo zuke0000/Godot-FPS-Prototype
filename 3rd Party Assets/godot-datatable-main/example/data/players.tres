@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://example/script/playertable.gd" type="Script" id=1]
+
+[sub_resource type="PackedScene" id=1]
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray(  ),
+"node_count": 0,
+"node_paths": [  ],
+"nodes": PoolIntArray(  ),
+"variants": [  ],
+"version": 2
+}
+
+[resource]
+script = ExtResource( 1 )
+table_data = [ [ "Test Player", SubResource( 1 ), true ], [ "NPC Player", null, false ] ]
