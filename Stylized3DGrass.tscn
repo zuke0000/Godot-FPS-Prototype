@@ -1,5 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://1io703ytgqiw"]
 
+[ext_resource type="Material" uid="uid://bdys7gr4eeoth" path="res://Materials/simple_grass.tres" id="1_0354v"]
 [ext_resource type="Material" uid="uid://egpru16uvbme" path="res://Assets/Stylized3DGrass.tres" id="1_mon8u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_isp5m"]
@@ -27,12 +28,8 @@ adjustment_enabled = true
 adjustment_contrast = 1.3
 adjustment_saturation = 1.3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1mqg"]
-diffuse_mode = 3
-albedo_color = Color(0.160784, 0.239216, 0.0980392, 1)
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_6qnmv"]
-material = SubResource("StandardMaterial3D_m1mqg")
+material = ExtResource("1_0354v")
 size = Vector2(50, 50)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8l04r"]
@@ -197,9 +194,10 @@ enable_shadows = true
 
 [node name="WindTrails" type="GPUParticles3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 37.9343, 7, 1.05543)
-amount = 4
+amount = 5
 lifetime = 6.0
 explosiveness = 0.5
+visibility_aabb = AABB(-50, 0, -50, 100, 100, 100)
 transform_align = 2
 trail_enabled = true
 trail_lifetime = 2.0

@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 global="*res://global_variables.gd"
 GlobalFunctions="*res://global_functions.gd"
+CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/character-controller/plugin.cfg", "res://addons/cyclops_level_builder/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [input]
 

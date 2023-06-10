@@ -12,7 +12,6 @@ var current_double_jumps = double_jumps
 
 ## Change vertical velocity of [CharacterController3D]
 func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Vector3, _delta : float) -> Vector3:
-	
 	if is_actived() and current_double_jumps > 0:
 		velocity.y = height
 		velocity.x *= speed_multiplier
