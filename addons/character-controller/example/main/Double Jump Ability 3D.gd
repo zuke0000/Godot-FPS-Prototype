@@ -15,12 +15,12 @@ var current_double_jumps = double_jumps
 func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Vector3, _delta : float) -> Vector3:
 	if is_actived() and current_double_jumps > 0:
 		velocity.y = height
-		velocity.x = GlobalFunctions.closest([speed_multiplier*velocity.x, speed_limit *direction[0] + (speed_multiplier*velocity.x)])
-		velocity.z = GlobalFunctions.closest([speed_multiplier*velocity.z, speed_limit *direction[2] + (speed_multiplier*velocity.z)])
+		velocity.x = GlobalFunctions.closest([speed_multiplier*velocity.x, speed_limit *direction[0] + (speed_multiplier*velocity.x*0.5)])
+		velocity.z = GlobalFunctions.closest([speed_multiplier*velocity.z, speed_limit *direction[2] + (speed_multiplier*velocity.z*0.5)])
 		#velocity.x = (speed_limit * (direction[0])) 
 		#velocity.z = (speed_limit * (direction[2])) 
 		
-		print(velocity.x, velocity.z)
+		#print(velocity.x, velocity.z)
 		current_double_jumps -= 1
 	if (is_on_floor):
 		current_double_jumps = double_jumps
