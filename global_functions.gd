@@ -28,8 +28,8 @@ func closest(values = [1,2], target=0):
 			result = value
 	return result
 
-func furthest(values = [1,2], target=0):
-	var runningTally
+func furthest(values, target=0):
+	var runningTally = 0
 	var result
 	for value in values:
 		var tally = abs(target-value)

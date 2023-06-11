@@ -9,6 +9,7 @@ class_name FlyAbility3D
 ## Get actual speed modifier
 func get_speed_modifier() -> float:
 	if is_actived():
+		$"../Collision".disabled = true
 		return speed_modifier
 	else:
 		return super.get_speed_modifier()
@@ -16,6 +17,7 @@ func get_speed_modifier() -> float:
 ## Apply velocity to [CharacterController3D]
 func apply(velocity: Vector3, speed : float, is_on_floor : bool, direction : Vector3, delta: float) -> Vector3:
 	if not is_actived():
+		$"../Collision".disabled = false
 		return velocity
 	velocity = direction * speed
 	return velocity

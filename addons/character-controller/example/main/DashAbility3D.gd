@@ -26,7 +26,7 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 		velocity.z = (dash_speed_limit * (direction[2])) 
 
 		if (velocity.y > -1 and velocity.y < 0):
-			print('mini jump')
+			#print('mini jump')
 			velocity.y = 5
 		#can_dash = false
 		current_dash_count -= 1
