@@ -1,0 +1,649 @@
+[gd_scene load_steps=29 format=3 uid="uid://b71pee6mtmrqr"]
+
+[ext_resource type="PackedScene" path="res://demo/cloud.tscn" id="2"]
+[ext_resource type="AudioStream" uid="uid://b8eh33vgeijhe" path="res://demo/sfx/die.wav" id="8"]
+[ext_resource type="AudioStream" uid="uid://blbkwphc33ug4" path="res://demo/sfx/jump.wav" id="9"]
+[ext_resource type="Texture2D" uid="uid://dqbe4voserre0" path="res://demo/offline-sprite-2x.png" id="10"]
+[ext_resource type="AudioStream" uid="uid://cca32w60mem2d" path="res://demo/sfx/point.wav" id="11"]
+
+[sub_resource type="Animation" id="13"]
+resource_name = "Intro animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Curtain:polygon")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [PackedVector2Array(-734, 0, 100, 0, 100, 600, -734, 600), PackedVector2Array(0, 0, 100, 0, 100, 600, 0, 600)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Dino:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(144, 220), Vector2(154, 220)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Treadmill")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Start"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Curtain:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(923, 0), Vector2(1750, 0)]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cloud 1")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Start"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Cloud 2")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Start"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Cloud 3")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Start"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/Score container/Current score")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Start"
+}]
+}
+
+[sub_resource type="Animation" id="15"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Curtain:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rwtb5"]
+_data = {
+"Intro animation": SubResource("13"),
+"RESET": SubResource("15")
+}
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("10")
+region = Rect2(1.54929, 101.546, 2400.26, 38.3509)
+
+[sub_resource type="RectangleShape2D" id="8"]
+size = Vector2(2400, 17)
+
+[sub_resource type="RectangleShape2D" id="9"]
+size = Vector2(99.5, 599.5)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(48, 100)
+
+[sub_resource type="Animation" id="18"]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(1690.2, 0, 87.8, 99.248)]
+}
+
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(106.632, 20)
+
+[sub_resource type="Animation" id="11"]
+resource_name = "Ducking"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1866.2, 0, 120, 99.248), Rect2(1984.28, 0, 120, 99.248)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("../Regular hitbox/Hitbox shape:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("10")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("../Regular hitbox/Hitbox shape:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 38)]
+}
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("10")
+region = Rect2(1337.9, 0, 87.8, 99.248)
+
+[sub_resource type="Animation" id="4"]
+resource_name = "Idle + Jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(1337.9, 0, 87.8, 99.248)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("../Regular hitbox/Hitbox shape:shape")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("2")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = false
+tracks/3/path = NodePath("../Regular hitbox/Hitbox shape:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Regular hitbox/Hitbox shape:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Regular hitbox/Hitbox shape:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("2")]
+}
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("10")
+region = Rect2(1514.3, 0, 86.632, 100)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("10")
+region = Rect2(1602.4, 0, 86.632, 100)
+
+[sub_resource type="Animation" id="5"]
+resource_name = "Run"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("1"), SubResource("7")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:region_rect")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(1514.3, 0, 86.632, 100), Rect2(1602.4, 0, 86.632, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pxwhe"]
+_data = {
+"Die": SubResource("18"),
+"Ducking": SubResource("11"),
+"Idle + Jump": SubResource("4"),
+"RESET": SubResource("12"),
+"Run": SubResource("5")
+}
+
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("10")
+region = Rect2(952.344, 24.2983, 386.656, 33.7017)
+
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("10")
+region = Rect2(1.5369, 1.25722, 73.0468, 65.6811)
+
+[sub_resource type="Animation" id="22"]
+resource_name = "Reveal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Buffer control:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_842t7"]
+_data = {
+"Reveal": SubResource("22")
+}
+
+[sub_resource type="Animation" id="20"]
+resource_name = "Blink"
+length = 2.0
+step = 0.27
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:_updating")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.27, 0.54, 0.81, 1.08, 1.35, 1.62, 1.89, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true, false, true, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.27, 0.54, 0.81, 1.08, 1.35, 1.62, 1.89, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Milestone sound effect")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("11")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/path = NodePath("Milestone sound effect")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yj53v"]
+_data = {
+"Blink": SubResource("20")
+}
+
+[node name="Root" type="Node"]
+
+[node name="Intro animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rwtb5")
+}
+
+[node name="Treadmill" type="Node2D" parent="."]
+
+[node name="Ground 1" type="Sprite2D" parent="Treadmill"]
+position = Vector2(100, 251)
+texture = SubResource("3")
+centered = false
+
+[node name="Physics hitbox" type="StaticBody2D" parent="Treadmill/Ground 1"]
+position = Vector2(1199, 28)
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Treadmill/Ground 1/Physics hitbox"]
+shape = SubResource("8")
+
+[node name="Orientation hitbox" type="Area2D" parent="Treadmill/Ground 1"]
+position = Vector2(1199, 28)
+collision_layer = 0
+collision_mask = 4
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Treadmill/Ground 1/Orientation hitbox"]
+shape = SubResource("8")
+
+[node name="Ground 2" type="Sprite2D" parent="Treadmill"]
+position = Vector2(2500, 251)
+texture = SubResource("3")
+centered = false
+
+[node name="Physics hitbox" type="StaticBody2D" parent="Treadmill/Ground 2"]
+position = Vector2(1199, 28)
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Treadmill/Ground 2/Physics hitbox"]
+shape = SubResource("8")
+
+[node name="Orientation hitbox" type="Area2D" parent="Treadmill/Ground 2"]
+position = Vector2(1199, 28)
+collision_layer = 0
+collision_mask = 4
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Treadmill/Ground 2/Orientation hitbox"]
+shape = SubResource("8")
+
+[node name="Cloud 1" parent="." instance=ExtResource("2")]
+position = Vector2(401, 127)
+
+[node name="Cloud 2" parent="." instance=ExtResource("2")]
+position = Vector2(783, 71)
+
+[node name="Cloud 3" parent="." instance=ExtResource("2")]
+position = Vector2(1072, 151)
+
+[node name="Cloud respawn position" type="Marker2D" parent="."]
+position = Vector2(1072, 20)
+
+[node name="Left edge" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 600, 0, 600)
+
+[node name="Hitbox" type="Area2D" parent="Left edge"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Left edge/Hitbox"]
+position = Vector2(50.25, 300.25)
+shape = SubResource("9")
+
+[node name="Right edge" type="Polygon2D" parent="."]
+position = Vector2(924, 0)
+polygon = PackedVector2Array(0, 0, 100, 0, 100, 600, 0, 600)
+
+[node name="Dino" type="CharacterBody2D" parent="."]
+position = Vector2(144, 220)
+
+[node name="Ground hitbox" type="CollisionShape2D" parent="Dino"]
+shape = SubResource("2")
+
+[node name="Dino sprite" type="Sprite2D" parent="Dino"]
+texture = ExtResource("10")
+region_enabled = true
+region_rect = Rect2(1690.2, 0, 87.8, 99.248)
+
+[node name="Animator" type="AnimationPlayer" parent="Dino"]
+root_node = NodePath("../Dino sprite")
+autoplay = "Idle + Jump"
+libraries = {
+"": SubResource("AnimationLibrary_pxwhe")
+}
+
+[node name="Regular hitbox" type="Area2D" parent="Dino"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Dino/Regular hitbox"]
+shape = SubResource("2")
+
+[node name="Ducking hitbox" type="Area2D" parent="Dino"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="Hitbox shape" type="CollisionShape2D" parent="Dino/Ducking hitbox"]
+position = Vector2(0, 40)
+shape = SubResource("10")
+disabled = true
+
+[node name="Jump sound" type="AudioStreamPlayer" parent="Dino"]
+stream = ExtResource("9")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="Game over screen" type="Control" parent="UI"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Message" type="TextureRect" parent="UI/Game over screen"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.357
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("16")
+stretch_mode = 4
+
+[node name="Retry button" type="TextureButton" parent="UI/Game over screen"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.302
+anchor_right = 0.5
+anchor_bottom = 0.302
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("19")
+
+[node name="Death sound" type="AudioStreamPlayer" parent="UI/Game over screen"]
+stream = ExtResource("8")
+
+[node name="Buffer control container" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+
+[node name="Buffer control" type="Label" parent="UI/Buffer control container"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Buffer is ON"
+
+[node name="Reveal animation" type="AnimationPlayer" parent="UI/Buffer control container"]
+libraries = {
+"": SubResource("AnimationLibrary_842t7")
+}
+
+[node name="Score container" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="High score" type="Label" parent="UI/Score container"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "HI 00000"
+
+[node name="Current score" type="Label" parent="UI/Score container"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "00000"
+
+[node name="Blink animation" type="AnimationPlayer" parent="UI/Score container/Current score"]
+libraries = {
+"": SubResource("AnimationLibrary_yj53v")
+}
+
+[node name="Blink timer" type="Timer" parent="UI/Score container/Current score"]
+
+[node name="Pterodactyl timer" type="Timer" parent="UI/Score container/Current score"]
+
+[node name="Milestone sound effect" type="AudioStreamPlayer" parent="UI/Score container/Current score"]
+stream = ExtResource("11")
+volume_db = -15.67
+
+[node name="Curtain" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(1750, 0)
+polygon = PackedVector2Array(-734, 0, 100, 0, 100, 600, -734, 600)
+
+[connection signal="area_exited" from="Treadmill/Ground 1/Orientation hitbox" to="Treadmill/Ground 1" method="_on_Area2D_area_exited"]
+[connection signal="area_exited" from="Treadmill/Ground 2/Orientation hitbox" to="Treadmill/Ground 2" method="_on_Area2D_area_exited"]
+[connection signal="area_entered" from="Dino/Regular hitbox" to="Dino" method="_on_Regular_hitbox_area_entered"]
+[connection signal="area_entered" from="Dino/Ducking hitbox" to="Dino" method="_on_Ducking_hitbox_area_entered"]
+[connection signal="pressed" from="UI/Game over screen/Retry button" to="Intro animator" method="_on_Retry_button_pressed"]
+[connection signal="pressed" from="UI/Game over screen/Retry button" to="Treadmill" method="_on_Retry_button_pressed"]
+[connection signal="pressed" from="UI/Game over screen/Retry button" to="Treadmill/Ground 1" method="_on_Retry_button_pressed"]
+[connection signal="pressed" from="UI/Game over screen/Retry button" to="Treadmill/Ground 2" method="_on_Retry_button_pressed"]
+[connection signal="pressed" from="UI/Game over screen/Retry button" to="Dino" method="_on_Retry_button_pressed"]
+[connection signal="pressed" from="UI/Game over screen/Retry button" to="UI/Game over screen" method="_on_Retry_button_pressed"]
+[connection signal="timeout" from="UI/Score container/Current score/Blink timer" to="UI/Score container/Current score" method="_on_Blink_timer_timeout"]
+[connection signal="timeout" from="UI/Score container/Current score/Pterodactyl timer" to="UI/Score container/Current score" method="_on_Pterodactyl_timer_timeout"]

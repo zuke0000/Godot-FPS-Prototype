@@ -19,7 +19,6 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 		
 		var input_axis = Input.get_vector("move_backward", "move_forward", "move_left", "move_right")
 		#var direction = _direction_input(input_axis)
-		GlobalFunctions.closest([1,2],0)
 		#print(input_axis)
 		# TODO: player should dash forward or backward if no input is given to direction
 		direction[2] = input_axis[0] if direction[2] == 0 else direction[2]
