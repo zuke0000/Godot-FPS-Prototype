@@ -9,6 +9,7 @@ class_name DashAbility3D
 @export var can_dash := true
 @export var dash_speed_limit := 30
 @export var dash_count := 2
+var _direction_base_node : Node3D
 
 var current_dash_count = dash_count
 var current_dash_speed_limit = dash_speed_limit
@@ -17,16 +18,10 @@ var current_dash_speed_limit = dash_speed_limit
 func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Vector3, _delta : float) -> Vector3:	
 	if is_actived() and can_dash and current_dash_count > 0:
 		
-		var input_axis = Input.get_vector("move_backward", "move_forward", "move_left", "move_right")
-		#var direction = _direction_input(input_axis)
-		#print(input_axis)
-		# TODO: player should dash forward or backward if no input is given to direction
-		direction[2] = input_axis[0] if direction[2] == 0 else direction[2]
-		# dash forward by default if no inputs
-		#input_axis[0] = 1 if (input_axis[0] == 0 and input_axis[1] == 1) else input_axis[1]
+		# dash forward if no inputs
+		if direction == Vector3(0,0,0):
+			direction = _direction_input(Vector2(1,0), false, false, _direction_base_node)
 		
-		#velocity.x = closest([speed_multiplier * velocity.x, sign(velocity.x * input_axis[0]) * dash_speed_limit], 0)
-		#velocity.z = closest([speed_multiplier * velocity.z, sign(velocity.z * input_axis[1]) * dash_speed_limit], 0)
 		velocity.x = (dash_speed_limit * (direction[0])) 
 		velocity.z = (dash_speed_limit * (direction[2])) 
 
@@ -50,4 +45,20 @@ func dash_cooldown(cooldown):
 	#can_dash = true
 	current_dash_count = min(dash_count, current_dash_count+1)
 
+# for recalculating input
+func _direction_input(input : Vector2, input_down : bool, input_up : bool, aim_node : Node3D) -> Vector3:
+	var _direction = Vector3()
+	#var aim = aim_node.get_global_transform().basis
+	var aim = $"..".get_global_transform().basis
+	if input.x >= 0.5:
+		_direction -= aim.z
+	if input.x <= -0.5:
+		_direction += aim.z
+	if input.y <= -0.5:
+		_direction -= aim.x
+	if input.y >= 0.5:
+		_direction += aim.x
+	# NOTE: For free-flying and swimming movements
+		_direction.y = 0	
+	return _direction.normalized()
 

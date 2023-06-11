@@ -21,6 +21,7 @@ underwater_env = ExtResource("3_dxksd")
 mouse_sensitivity = 1.0
 angle_limit_for_rotation = 0.03
 acceleration = 20
+deceleration = 3
 air_control = 0.2
 jump_height = 12
 double_jumps = 1

@@ -38,3 +38,4 @@ func rotate_camera(mouse_axis : Vector2) -> void:
 	
 	get_owner().rotation.y = actual_rotation.y
 	rotation.x = actual_rotation.x
+	
