@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=8 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -6,8 +6,11 @@
 [ext_resource type="Script" path="res://addons/character-controller/example/main/Double Jump Ability 3D.gd" id="4_nkmo3"]
 [ext_resource type="PackedScene" uid="uid://cnivgg63mefat" path="res://addons/character-controller/example/main/audios/player_audios.tscn" id="4_ux8kv"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/DashAbility3D.gd" id="5_uomfl"]
+[ext_resource type="Script" path="res://scripts/HealthManager.gd" id="7_kx1uw"]
 
 [node name="Player" instance=ExtResource("1_fbpun")]
+collision_layer = 6
+collision_mask = 3
 script = ExtResource("2_8r0nc")
 input_back_action_name = "move_backward"
 input_forward_action_name = "move_forward"
@@ -38,3 +41,12 @@ cooldown = 2.0
 speed_multiplier = 50
 
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
+
+[node name="HealthManager" type="Node3D" parent="." index="12"]
+script = ExtResource("7_kx1uw")
+
+[node name="DamageTestTimer" type="Timer" parent="." index="13"]
+autostart = true
+
+[connection signal="dead" from="HealthManager" to="." method="kill"]
+[connection signal="timeout" from="DamageTestTimer" to="." method="hurt" binds= [5, Vector3(0, 0, 0)]]

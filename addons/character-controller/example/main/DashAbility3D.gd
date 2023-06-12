@@ -21,7 +21,7 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 		# dash forward if no inputs
 		if direction == Vector3(0,0,0):
 			direction = _direction_input(Vector2(1,0), false, false, _direction_base_node)
-		
+			
 		velocity.x = (dash_speed_limit * (direction[0])) 
 		velocity.z = (dash_speed_limit * (direction[2])) 
 

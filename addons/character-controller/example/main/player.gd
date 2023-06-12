@@ -24,15 +24,26 @@ class_name Player
 
 @export var underwater_env: Environment
 
+var frozen = false
+var dead = false
+var health_manager
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	setup()
 	emerged.connect(_on_controller_emerged.bind())
 	submerged.connect(_on_controller_subemerged.bind())
+	health_manager = $HealthManager
+	#health_manager.connect("dead", self.self.self.self, "kill")
+	
 
-
+# NOTE: Apparently inputs are usually put in _process(delta) instead of physics. 
+# Keep an eye on this
 func _physics_process(delta):
+	
+	if dead:
+		return
+	
 	var is_valid_input := Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	
 	if is_valid_input:
@@ -66,3 +77,19 @@ func _on_controller_emerged():
 
 func _on_controller_subemerged():
 	camera.environment = underwater_env
+	
+func freeze():
+	frozen = true
+
+func unfreeze():
+	frozen = false
+	
+## Health stuff
+func hurt(damage, dir):
+	health_manager.damage(damage, dir)
+
+func heal(amount):
+	health_manager.heal(amount)
+func kill():
+	dead = true
+	freeze()
