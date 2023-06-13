@@ -26,19 +26,28 @@ class_name Player
 
 var frozen = false
 var dead = false
-var health_manager
+@onready var health_manager = $HealthManager
+@onready var weapon_manager = $Head/Camera/WeaponManager
+var hotkeys = {
+	KEY_1: 0,
+	KEY_2: 1,
+	KEY_3: 2,
+	KEY_4: 3,
+	KEY_5: 4,
+	
+}
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	setup()
 	emerged.connect(_on_controller_emerged.bind())
 	submerged.connect(_on_controller_subemerged.bind())
-	health_manager = $HealthManager
+	
 	#health_manager.connect("dead", self.self.self.self, "kill")
 	
-
 # NOTE: Apparently inputs are usually put in _process(delta) instead of physics. 
 # Keep an eye on this
+# TODO: perhaps input buffer will work with _physics instead of _physics_process?
 func _physics_process(delta):
 	
 	if dead:
@@ -69,8 +78,16 @@ func _input(event: InputEvent) -> void:
 	# Mouse look (only if the mouse is captured).
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_head(event.relative)
+	# change weapon only if mouse is captured
+	#if Input.is_action_just_pressed("WeaponUp") Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+	#	weapon_manager.switch_to_weapon_slot(hotkeys[event.scancode])
+	# optional to add scroll weapon to change weapons
+	if Input.is_action_just_pressed("WeaponUp"):
+		weapon_manager.switch_to_next_weapon()
+	if Input.is_action_just_pressed("WeaponDown"):
+		weapon_manager.switch_to_last_weapon()
 
-
+		
 func _on_controller_emerged():
 	camera.environment = null
 

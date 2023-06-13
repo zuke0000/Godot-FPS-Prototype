@@ -25,6 +25,7 @@ func _reset_listener():
 		
 func _debug_stats_listener():
 	if Input.is_action_just_pressed("debug_stats"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		global.show_debug_stats()
 
 func _on_global_variables_debug_stats(value):
