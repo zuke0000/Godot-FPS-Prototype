@@ -48,3 +48,7 @@ func disable_all_weapons():
 			weapon.set_unactive()
 		else:
 			weapon.hide()
+
+func attack():
+	for weapon in weapons:
+		weapon.get_node("AnimationPlayer").play("attack")
