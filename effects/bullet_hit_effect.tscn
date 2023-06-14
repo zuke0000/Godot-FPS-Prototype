@@ -48,6 +48,7 @@ albedo_texture = ExtResource("1_6txpf")
 transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
 material_override = SubResource("ORMMaterial3D_ce7ns")
 cast_shadow = 0
+one_shot = true
 speed_scale = 1.5
 explosiveness = 0.94
 transform_align = 3
@@ -58,7 +59,3 @@ draw_pass_1 = SubResource("QuadMesh_chq7m")
 transform = Transform3D(0.115444, 0, 0, 0, -5.0462e-09, 0.115444, 0, -0.115444, -5.0462e-09, 0, 0.0606978, -2.65319e-09)
 mesh = SubResource("QuadMesh_l4dbd")
 surface_material_override/0 = SubResource("StandardMaterial3D_ri206")
-
-[node name="Timer" type="Timer" parent="."]
-
-[connection signal="timeout" from="Timer" to="GPUParticles3D" method="set_emitting" binds= [true]]
