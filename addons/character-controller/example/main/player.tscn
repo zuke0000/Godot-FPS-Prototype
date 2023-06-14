@@ -13,33 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://bvqfj8otn5q3i" path="res://Assets/shotgun.glb" id="9_yxj8y"]
 [ext_resource type="PackedScene" uid="uid://bx21tsqec0bq4" path="res://Assets/rocketlauncher.glb" id="10_ade2p"]
 
-[sub_resource type="Animation" id="Animation_ux3lv"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.0873357, -0.00212413, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
 tracks/0/type = "value"
@@ -96,16 +69,8 @@ tracks/1/keys = {
 "values": [Vector3(-1.73835, 2.0944, -3.88685), Vector3(-1.22697, 0.0575959, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_023t2"]
-_data = {
-"RESET": SubResource("Animation_ksrll"),
-"attack": SubResource("Animation_hjlp3"),
-"idle": SubResource("Animation_ux3lv")
-}
-
-[sub_resource type="Animation" id="Animation_5s5so"]
+[sub_resource type="Animation" id="Animation_ux3lv"]
 resource_name = "idle"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -116,35 +81,26 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_js8bm"]
-resource_name = "attack"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("machinegun:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.30754, 0.380024, 0.728404), Vector3(-0.307, 0.352, 0.995), Vector3(-0.30754, 0.380024, 0.728404)]
+"values": [Vector3(0.0873357, -0.00212413, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("machinegun:rotation")
+tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.0523599, 0.00523599, 0), Vector3(0.21862, 0.00523605, 0), Vector3(0.111422, 0.00523605, 0)]
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_023t2"]
+_data = {
+"RESET": SubResource("Animation_ksrll"),
+"attack": SubResource("Animation_hjlp3"),
+"idle": SubResource("Animation_ux3lv")
 }
 
 [sub_resource type="Animation" id="Animation_lxsco"]
@@ -184,6 +140,50 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.111422, 0.00523605, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_js8bm"]
+resource_name = "attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("machinegun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.30754, 0.380024, 0.728404), Vector3(-0.307, 0.352, 0.995), Vector3(-0.30754, 0.380024, 0.728404)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("machinegun:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0523599, 0.00523599, 0), Vector3(0.21862, 0.00523605, 0), Vector3(0.111422, 0.00523605, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5s5so"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_i0guc"]
@@ -429,7 +429,7 @@ visible = false
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="0"]
 
 [node name="machinegun" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="0" instance=ExtResource("8_nwbrq")]
-transform = Transform3D(0.999986, 0.000582201, 0.00520356, 0, 0.993799, -0.111191, -0.00523603, 0.11119, 0.993785, -0.30754, 0.380024, 0.728404)
+transform = Transform3D(0.999986, 0.000582202, 0.00520356, 0, 0.993799, -0.111192, -0.00523602, 0.11119, 0.993785, -0.30754, 0.380024, 0.728404)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="1"]
 root_node = NodePath("../Graphics")
@@ -443,7 +443,6 @@ transform = Transform3D(0.0731997, 0, -0.0163339, 0, 0.075, 0, 0.0163339, 0, 0.0
 visible = false
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/Shotgun" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="shotgun" parent="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics" index="0" instance=ExtResource("9_yxj8y")]
 

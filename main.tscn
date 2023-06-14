@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b1ijj426mudu4"]
+[gd_scene load_steps=22 format=3 uid="uid://b1ijj426mudu4"]
 
 [ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
 [ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/convex_block_data.gd" id="6_r3fi5"]
 [ext_resource type="Material" uid="uid://bdys7gr4eeoth" path="res://Materials/simple_grass.tres" id="7_2uc1b"]
 [ext_resource type="PackedScene" uid="uid://2oxdgu03lnbk" path="res://addons/character-controller/example/main/player.tscn" id="7_ly36s"]
+[ext_resource type="PackedScene" uid="uid://ds4ntm886di7p" path="res://effects/bullet_hit_effect.tscn" id="12_nee52"]
 
 [sub_resource type="Resource" id="Resource_q15vr"]
 script = ExtResource("6_r3fi5")
@@ -259,3 +260,6 @@ script = ExtResource("4_knbf0")
 
 [node name="Player" parent="." instance=ExtResource("7_ly36s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.885606, 2.69974, 20.678)
+
+[node name="BulletHitEffect" parent="." instance=ExtResource("12_nee52")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.86047, 2, 23.5878)
