@@ -13,11 +13,21 @@ var bodies_to_exclude : Array = []
 @export var ammo = 30
 
 @export var attack_rate = 0.2
+@export var spread := 0.01
+@export var bullets_per_shot := 1
+
+# TODO: like in destiny have damage dropoff. Dropoff linearly after distance excedes dropoff distance
+# 
+@export var damage_dropoff_distance := 30 
+@export var damage_minimum = 2 # TODO
 var attack_timer : Timer
 var can_attack = true
 
 signal fired
 signal out_of_ammo
+
+
+var hitscan_node = preload("res://effects/hitscan_bullet_emitter.tscn")
 
 func _ready():
 	attack_timer = Timer.new()
@@ -26,6 +36,11 @@ func _ready():
 	attack_timer.timeout.connect(finish_attack) # 
 	attack_timer.one_shot = true
 	add_child(attack_timer)
+	
+	for i in bullets_per_shot:
+		var instance = hitscan_node.instantiate()
+		bullet_emitters_base.add_child(instance)
+	
 	
 func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	fire_point = _fire_point
@@ -46,13 +61,21 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 			emit_signal("out_of_ammo")
 		return
 		
-	if ammo > 0:
+	if ammo > 0 and can_attack:
 		ammo -= 1
 	
 	var start_transform = bullet_emitters_base.global_transform
 	bullet_emitters_base.global_transform = fire_point.global_transform
+	
+	bullet_emitters = bullet_emitters_base.get_children() # hopefully not expensive
+	var original_rotation
 	for bullet_emitter in bullet_emitters:
+		if len(bullet_emitters) > 1:
+			original_rotation = bullet_emitter.rotation
+			bullet_emitter.rotation.x += randf_range(-spread,spread)
+			bullet_emitter.rotation.y += randf_range(-spread,spread)
 		bullet_emitter.fire()
+		bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation
 	bullet_emitters_base.global_transform = start_transform
 	
 	anim_player.stop()
