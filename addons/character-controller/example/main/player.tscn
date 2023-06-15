@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=33 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -8,10 +8,14 @@
 [ext_resource type="Script" path="res://addons/character-controller/example/main/DashAbility3D.gd" id="5_uomfl"]
 [ext_resource type="PackedScene" uid="uid://l2carbxd1ugw" path="res://Assets/machete.glb" id="7_1ertq"]
 [ext_resource type="Script" path="res://scripts/HealthManager.gd" id="7_kx1uw"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/Weapon.gd" id="8_7u54q"]
 [ext_resource type="Script" path="res://scripts/WeaponManager.gd" id="8_lgrik"]
 [ext_resource type="PackedScene" uid="uid://db02cgludlstn" path="res://Assets/machinegun.glb" id="8_nwbrq"]
 [ext_resource type="PackedScene" uid="uid://bvqfj8otn5q3i" path="res://Assets/shotgun.glb" id="9_yxj8y"]
+[ext_resource type="PackedScene" uid="uid://dumlwi2wuun12" path="res://effects/hitscan_bullet_emitter.tscn" id="10_10epf"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/MuzzleFlash.gd" id="10_180rb"]
 [ext_resource type="PackedScene" uid="uid://bx21tsqec0bq4" path="res://Assets/rocketlauncher.glb" id="10_ade2p"]
+[ext_resource type="PackedScene" uid="uid://drxktod3xq4r0" path="res://effects/raw_assets/muzzleflash1.glb" id="11_dkiuv"]
 
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
@@ -424,12 +428,28 @@ libraries = {
 
 [node name="MachineGun" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="1"]
 transform = Transform3D(0.231375, 0, 0, 0, 0.231375, 0, 0, 0, 0.231375, 0.258917, -0.140219, -0.203667)
-visible = false
+script = ExtResource("8_7u54q")
+automatic = true
+ammo = 240
+attack_rate = 0.1
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="0"]
 
 [node name="machinegun" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="0" instance=ExtResource("8_nwbrq")]
 transform = Transform3D(0.999986, 0.000582202, 0.00520356, 0, 0.993799, -0.111192, -0.00523602, 0.11119, 0.993785, -0.30754, 0.380024, 0.728404)
+
+[node name="MuzzleFlash" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="1"]
+transform = Transform3D(0.478219, 0, 0, 0, 0.478219, 0, 0, 0, 0.478219, -0.335576, 0.9444, -0.879134)
+script = ExtResource("10_180rb")
+
+[node name="muzzleflash1" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" index="0" instance=ExtResource("11_dkiuv")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" index="1"]
+transform = Transform3D(9.03767, 0, 0, 0, 9.03767, 0, 0, 0, 9.03767, 0, 0, 0)
+light_color = Color(1, 1, 0.462745, 1)
+light_energy = 1.5
+light_size = 0.1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="1"]
 root_node = NodePath("../Graphics")
@@ -437,6 +457,10 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_i0guc")
 }
+
+[node name="BulletEmitters" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="2"]
+
+[node name="HitscanBulletEmitter" parent="Head/Camera/WeaponManager/Weapons/MachineGun/BulletEmitters" index="0" instance=ExtResource("10_10epf")]
 
 [node name="Shotgun" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="2"]
 transform = Transform3D(0.0731997, 0, -0.0163339, 0, 0.075, 0, 0.0163339, 0, 0.0731997, 0.077581, 0.067, 0.0669767)
@@ -454,6 +478,7 @@ libraries = {
 
 [node name="RocketLauncher" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="3"]
 transform = Transform3D(0.985703, -0.00646794, -0.168365, 0, 0.999263, -0.0383878, 0.168489, 0.037839, 0.984977, 0.183383, -0.0815787, -0.327986)
+visible = false
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher" index="0"]
 
@@ -466,8 +491,8 @@ libraries = {
 "": SubResource("AnimationLibrary_lhsmk")
 }
 
-[node name="AttackTestTimer" type="Timer" parent="Head/Camera/WeaponManager" index="1"]
-autostart = true
+[node name="FirePoint" type="Node3D" parent="Head/Camera" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00237684)
 
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
@@ -476,6 +501,6 @@ script = ExtResource("7_kx1uw")
 
 [node name="DamageTestTimer" type="Timer" parent="." index="13"]
 
-[connection signal="timeout" from="Head/Camera/WeaponManager/AttackTestTimer" to="Head/Camera/WeaponManager" method="attack"]
+[connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="dead" from="HealthManager" to="." method="kill"]
 [connection signal="timeout" from="DamageTestTimer" to="." method="hurt" binds= [5, Vector3(0, 0, 0)]]

@@ -11,9 +11,24 @@ var slots_unlocked = {
 var weapons = null
 var current_slot = 0
 var current_weapon = null
+var fire_point = Node3D
+var bodies_to_exclude : Array = []
 
 func _ready():
 	weapons = $Weapons.get_children()
+	
+func init(_fire_point: Node3D, _bodies_to_exclude: Array):
+	fire_point = _fire_point
+	bodies_to_exclude = _bodies_to_exclude
+	for weapon in weapons:
+		if weapon.has_method("init"):
+			weapon.init(_fire_point, _bodies_to_exclude)
+	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE)
+	
+	
+func attack(attack_input_just_pressed: bool, attack_input_held: bool):
+	if current_weapon.has_method("attack"):
+		current_weapon.attack(attack_input_just_pressed, attack_input_held)	
 	
 func switch_to_next_weapon():
 	current_slot = (current_slot + 1) % slots_unlocked.size()
@@ -49,6 +64,4 @@ func disable_all_weapons():
 		else:
 			weapon.hide()
 
-func attack():
-	for weapon in weapons:
-		weapon.get_node("AnimationPlayer").play("attack")
+

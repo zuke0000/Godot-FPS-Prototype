@@ -43,12 +43,30 @@ func _ready():
 	emerged.connect(_on_controller_emerged.bind())
 	submerged.connect(_on_controller_subemerged.bind())
 	
-	#health_manager.connect("dead", self.self.self.self, "kill")
+	#health_manager.connect("dead", self, "kill")
+	health_manager.init()
+	health_manager.dead.connect(kill)
+	weapon_manager.init($Head/Camera/FirePoint, [self])
 	
+
+# weapon inputs
+func _process(delta):
+	if Input.is_action_just_pressed("WeaponUp"):
+		weapon_manager.switch_to_next_weapon()
+	if Input.is_action_just_pressed("WeaponDown"):
+		weapon_manager.switch_to_last_weapon()
+		
+	
+	if Input.is_action_just_pressed("Shoot") or Input.is_action_pressed("Shoot"):
+		weapon_manager.attack(Input.is_action_just_pressed("Shoot"),Input.is_action_pressed("Shoot"))
+
 # NOTE: Apparently inputs are usually put in _process(delta) instead of physics. 
 # Keep an eye on this
 # TODO: perhaps input buffer will work with _physics instead of _physics_process?
 func _physics_process(delta):
+	
+	
+	
 	
 	if dead:
 		return
@@ -67,6 +85,8 @@ func _physics_process(delta):
 		var input_swim_up = Input.is_action_pressed(input_jump_action_name)
 		move(delta, input_axis, input_jump, input_crouch, input_sprint, input_swim_down, input_swim_up)
 		
+		
+		
 	else:
 		# NOTE: It is important to always call move() even if we have no inputs 
 		## to process, as we still need to calculate gravity and collisions.
@@ -78,15 +98,13 @@ func _input(event: InputEvent) -> void:
 	# Mouse look (only if the mouse is captured).
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_head(event.relative)
-	# change weapon only if mouse is captured
-	#if Input.is_action_just_pressed("WeaponUp") Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-	#	weapon_manager.switch_to_weapon_slot(hotkeys[event.scancode])
-	# optional to add scroll weapon to change weapons
-	if Input.is_action_just_pressed("WeaponUp"):
+		
+	# NOTE: fix for inputs in _process not picking up scrollwheel
+	if event.is_action_pressed("wheel_up"):
 		weapon_manager.switch_to_next_weapon()
-	if Input.is_action_just_pressed("WeaponDown"):
+	if event.is_action_pressed("wheel_down"):
 		weapon_manager.switch_to_last_weapon()
-
+	
 		
 func _on_controller_emerged():
 	camera.environment = null
@@ -107,6 +125,7 @@ func hurt(damage, dir):
 
 func heal(amount):
 	health_manager.heal(amount)
+	
 func kill():
 	dead = true
 	freeze()

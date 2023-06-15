@@ -45,7 +45,7 @@ albedo_texture = ExtResource("1_6txpf")
 [node name="BulletHitEffect" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, 0, -3.72529e-09, -2.22045e-16)
 material_override = SubResource("ORMMaterial3D_ce7ns")
 cast_shadow = 0
 one_shot = true

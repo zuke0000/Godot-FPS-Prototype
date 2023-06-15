@@ -266,14 +266,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.885606, 2.69974, 20.678)
 
 [node name="BulletHitEffect" parent="DeveloperTests" instance=ExtResource("12_nee52")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.86047, 2, 23.5878)
-visible = false
 
 [node name="HitscanBulletEmitter" parent="DeveloperTests" instance=ExtResource("13_5wyyd")]
-transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, 0.707107, -0.5, -0.5, 0.707107, 7, 3, 24)
+transform = Transform3D(0.707107, -0.707107, 0, -0.5, -0.5, 0.707107, -0.5, -0.5, -0.707107, 3, 3, 16)
 
 [node name="Timer" type="Timer" parent="DeveloperTests/HitscanBulletEmitter"]
 wait_time = 2.0
-autostart = true
 
-[connection signal="timeout" from="DeveloperTests/HitscanBulletEmitter/Timer" to="World/Sky" method="fire"]
 [connection signal="timeout" from="DeveloperTests/HitscanBulletEmitter/Timer" to="DeveloperTests/HitscanBulletEmitter" method="fire"]
