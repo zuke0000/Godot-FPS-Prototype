@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6bidnhrlbls3"]
+
+[ext_resource type="Script" path="res://weapons/rocket.gd" id="1_5ut4r"]
+[ext_resource type="PackedScene" path="res://Assets/rocket.glb" id="1_6orax"]
+[ext_resource type="PackedScene" uid="uid://cmxl8rwyftik6" path="res://effects/raw_assets/muzzleflash3.glb" id="2_k0yxf"]
+[ext_resource type="Texture2D" uid="uid://cuuokyiwqo8fg" path="res://effects/circle32.png" id="4_0pat0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ini8e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ioyf0"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_0pat0")
+
+[sub_resource type="Gradient" id="Gradient_nh37y"]
+colors = PackedColorArray(1, 1, 1, 0.756863, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3qk11"]
+gradient = SubResource("Gradient_nh37y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1d3px"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_3qk11")
+
+[sub_resource type="QuadMesh" id="QuadMesh_4hqkl"]
+
+[node name="Rocket" type="CharacterBody3D"]
+collision_mask = 7
+script = ExtResource("1_5ut4r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0143518, -0.408808)
+shape = SubResource("SphereShape3D_ini8e")
+
+[node name="Graphics" type="Node3D" parent="."]
+
+[node name="rocket" parent="Graphics" instance=ExtResource("1_6orax")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="muzzleflash3" parent="Graphics/rocket" instance=ExtResource("2_k0yxf")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="SmokeTrail" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_ioyf0")
+amount = 16
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_1d3px")
+draw_pass_1 = SubResource("QuadMesh_4hqkl")
+
+[node name="ShowAfterTimeTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[node name="ExplodeAfterTime" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="DestroyAfterHitTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="ShowAfterTimeTimer" to="." method="show"]
+[connection signal="timeout" from="ExplodeAfterTime" to="." method="explode"]
+[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]
+[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="queue_free"]
