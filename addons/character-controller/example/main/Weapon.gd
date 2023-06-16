@@ -15,11 +15,18 @@ var bodies_to_exclude : Array = []
 @export var attack_rate = 0.2
 @export var spread := 0.01
 @export var bullets_per_shot := 1
+@export var is_melee = false
 
 # TODO: like in destiny have damage dropoff. Dropoff linearly after distance excedes dropoff distance
-# 
+# Damage dropoff system
 @export var damage_dropoff_distance := 30 
-@export var damage_minimum = 2 # TODO
+@export var damage_minimum = 2
+
+# TODO: Reload system
+@export var reload_time = 1
+@export var shield_cost = 0
+
+
 var attack_timer : Timer
 var can_attack = true
 
@@ -69,13 +76,15 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	
 	bullet_emitters = bullet_emitters_base.get_children() # hopefully not expensive
 	var original_rotation
-	for bullet_emitter in bullet_emitters:
-		if len(bullet_emitters) > 1:
-			original_rotation = bullet_emitter.rotation
-			bullet_emitter.rotation.x += randf_range(-spread,spread)
-			bullet_emitter.rotation.y += randf_range(-spread,spread)
-		bullet_emitter.fire()
-		bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation
+	
+	if (!is_melee):
+		for bullet_emitter in bullet_emitters:
+			if len(bullet_emitters) > 1:
+				original_rotation = bullet_emitter.rotation
+				bullet_emitter.rotation.x += randf_range(-spread,spread)
+				bullet_emitter.rotation.y += randf_range(-spread,spread)
+			bullet_emitter.fire()
+			bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation
 	bullet_emitters_base.global_transform = start_transform
 	
 	anim_player.stop()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b1ijj426mudu4"]
+[gd_scene load_steps=25 format=3 uid="uid://b1ijj426mudu4"]
 
 [ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
 [ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/convex_block_data.gd" id="6_r3fi5"]
 [ext_resource type="Material" uid="uid://bdys7gr4eeoth" path="res://Materials/simple_grass.tres" id="7_2uc1b"]
 [ext_resource type="PackedScene" uid="uid://2oxdgu03lnbk" path="res://addons/character-controller/example/main/player.tscn" id="7_ly36s"]
+[ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="8_tules"]
+[ext_resource type="PackedScene" uid="uid://cvemlyttu0jhh" path="res://weapons/explosion.tscn" id="9_7qa50"]
 [ext_resource type="PackedScene" uid="uid://ds4ntm886di7p" path="res://effects/bullet_hit_effect.tscn" id="12_nee52"]
 [ext_resource type="PackedScene" uid="uid://dumlwi2wuun12" path="res://effects/hitscan_bullet_emitter.tscn" id="13_5wyyd"]
 
@@ -243,6 +245,15 @@ navigation_mesh = SubResource("NavigationMesh_fy220")
 
 [node name="NavigationMesh" type="MeshInstance3D" parent="World/NavigationRegion3D"]
 
+[node name="DamageArea" parent="World" instance=ExtResource("8_tules")]
+
+[node name="Explosion" parent="World" instance=ExtResource("9_7qa50")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3, 14)
+
+[node name="Timer" type="Timer" parent="World/Explosion"]
+one_shot = true
+autostart = true
+
 [node name="Global" type="Node" parent="."]
 
 [node name="GlobalFunctions" type="Node" parent="Global"]
@@ -273,4 +284,5 @@ transform = Transform3D(0.707107, -0.707107, 0, -0.5, -0.5, 0.707107, -0.5, -0.5
 [node name="Timer" type="Timer" parent="DeveloperTests/HitscanBulletEmitter"]
 wait_time = 2.0
 
+[connection signal="timeout" from="World/Explosion/Timer" to="World/Explosion" method="explode"]
 [connection signal="timeout" from="DeveloperTests/HitscanBulletEmitter/Timer" to="DeveloperTests/HitscanBulletEmitter" method="fire"]

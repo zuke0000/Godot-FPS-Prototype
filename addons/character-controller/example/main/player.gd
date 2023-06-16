@@ -45,7 +45,7 @@ func _ready():
 	
 	#health_manager.connect("dead", self, "kill")
 	health_manager.init()
-	health_manager.dead.connect(kill)
+	#health_manager.dead.connect(kill)
 	weapon_manager.init($Head/Camera/FirePoint, [self])
 	
 

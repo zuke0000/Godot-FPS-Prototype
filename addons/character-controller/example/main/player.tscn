@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=34 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://addons/character-controller/example/main/Weapon.gd" id="8_7u54q"]
 [ext_resource type="Script" path="res://scripts/WeaponManager.gd" id="8_lgrik"]
 [ext_resource type="PackedScene" uid="uid://db02cgludlstn" path="res://Assets/machinegun.glb" id="8_nwbrq"]
+[ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="9_rrw5h"]
 [ext_resource type="PackedScene" uid="uid://bvqfj8otn5q3i" path="res://Assets/shotgun.glb" id="9_yxj8y"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/MuzzleFlash.gd" id="10_180rb"]
 [ext_resource type="PackedScene" uid="uid://bx21tsqec0bq4" path="res://Assets/rocketlauncher.glb" id="10_ade2p"]
@@ -405,6 +406,9 @@ script = ExtResource("5_uomfl")
 cooldown = 2.0
 speed_multiplier = 50
 
+[node name="Camera" parent="Head" index="0"]
+fov = 90.0
+
 [node name="WeaponManager" type="Node3D" parent="Head/Camera" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.248657, -0.13342)
 script = ExtResource("8_lgrik")
@@ -413,7 +417,13 @@ script = ExtResource("8_lgrik")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.122335, 0.000283256)
 
 [node name="Machete" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="0"]
-visible = false
+script = ExtResource("8_7u54q")
+automatic = true
+damage = 15
+ammo = -1
+attack_rate = 0.5
+spread = 0.0
+is_melee = true
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/Machete" index="0"]
 transform = Transform3D(0.110648, 0, 0, 0, 0.110648, 0, 0, 0, 0.110648, 0.0873357, -0.00212413, 0)
@@ -425,6 +435,11 @@ root_node = NodePath("../Graphics")
 libraries = {
 "": SubResource("AnimationLibrary_023t2")
 }
+
+[node name="BulletEmitters" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/Machete" index="2"]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -0.529133)
+
+[node name="DamageArea" parent="Head/Camera/WeaponManager/Weapons/Machete/BulletEmitters" index="0" instance=ExtResource("9_rrw5h")]
 
 [node name="MachineGun" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="1"]
 transform = Transform3D(0.231375, 0, 0, 0, 0.231375, 0, 0, 0, 0.231375, 0.258917, -0.140219, -0.203667)
@@ -463,6 +478,7 @@ libraries = {
 
 [node name="Shotgun" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="2"]
 transform = Transform3D(0.0731997, 0, -0.0163339, 0, 0.075, 0, 0.0163339, 0, 0.0731997, 0.077581, 0.067, 0.0669767)
+visible = false
 script = ExtResource("8_7u54q")
 damage = 10
 ammo = 20

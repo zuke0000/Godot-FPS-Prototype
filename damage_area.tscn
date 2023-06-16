@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://50rxs1fgdkjq"]
+
+[ext_resource type="Script" path="res://scripts/DamageArea.gd" id="1_qhuk7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_umges"]
+
+[node name="DamageArea" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_qhuk7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_umges")
