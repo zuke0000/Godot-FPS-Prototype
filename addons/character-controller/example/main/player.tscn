@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=41 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -17,6 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://bx21tsqec0bq4" path="res://Assets/rocketlauncher.glb" id="10_ade2p"]
 [ext_resource type="PackedScene" uid="uid://drxktod3xq4r0" path="res://effects/raw_assets/muzzleflash1.glb" id="11_dkiuv"]
 [ext_resource type="PackedScene" uid="uid://cmxl8rwyftik6" path="res://effects/raw_assets/muzzleflash3.glb" id="14_7esng"]
+[ext_resource type="Texture2D" uid="uid://ckiixauih127k" path="res://Assets/Weapons/crosshair065.png" id="14_soti2"]
+[ext_resource type="PackedScene" uid="uid://c824t2tq33tck" path="res://effects/raw_assets/muzzleflash2.glb" id="16_1sbjd"]
+[ext_resource type="Texture2D" uid="uid://cme82x03hgmhc" path="res://Assets/Weapons/crosshair066.png" id="17_gvtfk"]
+[ext_resource type="PackedScene" uid="uid://b5qtyq1k3d5oy" path="res://rocket_spawner.tscn" id="17_sat5l"]
+[ext_resource type="Texture2D" uid="uid://cse5x2rmj02u7" path="res://Assets/Weapons/crosshair026.png" id="18_bkwdr"]
+[ext_resource type="Texture2D" uid="uid://dggfhm07wy6a2" path="res://Assets/Weapons/crosshair001.png" id="20_j6y0y"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/WeaponSway.gd" id="22_r43ch"]
 
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
@@ -388,7 +395,7 @@ input_crouch_action_name = "move_crouch"
 input_fly_mode_action_name = "move_fly_mode"
 underwater_env = ExtResource("3_dxksd")
 mouse_sensitivity = 1.0
-angle_limit_for_rotation = 0.03
+angle_limit_for_rotation = 0.01
 acceleration = 20
 deceleration = 3
 air_control = 0.2
@@ -409,7 +416,10 @@ speed_multiplier = 50
 [node name="Camera" parent="Head" index="0"]
 fov = 90.0
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera" index="0"]
+[node name="FirePoint" type="Node3D" parent="Head/Camera" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00237684)
+
+[node name="WeaponManager" type="Node3D" parent="Head/Camera" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.248657, -0.13342)
 script = ExtResource("8_lgrik")
 
@@ -429,6 +439,22 @@ is_melee = true
 transform = Transform3D(0.110648, 0, 0, 0, 0.110648, 0, 0, 0, 0.110648, 0.0873357, -0.00212413, 0)
 
 [node name="machete" parent="Head/Camera/WeaponManager/Weapons/Machete/Graphics" index="0" instance=ExtResource("7_1ertq")]
+
+[node name="Crosshair" type="TextureRect" parent="Head/Camera/WeaponManager/Weapons/Machete/Graphics" index="1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("20_j6y0y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/Machete" index="1"]
 root_node = NodePath("../Graphics")
@@ -467,6 +493,22 @@ light_color = Color(1, 1, 0.462745, 1)
 light_energy = 1.5
 light_size = 0.1
 
+[node name="Crosshair" type="TextureRect" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("14_soti2")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="1"]
 root_node = NodePath("../Graphics")
 autoplay = "idle"
@@ -500,6 +542,22 @@ light_color = Color(0.823529, 0.368627, 0.164706, 1)
 [node name="muzzleflash3" parent="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" index="1" instance=ExtResource("14_7esng")]
 transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -0.000561714, 0, 0)
 
+[node name="Crosshair" type="TextureRect" parent="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics" index="2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("17_gvtfk")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/Shotgun" index="1"]
 root_node = NodePath("../Graphics")
 libraries = {
@@ -509,13 +567,39 @@ libraries = {
 [node name="BulletEmitters" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/Shotgun" index="2"]
 
 [node name="RocketLauncher" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="3"]
-transform = Transform3D(0.985703, -0.00646794, -0.168365, 0, 0.999263, -0.0383878, 0.168489, 0.037839, 0.984977, 0.183383, -0.0815787, -0.327986)
-visible = false
+transform = Transform3D(0.985703, -0.00646794, -0.168365, 0, 0.999263, -0.0383878, 0.168489, 0.037839, 0.984977, 0.211985, -0.0815787, -0.323097)
+script = ExtResource("8_7u54q")
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher" index="0"]
 
 [node name="rocketlauncher" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics" index="0" instance=ExtResource("10_ade2p")]
 transform = Transform3D(0.0994522, 0, 0.0104528, 0, 0.1, 0, -0.0104528, 0, 0.0994522, 0.00100005, 0.169, 0.399)
+
+[node name="MuzzleFlash" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics" index="1"]
+transform = Transform3D(1, -9.31323e-10, -2.98023e-08, -1.39698e-09, 1, 7.45058e-09, -1.49012e-08, 0, 1, 0.0112428, 0, 0)
+script = ExtResource("10_180rb")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" index="0"]
+transform = Transform3D(0.985704, 8.84757e-09, 0.168489, -0.00646793, 0.999263, 0.037839, -0.168365, -0.0383878, 0.984977, -0.103067, -0.413146, 0.501658)
+
+[node name="muzzleflash2" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" index="1" instance=ExtResource("16_1sbjd")]
+transform = Transform3D(0.115636, -2.71324e-10, 0.019766, -0.000758774, 0.117227, 0.00443901, -0.0197514, -0.0045034, 0.115551, -0.0474389, 0.216598, 0.076482)
+
+[node name="Crosshair" type="TextureRect" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics" index="2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("18_bkwdr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher" index="1"]
 root_node = NodePath("../Graphics")
@@ -523,8 +607,14 @@ libraries = {
 "": SubResource("AnimationLibrary_lhsmk")
 }
 
-[node name="FirePoint" type="Node3D" parent="Head/Camera" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00237684)
+[node name="BulletEmitters" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher" index="2"]
+transform = Transform3D(1, -9.31323e-10, -2.98023e-08, -1.39698e-09, 1, 7.45058e-09, -1.49012e-08, 0, 1, -2.98023e-08, 0, -0.303886)
+
+[node name="RocketSpawner" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/BulletEmitters" index="0" instance=ExtResource("17_sat5l")]
+transform = Transform3D(3.12524, 0, -5.96046e-08, -1.86265e-09, 3.12524, 0, 0, -7.45058e-09, 3.12524, -0.0638753, 0.207884, -0.21601)
+
+[node name="WeaponSway" type="Node3D" parent="Head/Camera/WeaponManager" index="1"]
+script = ExtResource("22_r43ch")
 
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
@@ -535,5 +625,6 @@ script = ExtResource("7_kx1uw")
 
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/Shotgun" to="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" method="flash"]
+[connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
 [connection signal="dead" from="HealthManager" to="." method="kill"]
 [connection signal="timeout" from="DamageTestTimer" to="." method="hurt" binds= [5, Vector3(0, 0, 0)]]

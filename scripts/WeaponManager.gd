@@ -59,8 +59,8 @@ func switch_to_weapon_slot(slot_index: int):
 
 func disable_all_weapons():
 	for weapon in weapons:
-		if weapon.has_method("set_unactive"):
-			weapon.set_unactive()
+		if weapon.has_method("set_inactive"):
+			weapon.set_inactive()
 		else:
 			weapon.hide()
 

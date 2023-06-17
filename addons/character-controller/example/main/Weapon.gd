@@ -44,6 +44,7 @@ func _ready():
 	attack_timer.one_shot = true
 	add_child(attack_timer)
 	
+	# create bullet emitters
 	for i in bullets_per_shot:
 		var instance = hitscan_node.instantiate()
 		bullet_emitters_base.add_child(instance)
@@ -98,9 +99,13 @@ func finish_attack():
 
 func set_active():
 	show()
+	$Graphics/Crosshair.show()
 	
 func set_inactive():
 	anim_player.play("idle")
 	hide()
+	$Graphics/Crosshair.hide()
 	
 
+func is_idle():
+	pass
