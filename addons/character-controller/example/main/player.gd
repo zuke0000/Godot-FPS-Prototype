@@ -51,6 +51,9 @@ func _ready():
 
 # weapon inputs
 func _process(delta):
+	if dead:
+		return
+	
 	if Input.is_action_just_pressed("WeaponUp"):
 		weapon_manager.switch_to_next_weapon()
 	if Input.is_action_just_pressed("WeaponDown"):

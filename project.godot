@@ -20,7 +20,6 @@ config/icon="res://icon.svg"
 global="*res://global_variables.gd"
 GlobalFunctions="*res://global_functions.gd"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
-InputBuffer="*res://Autoload Scripts/input_buffer.gd"
 GGS="*res://addons/ggs/classes/ggs_globals.gd"
 
 [editor_plugins]
