@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cuuokyiwqo8fg" path="res://effects/circle32.png" id="4_0pat0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ini8e"]
+radius = 0.099
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ioyf0"]
 transparency = 1
@@ -31,7 +32,7 @@ collision_mask = 7
 script = ExtResource("1_5ut4r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0143518, -0.408808)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00742863, -0.849154)
 shape = SubResource("SphereShape3D_ini8e")
 
 [node name="Graphics" type="Node3D" parent="."]

@@ -15,7 +15,7 @@ var bodies_to_exclude : Array = []
 @export var attack_rate = 0.2
 @export var spread := 0.01
 @export var bullets_per_shot := 1
-@export var is_melee = false
+@export var is_hitscan = true
 
 # TODO: like in destiny have damage dropoff. Dropoff linearly after distance excedes dropoff distance
 # Damage dropoff system
@@ -25,6 +25,12 @@ var bodies_to_exclude : Array = []
 # TODO: Reload system
 @export var reload_time = 1
 @export var shield_cost = 0
+
+# TODO: aim assist system
+@export var aim_assist_degrees := 1 # angles of error allowed for bullets to bend toward target
+@export var aim_assist_magnetism := 0.5 # percentage of error the bullet will bend towards target
+# For example with these values a player could shoot off by 1 degree but the bullet will bend
+# 0.5 * 1 = 0.5 degrees towards the closest hitbox
 
 
 var attack_timer : Timer
@@ -77,10 +83,10 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	var start_transform = bullet_emitters_base.global_transform
 	bullet_emitters_base.global_transform = fire_point.global_transform
 	
-	bullet_emitters = bullet_emitters_base.get_children() # hopefully not expensive
+	bullet_emitters = bullet_emitters_base.get_children()
 	var original_rotation
 	
-	if (!is_melee):
+	if (is_hitscan):
 		for bullet_emitter in bullet_emitters:
 			if len(bullet_emitters) > 1:
 				original_rotation = bullet_emitter.rotation
