@@ -23,7 +23,15 @@ func fire():
 	#var result = space_state.intersect_ray(our_position - global.transform.basis.z * distance)
 	
 	var direct_state = get_world_3d().direct_space_state
-	var Parameters = PhysicsRayQueryParameters3D.create(our_position, our_position - global_transform.basis.z * distance)
+	var Parameters = PhysicsRayQueryParameters3D.new()#(our_position, our_position - global_transform.basis.z * distance, (1 + 4), bodies_to_exclude)
+	Parameters.from = our_position
+	Parameters.to = our_position - global_transform.basis.z * distance
+	Parameters.exclude = bodies_to_exclude
+	Parameters.collision_mask = 1 + 4 # Layers to collide with. Environment and hitboxes
+	Parameters.hit_back_faces = true #
+	Parameters.collide_with_areas = true # This was required for working with enemy hitboxes
+	#Parameters.hit_from_inside = true
+	
 	var result = direct_state.intersect_ray(Parameters)
 	
 	if result and result.collider.has_method("hurt"):

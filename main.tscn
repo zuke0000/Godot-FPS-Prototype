@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b1ijj426mudu4"]
+[gd_scene load_steps=27 format=3 uid="uid://b1ijj426mudu4"]
 
 [ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
 [ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ds4ntm886di7p" path="res://effects/bullet_hit_effect.tscn" id="12_nee52"]
 [ext_resource type="PackedScene" uid="uid://dumlwi2wuun12" path="res://effects/hitscan_bullet_emitter.tscn" id="13_5wyyd"]
 [ext_resource type="PackedScene" uid="uid://c6bidnhrlbls3" path="res://weapons/rocket.tscn" id="16_v8l14"]
+[ext_resource type="PackedScene" uid="uid://dd658nkv2wboh" path="res://Assets/Characters/Enemies/bird_monster.tscn" id="17_v280t"]
 
 [sub_resource type="Resource" id="Resource_q15vr"]
 script = ExtResource("6_r3fi5")
@@ -287,6 +288,9 @@ wait_time = 2.0
 
 [node name="Rocket" parent="." instance=ExtResource("16_v8l14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 25)
+
+[node name="BirdMonster" parent="." instance=ExtResource("17_v280t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0453158, 2, 26.8475)
 
 [connection signal="timeout" from="World/Explosion/Timer" to="World/Explosion" method="explode"]
 [connection signal="timeout" from="DeveloperTests/HitscanBulletEmitter/Timer" to="DeveloperTests/HitscanBulletEmitter" method="fire"]

@@ -427,6 +427,7 @@ script = ExtResource("8_lgrik")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.122335, 0.000283256)
 
 [node name="Machete" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="0"]
+visible = false
 script = ExtResource("8_7u54q")
 automatic = true
 damage = 15
@@ -576,14 +577,14 @@ script = ExtResource("8_7u54q")
 transform = Transform3D(0.0994522, 0, 0.0104528, 0, 0.1, 0, -0.0104528, 0, 0.0994522, 0.00100005, 0.169, 0.399)
 
 [node name="MuzzleFlash" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics" index="1"]
-transform = Transform3D(1, -9.31323e-10, -2.98023e-08, -1.39698e-09, 1, 7.45058e-09, -1.49012e-08, 0, 1, 0.0112428, 0, 0)
+transform = Transform3D(-0.983375, -1.02445e-08, -0.181601, -1.58325e-08, 1, 7.45058e-09, 0.181601, 7.45058e-09, -0.983375, -0.0120642, 0.219137, 0.203621)
 script = ExtResource("10_180rb")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" index="0"]
-transform = Transform3D(0.985704, 8.84757e-09, 0.168489, -0.00646793, 0.999263, 0.037839, -0.168365, -0.0383878, 0.984977, -0.103067, -0.413146, 0.501658)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="muzzleflash2" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" index="1" instance=ExtResource("16_1sbjd")]
-transform = Transform3D(0.115636, -2.71324e-10, 0.019766, -0.000758774, 0.117227, 0.00443901, -0.0197514, -0.0045034, 0.115551, -0.0474389, 0.216598, 0.076482)
+transform = Transform3D(0.115636, -2.71324e-10, 0.019766, -0.000758774, 0.117227, 0.00443901, -0.0197514, -0.0045034, 0.115551, 0, 0, 0)
 
 [node name="Crosshair" type="TextureRect" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics" index="2"]
 anchors_preset = 8
@@ -608,10 +609,10 @@ libraries = {
 }
 
 [node name="BulletEmitters" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher" index="2"]
-transform = Transform3D(1, -9.31323e-10, -2.98023e-08, -1.39698e-09, 1, 7.45058e-09, -1.49012e-08, 0, 1, -2.98023e-08, 0, -0.303886)
+transform = Transform3D(1, -1.39698e-09, -4.47035e-08, -1.86265e-09, 1, 1.11759e-08, -1.49012e-08, 0, 1, -2.98023e-08, 0, -0.303886)
 
 [node name="RocketSpawner" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher/BulletEmitters" index="0" instance=ExtResource("17_sat5l")]
-transform = Transform3D(3.12524, 0, -5.96046e-08, -1.86265e-09, 3.12524, 0, 0, -7.45058e-09, 3.12524, -0.0638753, 0.207884, -0.21601)
+transform = Transform3D(3.12524, -1.11759e-08, -5.96046e-08, 1.86265e-09, 3.12524, 0, 0, 2.98023e-08, 3.12524, -0.063875, 0.207884, -3.17472)
 
 [node name="WeaponSway" type="Node3D" parent="Head/Camera/WeaponManager" index="1"]
 script = ExtResource("22_r43ch")

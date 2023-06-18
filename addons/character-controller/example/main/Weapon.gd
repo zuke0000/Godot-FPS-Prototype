@@ -47,15 +47,17 @@ func _ready():
 	# create bullet emitters
 	for i in bullets_per_shot:
 		var instance = hitscan_node.instantiate()
+		#for bullet_emitter in bullet_emitters:
+		# NOTE: set variables here was taken from init. This seems to be the right spot
+		instance.set_damage(damage)
+		instance.set_bodies_to_exclude(bodies_to_exclude)
 		bullet_emitters_base.add_child(instance)
 	
 	
 func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	fire_point = _fire_point
 	bodies_to_exclude = _bodies_to_exclude
-	for bullet_emitter in bullet_emitters:
-		bullet_emitter.set_damage(damage)
-		bullet_emitter.set_bodies_to_exclude(bodies_to_exclude)
+	
 		
 func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	if !can_attack:
