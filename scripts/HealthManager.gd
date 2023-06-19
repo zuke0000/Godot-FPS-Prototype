@@ -1,7 +1,7 @@
 extends Node3D
 
 signal dead
-signal hurt
+signal healthbar_hurt
 signal healed
 signal health_changed
 signal gibbed
@@ -21,7 +21,7 @@ func init():
 	current_health = max_health
 	emit_signal("health_changed", current_health)
 #
-func damage(damage: int, dir: Vector3, damage_type="normal"):
+func hurt(damage: int, dir: Vector3, damage_type="normal"):
 	if (current_health <=0):
 		return
 	current_health -= damage

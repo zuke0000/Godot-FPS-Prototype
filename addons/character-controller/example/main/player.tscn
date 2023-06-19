@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=43 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cnivgg63mefat" path="res://addons/character-controller/example/main/audios/player_audios.tscn" id="4_ux8kv"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/DashAbility3D.gd" id="5_uomfl"]
 [ext_resource type="PackedScene" uid="uid://l2carbxd1ugw" path="res://Assets/machete.glb" id="7_1ertq"]
-[ext_resource type="Script" path="res://scripts/HealthManager.gd" id="7_kx1uw"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/Weapon.gd" id="8_7u54q"]
 [ext_resource type="Script" path="res://scripts/WeaponManager.gd" id="8_lgrik"]
 [ext_resource type="PackedScene" uid="uid://db02cgludlstn" path="res://Assets/machinegun.glb" id="8_nwbrq"]
@@ -24,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cse5x2rmj02u7" path="res://Assets/Weapons/crosshair026.png" id="18_bkwdr"]
 [ext_resource type="Texture2D" uid="uid://dggfhm07wy6a2" path="res://Assets/Weapons/crosshair001.png" id="20_j6y0y"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/WeaponSway.gd" id="22_r43ch"]
+[ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://health_manager.tscn" id="24_6c21v"]
 
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
@@ -381,7 +381,13 @@ _data = {
 "idle": SubResource("Animation_6hguo")
 }
 
-[node name="Player" instance=ExtResource("1_fbpun")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_vh3ns"]
+radius = 13.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kehox"]
+radius = 26.0
+
+[node name="Player" groups=["player"] instance=ExtResource("1_fbpun")]
 collision_layer = 6
 collision_mask = 3
 script = ExtResource("2_8r0nc")
@@ -617,15 +623,27 @@ transform = Transform3D(3.12524, -1.11759e-08, -5.96046e-08, 1.86265e-09, 3.1252
 [node name="WeaponSway" type="Node3D" parent="Head/Camera/WeaponManager" index="1"]
 script = ExtResource("22_r43ch")
 
+[node name="AlertAreaHearing" type="Area3D" parent="Head/Camera/WeaponManager" index="2"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera/WeaponManager/AlertAreaHearing" index="0"]
+shape = SubResource("SphereShape3D_vh3ns")
+
+[node name="AlertAreaLos" type="Area3D" parent="Head/Camera/WeaponManager" index="3"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera/WeaponManager/AlertAreaLos" index="0"]
+shape = SubResource("SphereShape3D_kehox")
+
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
-[node name="HealthManager" type="Node3D" parent="." index="12"]
-script = ExtResource("7_kx1uw")
+[node name="HealthManager" parent="." index="12" instance=ExtResource("24_6c21v")]
 
 [node name="DamageTestTimer" type="Timer" parent="." index="13"]
 
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/Shotgun" to="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
-[connection signal="dead" from="HealthManager" to="." method="kill"]
 [connection signal="timeout" from="DamageTestTimer" to="." method="hurt" binds= [5, Vector3(0, 0, 0)]]

@@ -8,14 +8,18 @@ var slots_unlocked = {
 	WEAPON_SLOTS.ROCKET_LAUNCHER: true,
 }
 
-var weapons = null
 var current_slot = 0
 var current_weapon = null
 var fire_point = Node3D
 var bodies_to_exclude : Array = []
+var weapons
+var alert_area_hearing
+var alert_area_los
 
 func _ready():
 	weapons = $Weapons.get_children()
+	alert_area_hearing = $AlertAreaHearing
+	alert_area_los = $AlertAreaLos
 	
 func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	fire_point = _fire_point
@@ -23,6 +27,11 @@ func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	for weapon in weapons:
 		if weapon.has_method("init"):
 			weapon.init(_fire_point, _bodies_to_exclude)
+	
+	weapons[WEAPON_SLOTS.MACHINE_GUN].fired.connect(alert_nearby_enemies)
+	weapons[WEAPON_SLOTS.SHOTGUN].fired.connect(alert_nearby_enemies)
+	weapons[WEAPON_SLOTS.ROCKET_LAUNCHER].fired.connect(alert_nearby_enemies)
+	
 	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE)
 	
 	
@@ -64,4 +73,15 @@ func disable_all_weapons():
 		else:
 			weapon.hide()
 
-
+func alert_nearby_enemies():
+	# do close circle check. Enemies will hear if close even through walls
+	var nearby_enemies = alert_area_los.get_overlapping_bodies()
+	for nearby_enemy in nearby_enemies:
+		if nearby_enemy.has_method("alert"):
+			nearby_enemy.alert()
+	
+	# do hearing check. Alert if player is shooting and far away
+	nearby_enemies = alert_area_hearing.get_overlapping_bodies()
+	for nearby_enemy in nearby_enemies:
+		if nearby_enemy.has_method("alert"):
+			nearby_enemy.alert(false)
