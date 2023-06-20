@@ -125,7 +125,7 @@ func unfreeze():
 	
 ## Health stuff
 func hurt(damage, dir):
-	health_manager.damage(damage, dir)
+	health_manager.hurt(damage, dir)
 
 func heal(amount):
 	health_manager.heal(amount)

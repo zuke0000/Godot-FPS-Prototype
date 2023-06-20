@@ -4,9 +4,13 @@ enum STATES {IDLE, CHASE, ATTACK, DEAD}
 var current_state = STATES.IDLE
 @onready var animation_player = $Graphics/AnimationPlayer
 @onready var health_manager = $HealthManager
+@onready var character_mover = $CharacterMover
+@onready var navigation : NavigationRegion3D = get_parent()
+var navigation_path = []
+@onready var navigation_agent = $NavigationAgent3D
 var player = null
 @export var sight_angle = 45 # enemy can see 45 degrees left and right to spot the player
-signal monster_hurt # not in use. Perhaps remove?
+@export var turn_speed := 360 #360 degrees per second
 
 
 func _ready():
@@ -18,6 +22,8 @@ func _ready():
 				child.hitbox_hurt.connect(hurt)
 	set_state_idle() # idle when spawning
 	health_manager.dead.connect(set_state_dead)
+	character_mover = $CharacterMover
+	character_mover.init(self)
 	
 func hurt(damage: int, dir: Vector3):
 	if current_state == STATES.IDLE:
@@ -43,7 +49,7 @@ func set_state_idle():
 	animation_player.play('idle')
 	
 func set_state_chase():
-	print('chasing')
+	animation_player.play("walk", 0.2)
 	current_state = STATES.CHASE
 
 func set_state_attack():
@@ -52,13 +58,45 @@ func set_state_attack():
 func set_state_dead():
 	current_state = STATES.DEAD
 	animation_player.play("die")
+	character_mover.freeze()
+	$CollisionShape3D.disabled = true
 
 func process_state_idle(delta):
 	if can_see_player():
 		set_state_chase()
-	
+"""
 func process_state_chase(delta):
+	var player_position = player.global_transform.origin
+	var our_position = global_transform.origin
+	navigation_path = navigation.get_path_to(player) # parameter is node?
+	var goal_position = player_position
+	goal_position = navigation_path.get_as_property_path()
+	#if navigation_path.get_name_count() > 1:
+	#	goal_position = navigation_path[1]
+	
+		
+	var dir = goal_position - our_position
+	dir.y = 0
+	character_mover.set_move_vec(dir)
+	face_direction(dir, delta)
 	pass
+"""
+func process_state_chase(delta):
+	var player_position = player.global_transform.origin
+	navigation_agent.set_target_position(player_position)
+	var our_position = global_transform.origin
+	var next_position = navigation_agent.get_next_path_position()
+	var new_velocity = (next_position - our_position).normalized()
+	#velocity = new_velocity
+	#move_and_slide()
+	
+	# var dir = next_position - our_position
+	var dir = our_position.direction_to(next_position)
+	dir.y = 0
+	character_mover.set_move_vec(dir)
+	face_direction(dir, delta)
+	
+
 func process_state_attack(delta):
 	pass
 func process_state_dead(delta):
@@ -90,6 +128,14 @@ func can_see_player():
 	var facing_direction = global_transform.basis.z
 	return rad_to_deg(facing_direction.angle_to(direction_to_player)) < sight_angle and has_los_player()
 		
+func face_direction(direction: Vector3, delta):
+	var angle_diff = global_transform.basis.z.angle_to(direction)
+	var turn_right = sign(global_transform.basis.x.dot(direction))
+	if abs(angle_diff) < deg_to_rad(turn_speed) * delta:
+		rotation.y = (atan2(direction.x, direction.z))
+	else:
+		rotation.y += (deg_to_rad(turn_speed) * delta * turn_right)
+
 func alert(check_los=true):
 	if current_state != STATES.IDLE:
 		return
@@ -97,34 +143,4 @@ func alert(check_los=true):
 		return
 	set_state_chase()
 
-"""
-NOTE: For some reason this code came when creating the script.
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
-
-func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-
-	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-	move_and_slide()
-"""
