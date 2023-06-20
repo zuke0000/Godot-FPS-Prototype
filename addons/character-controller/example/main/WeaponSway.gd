@@ -1,7 +1,7 @@
 extends Node3D
 
-var mouse_mov_x
-var mouse_mov_y
+var mouse_mov_x = 0
+var mouse_mov_y = 0
 var sway_threshold = 10
 var sway_lerp = 0.025
 """

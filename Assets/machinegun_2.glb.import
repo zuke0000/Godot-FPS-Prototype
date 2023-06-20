@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://db02cgludlstn"
-path="res://.godot/imported/machinegun.glb-5a02b00f5bf1c5dff82b548d7ca2787c.scn"
+uid="uid://cpnwwmifydym0"
+path="res://.godot/imported/machinegun_2.glb-f22c8e92cb017146ebcb88afc865be84.scn"
 
 [deps]
 
-source_file="res://Assets/machinegun.glb"
-dest_files=["res://.godot/imported/machinegun.glb-5a02b00f5bf1c5dff82b548d7ca2787c.scn"]
+source_file="res://Assets/machinegun_2.glb"
+dest_files=["res://.godot/imported/machinegun_2.glb-f22c8e92cb017146ebcb88afc865be84.scn"]
 
 [params]
 

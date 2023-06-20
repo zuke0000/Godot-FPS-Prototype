@@ -45,13 +45,13 @@ func _ready():
 	
 	#health_manager.connect("dead", self, "kill")
 	health_manager.init()
-	#health_manager.dead.connect(kill)
+	health_manager.dead.connect(kill)
 	weapon_manager.init($Head/Camera/FirePoint, [self])
 	
 
 # weapon inputs
 func _process(delta):
-	if dead:
+	if frozen:
 		return
 	
 	if Input.is_action_just_pressed("WeaponUp"):
@@ -100,6 +100,8 @@ func _physics_process(delta):
 
 func _input(event: InputEvent) -> void:
 	# Mouse look (only if the mouse is captured).
+	if frozen:
+		return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_head(event.relative)
 		
