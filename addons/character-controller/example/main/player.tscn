@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://l2carbxd1ugw" path="res://Assets/machete.glb" id="7_1ertq"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/Weapon.gd" id="8_7u54q"]
 [ext_resource type="Script" path="res://scripts/WeaponManager.gd" id="8_lgrik"]
-[ext_resource type="PackedScene" uid="uid://db02cgludlstn" path="res://Assets/machinegun.glb" id="8_nwbrq"]
+[ext_resource type="PackedScene" uid="uid://cpnwwmifydym0" path="res://Assets/machinegun_2.glb" id="8_nwbrq"]
 [ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="9_rrw5h"]
 [ext_resource type="PackedScene" uid="uid://bvqfj8otn5q3i" path="res://Assets/shotgun.glb" id="9_yxj8y"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/MuzzleFlash.gd" id="10_180rb"]
