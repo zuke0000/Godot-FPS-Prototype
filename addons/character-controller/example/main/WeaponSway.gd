@@ -1,7 +1,7 @@
 extends Node3D
 
-var mouse_mov_x
-var mouse_mov_y
+var mouse_mov_x = 0
+var mouse_mov_y = 0
 var sway_threshold = 10
 var sway_lerp = 0.025
 """
@@ -27,8 +27,6 @@ func _process(delta):
 	#weapon_manager.rotation = Vector3(0.25,0,0)
 	#weapon_manager.global_transform.origin = temp_origin
 	#weapon_manager.rotation = $"../../../..".rotation
-	
-	# NOTE: On slow compilation times abs is not defined for some reason
 	
 	if (abs(mouse_mov_x) > sway_threshold) or (abs(mouse_mov_y) > sway_threshold):
 		var left_right = sign(mouse_mov_x) * v
