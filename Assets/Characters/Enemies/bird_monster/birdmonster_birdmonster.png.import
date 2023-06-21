@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://co6iw42ixc3em"
-path.s3tc="res://.godot/imported/birdmonster_birdmonster.png-90bd76ddd49282cfa277a13b34458243.s3tc.ctex"
+path.s3tc="res://.godot/imported/birdmonster_birdmonster.png-dcb558ae60ecf98a03fbbf14d89fa95b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://Assets/Characters/Enemies/birdmonster_birdmonster.png"
-dest_files=["res://.godot/imported/birdmonster_birdmonster.png-90bd76ddd49282cfa277a13b34458243.s3tc.ctex"]
+source_file="res://Assets/Characters/Enemies/bird_monster/birdmonster_birdmonster.png"
+dest_files=["res://.godot/imported/birdmonster_birdmonster.png-dcb558ae60ecf98a03fbbf14d89fa95b.s3tc.ctex"]
 
 [params]
 

@@ -14,12 +14,17 @@ var velocity : Vector3
 var snap_vec : Vector3
 @export var ignore_rotation = false
 
+
+
+signal attack
+
 signal movement_info
 
 var frozen = false
 
 func _ready():
 	drag = float(move_accel) / max_speed
+	
 
 func init(_body_to_move: CharacterBody3D):
 	body_to_move = _body_to_move

@@ -106,6 +106,7 @@ func _input(event: InputEvent) -> void:
 		rotate_head(event.relative)
 		
 	# NOTE: fix for inputs in _process not picking up scrollwheel
+	# BUG: Doesn't work. 
 	if event.is_action_pressed("wheel_up"):
 		weapon_manager.switch_to_next_weapon()
 	if event.is_action_pressed("wheel_down"):
