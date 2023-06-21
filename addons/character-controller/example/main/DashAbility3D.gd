@@ -9,10 +9,13 @@ class_name DashAbility3D
 @export var can_dash := true
 @export var dash_speed_limit := 30
 @export var dash_count := 2
+@export var dash_fov_time := 0.25
 var _direction_base_node : Node3D
 
 var current_dash_count = dash_count
 var current_dash_speed_limit = dash_speed_limit
+
+var just_dashed = 0
 
 ## Change vertical velocity of [CharacterController3D]
 func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Vector3, _delta : float) -> Vector3:	
@@ -24,13 +27,14 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 			
 		velocity.x = (dash_speed_limit * (direction[0])) 
 		velocity.z = (dash_speed_limit * (direction[2])) 
-
+		
 		if (velocity.y > -1 and velocity.y < 0):
 			#print('mini jump')
 			velocity.y = 5
 		#can_dash = false
 		current_dash_count -= 1
 		dash_cooldown(cooldown)
+		just_dashed_cooldown(dash_fov_time)
 		return velocity
 		
 		
@@ -40,10 +44,17 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 	
 func dash_cooldown(cooldown):
 	#print('starting cooldown')
+	just_dashed = 1
 	await get_tree().create_timer(cooldown).timeout
 	#print('ending cooldown')
 	#can_dash = true
+	just_dashed = 0
 	current_dash_count = min(dash_count, current_dash_count+1)
+
+func just_dashed_cooldown(dash_fov_time):
+	just_dashed = 1
+	await get_tree().create_timer(dash_fov_time).timeout
+	just_dashed = 0
 
 # for recalculating input
 func _direction_input(input : Vector2, input_down : bool, input_up : bool, aim_node : Node3D) -> Vector3:

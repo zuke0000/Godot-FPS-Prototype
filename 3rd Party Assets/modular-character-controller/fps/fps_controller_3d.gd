@@ -104,7 +104,8 @@ func move(_delta: float, input_axis := Vector2.ZERO, input_jump := false, input_
 		_direction_base_node = self
 	super.move(_delta, input_axis, input_jump, input_crouch, input_sprint, input_swim_down, input_swim_up)
 	if not is_fly_mode() and not swim_ability.is_floating() and not swim_ability.is_submerged():
-		camera.set_fov(lerp(camera.fov, normal_fov, _delta * fov_change_speed))
+		camera.fov = normal_fov * _delta * fov_change_speed
+		#camera.set_fov(lerp(camera.fov, normal_fov, _delta * fov_change_speed))
 	_check_head_bob(_delta, input_axis)
 
 
