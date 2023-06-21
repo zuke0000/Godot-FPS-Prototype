@@ -31,11 +31,8 @@ func hurt(damage: int, dir: Vector3, damage_type="normal"):
 		emit_signal("gibbed")
 	if current_health <=0:
 		emit_signal("dead")
-<<<<<<< HEAD
 	#emit_signal("hurt") # signal not in use
-=======
 	#emit_signal("hurt")
->>>>>>> 9d5edb4624c027baddb196d541ffaf28b087005b
 	emit_signal("health_changed", current_health)
 	print('hurt ', damage, 'current health ', current_health)
 	
