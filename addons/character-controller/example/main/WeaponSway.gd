@@ -28,8 +28,6 @@ func _process(delta):
 	#weapon_manager.global_transform.origin = temp_origin
 	#weapon_manager.rotation = $"../../../..".rotation
 	
-	# NOTE: On slow compilation times abs is not defined for some reason
-	
 	if (abs(mouse_mov_x) > sway_threshold) or (abs(mouse_mov_y) > sway_threshold):
 		var left_right = sign(mouse_mov_x) * v
 		var up_down = sign(mouse_mov_y) * v * 0.5
