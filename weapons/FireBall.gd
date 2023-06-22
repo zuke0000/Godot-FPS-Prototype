@@ -18,7 +18,7 @@ func _physics_process(delta):
 	var collision : KinematicCollision3D = move_and_collide(
 		-global_transform.basis.z * speed * delta)
 	if collision:
-		var collider = collision
+		var collider = collision.get_collider()
 		if collider.has_method("hurt"):
 			collider.hurt(impact_damage, -global_transform.basis.z)
 			print('huruting for: ', impact_damage)

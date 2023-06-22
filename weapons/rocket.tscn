@@ -66,5 +66,5 @@ one_shot = true
 
 [connection signal="timeout" from="ShowAfterTimeTimer" to="." method="show"]
 [connection signal="timeout" from="ExplodeAfterTime" to="." method="explode"]
-[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="queue_free"]
 [connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]
+[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="queue_free"]
