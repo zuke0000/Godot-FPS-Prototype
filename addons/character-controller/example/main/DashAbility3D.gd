@@ -36,24 +36,25 @@ func apply(velocity : Vector3, speed : float, is_on_floor : bool, direction : Ve
 		dash_cooldown(cooldown)
 		just_dashed_cooldown(dash_fov_time)
 		return velocity
-		
-		
 	return velocity
 	
 
 	
 func dash_cooldown(cooldown):
-	#print('starting cooldown')
 	just_dashed = 1
-	await get_tree().create_timer(cooldown).timeout
-	#print('ending cooldown')
+	await GlobalFunctions.wait_time(cooldown)
 	#can_dash = true
 	just_dashed = 0
 	current_dash_count = min(dash_count, current_dash_count+1)
 
+
+	
+	
+
 func just_dashed_cooldown(dash_fov_time):
 	just_dashed = 1
-	await get_tree().create_timer(dash_fov_time).timeout
+	#await get_tree().create_timer(dash_fov_time).timeout
+	await GlobalFunctions.wait_time(dash_fov_time)
 	just_dashed = 0
 
 # for recalculating input

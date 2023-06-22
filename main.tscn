@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b1ijj426mudu4"]
+[gd_scene load_steps=25 format=3 uid="uid://b1ijj426mudu4"]
 
 [ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
 [ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
@@ -12,6 +12,7 @@
 [ext_resource type="Material" uid="uid://bdys7gr4eeoth" path="res://Materials/simple_grass.tres" id="7_2uc1b"]
 [ext_resource type="PackedScene" uid="uid://2oxdgu03lnbk" path="res://addons/character-controller/example/main/player.tscn" id="7_ly36s"]
 [ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="8_tules"]
+[ext_resource type="PackedScene" uid="uid://c4eftgw1qbv2l" path="res://Assets/Characters/Enemies/reptile_monster/reptile_monster.tscn" id="15_favka"]
 [ext_resource type="PackedScene" uid="uid://dv1gu17xerdwv" path="res://weapons/ProjectileSpawner.tscn" id="17_it2sm"]
 [ext_resource type="PackedScene" uid="uid://dd658nkv2wboh" path="res://Assets/Characters/Enemies/bird_monster/bird_monster.tscn" id="17_v280t"]
 
@@ -247,6 +248,9 @@ block_data = SubResource("Resource_qtydr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0453148, 2, 26.8475)
 turn_speed = 180
 
+[node name="ReptileMonster" parent="World/Navigation" instance=ExtResource("15_favka")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 29)
+
 [node name="DamageArea" parent="World" instance=ExtResource("8_tules")]
 
 [node name="Global" type="Node" parent="."]
@@ -271,7 +275,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3, 21)
 [node name="DeveloperTests" type="Node3D" parent="."]
 
 [node name="ProjectileSpawner" parent="DeveloperTests" instance=ExtResource("17_it2sm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 5.6, 24)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 7.6, 24)
 
 [node name="Timer" type="Timer" parent="DeveloperTests/ProjectileSpawner"]
 autostart = true

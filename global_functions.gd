@@ -1,18 +1,6 @@
 extends Node
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func closest(values = [1,2], target=0):
-	
 	var first = true
 	var runningTally
 	var result
@@ -37,3 +25,14 @@ func furthest(values, target=0):
 			runningTally = tally
 			result = value
 	return result
+
+## Creates a timer
+## @time amount in seconds to wait
+## Usage:
+##		await GlobalFunctions.wait_time(3) # 
+func wait_time(time):
+	#print('ran')
+	var timer_node = get_tree().create_timer(time)
+	await timer_node.timeout
+	#print('return')
+	return 

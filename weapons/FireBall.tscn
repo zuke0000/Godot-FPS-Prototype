@@ -80,7 +80,6 @@ collision_mask = 7
 script = ExtResource("1_ev1dg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00742863, -0.849154)
 shape = SubResource("SphereShape3D_ini8e")
 
 [node name="Graphics" type="Node3D" parent="."]
@@ -107,7 +106,6 @@ autostart = true
 [node name="ExplodeAfterTime" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
-autostart = true
 
 [node name="DestroyAfterHitTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -126,4 +124,3 @@ draw_pass_1 = SubResource("QuadMesh_48s16")
 [connection signal="timeout" from="ShowAfterTimeTimer" to="." method="show"]
 [connection signal="timeout" from="ExplodeAfterTime" to="." method="explode"]
 [connection signal="timeout" from="DestroyAfterHitTimer" to="." method="queue_free"]
-[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]

@@ -1,4 +1,3 @@
-# NOTE: Not sure what the code below is from or how it got there. Seems to not be in use
 extends CharacterBody3D
 
 
@@ -22,6 +21,7 @@ func _physics_process(delta):
 		var collider = collision
 		if collider.has_method("hurt"):
 			collider.hurt(impact_damage, -global_transform.basis.z)
+			print('huruting for: ', impact_damage)
 		$SmokeParticles.emitting = true
 		speed = 0
 		$Graphics.hide()
