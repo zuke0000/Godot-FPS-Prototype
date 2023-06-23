@@ -17,6 +17,6 @@ func explode():
 	
 	for data in results:
 		if data.collider.has_method("hurt"):
-			data.collider.hurt(damage, global_transform.origin.direction_to(data.collider.global_transform.origin))
+			data.collider.hurt(damage, global_transform.origin.direction_to(data.collider.global_transform.origin), data.collider.position)
 		
 			

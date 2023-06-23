@@ -106,11 +106,13 @@ func _input(event: InputEvent) -> void:
 		rotate_head(event.relative)
 		
 	# NOTE: fix for inputs in _process not picking up scrollwheel
-	# BUG: Doesn't work. 
+	# Not required in Godot 4.1 
 	if event.is_action_pressed("wheel_up"):
-		weapon_manager.switch_to_next_weapon()
+		pass
+		#weapon_manager.switch_to_next_weapon()
 	if event.is_action_pressed("wheel_down"):
-		weapon_manager.switch_to_last_weapon()
+		pass
+		#weapon_manager.switch_to_last_weapon()
 	
 		
 func _on_controller_emerged():
@@ -127,7 +129,7 @@ func unfreeze():
 	frozen = false
 	
 ## Health stuff
-func hurt(damage, dir):
+func hurt(damage, dir, pos=Vector3.ZERO):
 	print('hurt from player called')
 	health_manager.hurt(damage, dir)
 

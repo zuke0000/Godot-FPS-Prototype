@@ -7,9 +7,8 @@ class_name HitBox
 
 signal hitbox_hurt
 
-func hurt(damage: int, dir: Vector3):
-	print('hitbox hurt called')
+func hurt(damage: int, dir: Vector3, pos = Vector3.ZERO):
 	if weak_spot:
-		emit_signal("hitbox_hurt", damage * critical_damage_multiplier, dir)
+		emit_signal("hitbox_hurt", damage * critical_damage_multiplier, dir, pos)
 	else:
-		emit_signal("hitbox_hurt", damage, dir)
+		emit_signal("hitbox_hurt", damage, dir, pos)

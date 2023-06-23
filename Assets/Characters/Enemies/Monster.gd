@@ -123,11 +123,11 @@ func process_state_attack(delta):
 func process_state_dead(delta):
 	pass
 	
-func hurt(damage: int, dir: Vector3):
+func hurt(damage: int, dir: Vector3, pos: Vector3):
 	if current_state == STATES.IDLE:
 		set_state_chase()
-	health_manager.hurt(damage, dir)
-	
+	health_manager.hurt(damage, dir, pos)
+
 func start_attack():
 	can_attack = false
 	animation_player.play("attack", -1, attack_speed_multiplier)

@@ -35,8 +35,8 @@ func fire():
 	var result = direct_state.intersect_ray(Parameters)
 	
 	if result and result.collider.has_method("hurt"):
-		result.collider.hurt(damage, result.normal)
-	elif result: # if no hurt effect
+		result.collider.hurt(damage, result.normal, result.position)
+	elif result: # if no hurt effect, create a bullet hole
 		var hit_effect_instance = hit_effect.instantiate()
 		get_tree().get_root().add_child(hit_effect_instance)
 		hit_effect_instance.global_transform.origin = result.position # move effect to position

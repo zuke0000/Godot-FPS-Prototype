@@ -21,7 +21,7 @@ func _physics_process(delta):
 	if collision:
 		var collider = collision.get_collider()
 		if collider.has_method("hurt"):
-			collider.hurt(impact_damage, -global_transform.basis.z)
+			collider.hurt(impact_damage, -global_transform.basis.z, position)
 		explode()
 
 func explode():

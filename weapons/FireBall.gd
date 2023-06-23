@@ -20,8 +20,7 @@ func _physics_process(delta):
 	if collision:
 		var collider = collision.get_collider()
 		if collider.has_method("hurt"):
-			collider.hurt(impact_damage, -global_transform.basis.z)
-			print('huruting for: ', impact_damage)
+			collider.hurt(impact_damage, -global_transform.basis.z, position)
 		$SmokeParticles.emitting = true
 		speed = 0
 		$Graphics.hide()
