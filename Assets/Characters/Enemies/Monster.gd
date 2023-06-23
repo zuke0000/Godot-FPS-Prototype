@@ -25,7 +25,6 @@ func _ready():
 	attack_timer.timeout.connect(finish_attack)
 	attack_timer.one_shot = true
 	add_child(attack_timer)
-	var a = 0
 	player = get_tree().get_nodes_in_group("player")[0]
 	var bone_attachments = $Graphics/Armature/Skeleton3D.get_children()
 	for bone_attachment in bone_attachments:
@@ -36,6 +35,8 @@ func _ready():
 	health_manager.dead.connect(set_state_dead)
 	character_mover = $CharacterMover
 	character_mover.init(self)
+	
+	health_manager.gibbed.connect($Graphics.hide)
 	
 
 

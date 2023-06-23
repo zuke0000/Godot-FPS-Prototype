@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b1ijj426mudu4"]
+[gd_scene load_steps=26 format=3 uid="uid://b1ijj426mudu4"]
 
 [ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
 [ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://2oxdgu03lnbk" path="res://addons/character-controller/example/main/player.tscn" id="7_ly36s"]
 [ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="8_tules"]
 [ext_resource type="PackedScene" uid="uid://c4eftgw1qbv2l" path="res://Assets/Characters/Enemies/reptile_monster/reptile_monster.tscn" id="15_favka"]
+[ext_resource type="PackedScene" uid="uid://osqbjn4ipm30" path="res://effects/gibs.tscn" id="16_oeevn"]
 [ext_resource type="PackedScene" uid="uid://dv1gu17xerdwv" path="res://weapons/ProjectileSpawner.tscn" id="17_it2sm"]
 [ext_resource type="PackedScene" uid="uid://dd658nkv2wboh" path="res://Assets/Characters/Enemies/bird_monster/bird_monster.tscn" id="17_v280t"]
 
@@ -279,5 +280,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 7.6, 24)
 
 [node name="Timer" type="Timer" parent="DeveloperTests/ProjectileSpawner"]
 autostart = true
+
+[node name="Gibs" parent="." instance=ExtResource("16_oeevn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 14)
 
 [connection signal="timeout" from="DeveloperTests/ProjectileSpawner/Timer" to="DeveloperTests/ProjectileSpawner" method="fire"]

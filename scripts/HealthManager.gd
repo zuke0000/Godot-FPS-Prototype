@@ -12,6 +12,7 @@ var current_health = 1
 @export var gib_at = -10 # gib if overdamaged to -10
 
 @export var blood_spray = preload("res://effects/blood_spray.tscn") 
+@export var gibs = preload("res://effects/gibs.tscn")
 
 func _ready():
 	print('readied')
@@ -29,8 +30,7 @@ func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal", ):
 		return
 	current_health -= damage
 	if current_health <= gib_at:
-		pass
-		#TODO make gib spawner
+		spawn_gibs(pos)
 		emit_signal("gibbed")
 	if current_health <=0:
 		emit_signal("dead")
@@ -49,7 +49,7 @@ func heal(amount : int):
 
 func spawn_blood(dir, pos):
 	var blood_spray_instance = blood_spray.instantiate()
-	blood_spray_instance.global_transform.origin = pos # move effect to position	
+	blood_spray_instance.position = pos # move effect to position	
 	#blood_spray_instance.position = global_transform.origin
 	get_tree().get_root().add_child(blood_spray_instance)
 		
@@ -64,3 +64,9 @@ func spawn_blood(dir, pos):
 	var z = x.cross(y)
 		
 	blood_spray_instance.global_transform.basis = Basis(x,y,z) # orient correct  way
+
+func spawn_gibs(pos):
+	var gibs_instance = gibs.instantiate()
+	gibs_instance.position = pos 
+	get_tree().get_root().add_child(gibs_instance)
+	gibs_instance.enable_gibs()
