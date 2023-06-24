@@ -52,18 +52,13 @@ func _ready():
 	add_child(attack_timer)
 	
 	# create bullet emitters
-	if (!is_melee):
+	if (bullets_per_shot > 1):
 		for i in bullets_per_shot:
 			var instance = hitscan_node.instantiate()
 			#for bullet_emitter in bullet_emitters:
 			# NOTE: set variables here was taken from init. This seems to be the right spot
-			instance.set_damage(damage)
-			instance.set_bodies_to_exclude(bodies_to_exclude)
+			
 			bullet_emitters_base.add_child(instance)
-	else: 
-		var melee_box = $BulletEmitters/DamageArea
-		melee_box.set_damage(damage)
-		melee_box.set_bodies_to_exclude(bodies_to_exclude)
 	
 	
 func init(_fire_point: Node3D, _bodies_to_exclude: Array):
@@ -94,10 +89,14 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	
 	#if (is_hitscan or !is_hitscan):
 	for bullet_emitter in bullet_emitters:
+		bullet_emitter.set_damage(damage)
+		bullet_emitter.set_bodies_to_exclude(bodies_to_exclude)
+		
 		if len(bullet_emitters) > 1 and !is_melee:
 			original_rotation = bullet_emitter.rotation
 			bullet_emitter.rotation.x += randf_range(-spread,spread)
 			bullet_emitter.rotation.y += randf_range(-spread,spread)
+			
 		bullet_emitter.fire()
 		bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation
 		bullet_emitter.bodies_to_exclude = bodies_to_exclude
