@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://b1ijj426mudu4"]
+[gd_scene load_steps=25 format=3 uid="uid://b1ijj426mudu4"]
 
 [ext_resource type="PackedScene" uid="uid://5ycstyme1mdd" path="res://sky_shader.tscn" id="1_p33x6"]
 [ext_resource type="PackedScene" uid="uid://1io703ytgqiw" path="res://Stylized3DGrass.tscn" id="2_k1bmd"]
@@ -11,9 +11,8 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/convex_block_data.gd" id="6_r3fi5"]
 [ext_resource type="Material" uid="uid://bdys7gr4eeoth" path="res://Materials/simple_grass.tres" id="7_2uc1b"]
 [ext_resource type="PackedScene" uid="uid://2oxdgu03lnbk" path="res://addons/character-controller/example/main/player.tscn" id="7_ly36s"]
-[ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="8_tules"]
 [ext_resource type="PackedScene" uid="uid://c4eftgw1qbv2l" path="res://Assets/Characters/Enemies/reptile_monster/reptile_monster.tscn" id="15_favka"]
-[ext_resource type="PackedScene" uid="uid://osqbjn4ipm30" path="res://effects/gibs.tscn" id="16_oeevn"]
+[ext_resource type="PackedScene" uid="uid://bim8q3vyaked6" path="res://Assets/Pickups/pickup.tscn" id="16_7grc7"]
 [ext_resource type="PackedScene" uid="uid://dv1gu17xerdwv" path="res://weapons/ProjectileSpawner.tscn" id="17_it2sm"]
 [ext_resource type="PackedScene" uid="uid://dd658nkv2wboh" path="res://Assets/Characters/Enemies/bird_monster/bird_monster.tscn" id="17_v280t"]
 
@@ -252,8 +251,6 @@ turn_speed = 180
 [node name="ReptileMonster" parent="World/Navigation" instance=ExtResource("15_favka")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 29)
 
-[node name="DamageArea" parent="World" instance=ExtResource("8_tules")]
-
 [node name="Global" type="Node" parent="."]
 
 [node name="GlobalFunctions" type="Node" parent="Global"]
@@ -281,7 +278,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.6, 7.6, 24)
 [node name="Timer" type="Timer" parent="DeveloperTests/ProjectileSpawner"]
 autostart = true
 
-[node name="Gibs" parent="." instance=ExtResource("16_oeevn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 14)
+[node name="Pickups" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 14)
+
+[node name="Pickup" parent="Pickups" instance=ExtResource("16_7grc7")]
+pickup_type = 4
+
+[node name="Pickup2" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0)
+pickup_type = 5
+
+[node name="Pickup3" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
+
+[node name="Pickup4" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 0)
+pickup_type = 1
+
+[node name="Pickup5" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 0)
+pickup_type = 2
+
+[node name="Pickup6" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
+pickup_type = 3
+
+[node name="Pickup7" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1, 0)
+pickup_type = 6
+
+[node name="Pickup8" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 1, 0)
+pickup_type = 6
+
+[node name="Pickup9" parent="Pickups" instance=ExtResource("16_7grc7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 1, 0)
+pickup_type = 6
 
 [connection signal="timeout" from="DeveloperTests/ProjectileSpawner/Timer" to="DeveloperTests/ProjectileSpawner" method="fire"]

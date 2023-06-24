@@ -4,7 +4,7 @@ extends Node3D
 ## Manages mouse inputs and their capture.
 
 ## If true, Esc key quit game
-@export var fast_close := true
+@export var fast_close := false
 
 
 func _ready() -> void:

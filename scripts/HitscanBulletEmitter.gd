@@ -28,7 +28,7 @@ func fire():
 	Parameters.to = our_position - global_transform.basis.z * distance
 	Parameters.exclude = bodies_to_exclude
 	Parameters.collision_mask = 1 + 4 # Layers to collide with. 1: Environment and 4: hitboxes
-	Parameters.hit_back_faces = true #
+	Parameters.hit_back_faces = false #
 	Parameters.collide_with_areas = true # This was required for working with enemy hitboxes
 	#Parameters.hit_from_inside = true
 	

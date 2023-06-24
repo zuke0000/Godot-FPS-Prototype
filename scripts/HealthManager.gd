@@ -70,3 +70,8 @@ func spawn_gibs(pos):
 	gibs_instance.position = pos 
 	get_tree().get_root().add_child(gibs_instance)
 	gibs_instance.enable_gibs()
+
+func get_pickup(pickup_type, ammo):
+	match pickup_type:
+		Pickup.PICKUP_TYPE.HEALTH:
+			heal(ammo)

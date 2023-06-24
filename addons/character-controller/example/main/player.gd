@@ -28,6 +28,7 @@ var frozen = false
 var dead = false
 @onready var health_manager = $HealthManager
 @onready var weapon_manager = $Head/Camera/WeaponManager
+@onready var pickup_manager = $PickupManager
 var hotkeys = {
 	KEY_1: 0,
 	KEY_2: 1,
@@ -44,10 +45,13 @@ func _ready():
 	submerged.connect(_on_controller_subemerged.bind())
 	
 	#health_manager.connect("dead", self, "kill")
-	health_manager.init()
+	
 	health_manager.dead.connect(kill)
 	weapon_manager.init($Head/Camera/FirePoint, [self])
-	
+	health_manager.health_changed.connect(pickup_manager.update_player_health)
+	pickup_manager.got_pickup.connect(weapon_manager.get_pickup)
+	pickup_manager.got_pickup.connect(health_manager.get_pickup)
+	health_manager.init()
 
 # weapon inputs
 func _process(delta):

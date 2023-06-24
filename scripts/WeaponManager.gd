@@ -3,9 +3,9 @@ extends Node3D
 enum WEAPON_SLOTS {MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER}
 var slots_unlocked = {
 	WEAPON_SLOTS.MACHETE: true,
-	WEAPON_SLOTS.MACHINE_GUN: true,
-	WEAPON_SLOTS.SHOTGUN: true,
-	WEAPON_SLOTS.ROCKET_LAUNCHER: true,
+	WEAPON_SLOTS.MACHINE_GUN: false,
+	WEAPON_SLOTS.SHOTGUN: false,
+	WEAPON_SLOTS.ROCKET_LAUNCHER: false,
 }
 
 var current_slot = 0
@@ -15,6 +15,8 @@ var bodies_to_exclude : Array = []
 var weapons
 var alert_area_hearing
 var alert_area_los
+
+signal ammo_changed
 
 func _ready():
 	weapons = $Weapons.get_children()
@@ -31,9 +33,10 @@ func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	weapons[WEAPON_SLOTS.MACHINE_GUN].fired.connect(alert_nearby_enemies)
 	weapons[WEAPON_SLOTS.SHOTGUN].fired.connect(alert_nearby_enemies)
 	weapons[WEAPON_SLOTS.ROCKET_LAUNCHER].fired.connect(alert_nearby_enemies)
+	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE) # hardcoded for now
 	
-	switch_to_weapon_slot(WEAPON_SLOTS.MACHETE)
-	
+	for weapon in weapons:
+		weapon.fired.connect(emit_ammo_changed_signal)
 	
 func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	if current_weapon.has_method("attack"):
@@ -85,3 +88,50 @@ func alert_nearby_enemies():
 	for nearby_enemy in nearby_enemies:
 		if nearby_enemy.has_method("alert"):
 			nearby_enemy.alert(false)
+
+
+# TODO: I don't like this hardcoded function. Works for now but
+# will be messy if I have a lot of pickup types
+func get_pickup(pickup_type, ammo):
+	
+	
+	match pickup_type:
+		
+		Pickup.PICKUP_TYPE.MACHINE_GUN:
+			if !slots_unlocked[WEAPON_SLOTS.MACHINE_GUN]:
+				slots_unlocked[WEAPON_SLOTS.MACHINE_GUN] = true
+				switch_to_weapon_slot(WEAPON_SLOTS.MACHINE_GUN)
+			weapons[WEAPON_SLOTS.MACHINE_GUN].ammo += ammo
+			
+		Pickup.PICKUP_TYPE.MACHINE_GUN_AMMO:
+			#if slots_unlocked[WEAPON_SLOTS.MACHINE_GUN]:
+			weapons[WEAPON_SLOTS.MACHINE_GUN].ammo += ammo
+			
+		Pickup.PICKUP_TYPE.SHOTGUN:
+			if !slots_unlocked[WEAPON_SLOTS.SHOTGUN]:
+				slots_unlocked[WEAPON_SLOTS.SHOTGUN] = true
+				switch_to_weapon_slot(WEAPON_SLOTS.SHOTGUN)
+			weapons[WEAPON_SLOTS.SHOTGUN].ammo += ammo
+			
+		Pickup.PICKUP_TYPE.SHOTGUN_AMMO:
+			#if slots_unlocked[WEAPON_SLOTS.SHOTGUN]:
+			weapons[WEAPON_SLOTS.SHOTGUN].ammo += ammo
+
+		Pickup.PICKUP_TYPE.ROCKET_LAUNCHER:
+			if !slots_unlocked[WEAPON_SLOTS.ROCKET_LAUNCHER]:
+				slots_unlocked[WEAPON_SLOTS.ROCKET_LAUNCHER] = true
+				switch_to_weapon_slot(WEAPON_SLOTS.ROCKET_LAUNCHER)
+			weapons[WEAPON_SLOTS.ROCKET_LAUNCHER].ammo += ammo
+		
+		Pickup.PICKUP_TYPE.ROCKET:
+			#if !slots_unlocked[WEAPON_SLOTS.ROCKET_LAUNCHER]:
+			weapons[WEAPON_SLOTS.ROCKET_LAUNCHER].ammo += ammo
+			
+func emit_ammo_changed_signal():
+	emit_signal('ammo_changed', current_weapon.ammo)
+	print('Got pickup for slot: ', current_slot, ' ammo: ', current_weapon.ammo)
+	
+	
+	
+	
+	

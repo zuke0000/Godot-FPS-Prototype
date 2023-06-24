@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=45 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dggfhm07wy6a2" path="res://Assets/Weapons/crosshair001.png" id="20_j6y0y"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/WeaponSway.gd" id="22_r43ch"]
 [ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://health_manager.tscn" id="24_6c21v"]
+[ext_resource type="Script" path="res://Assets/Pickups/PickupManager.gd" id="25_7fvc4"]
 
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
@@ -387,6 +388,9 @@ radius = 13.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_kehox"]
 radius = 26.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_rsy8f"]
+radius = 1.25
+
 [node name="Player" groups=["player"] instance=ExtResource("1_fbpun")]
 collision_layer = 6
 collision_mask = 3
@@ -441,6 +445,7 @@ ammo = -1
 attack_rate = 0.5
 spread = 0.0
 is_hitscan = false
+is_melee = true
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/Machete" index="0"]
 transform = Transform3D(0.110648, 0, 0, 0, 0.110648, 0, 0, 0, 0.110648, 0.0873357, -0.00212413, 0)
@@ -470,7 +475,7 @@ libraries = {
 }
 
 [node name="BulletEmitters" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/Machete" index="2"]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, -0.529133)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
 
 [node name="DamageArea" parent="Head/Camera/WeaponManager/Weapons/Machete/BulletEmitters" index="0" instance=ExtResource("9_rrw5h")]
 
@@ -485,7 +490,7 @@ attack_rate = 0.1
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="0"]
 
 [node name="machinegun" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="0" instance=ExtResource("8_nwbrq")]
-transform = Transform3D(0.999986, 0.000582202, 0.00520356, 0, 0.993799, -0.111192, -0.00523602, 0.11119, 0.993785, -0.30754, 0.380024, 0.728404)
+transform = Transform3D(0.999986, 0.000582201, 0.00520355, 0, 0.993797, -0.111191, -0.00523602, 0.11119, 0.993783, -0.30754, 0.380024, 0.728404)
 
 [node name="MuzzleFlash" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="1"]
 transform = Transform3D(0.478219, 0, 0, 0, 0.478219, 0, 0, 0, 0.478219, -0.335576, 0.9444, -0.879134)
@@ -641,9 +646,14 @@ shape = SubResource("SphereShape3D_kehox")
 
 [node name="HealthManager" parent="." index="12" instance=ExtResource("24_6c21v")]
 
-[node name="DamageTestTimer" type="Timer" parent="." index="13"]
+[node name="PickupManager" type="Area3D" parent="." index="13"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("25_7fvc4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupManager" index="0"]
+shape = SubResource("SphereShape3D_rsy8f")
 
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/Shotgun" to="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
-[connection signal="timeout" from="DamageTestTimer" to="." method="hurt" binds= [5, Vector3(0, 0, 0)]]
