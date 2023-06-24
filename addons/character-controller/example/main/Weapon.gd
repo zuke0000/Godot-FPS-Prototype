@@ -52,12 +52,9 @@ func _ready():
 	add_child(attack_timer)
 	
 	# create bullet emitters
-	if (bullets_per_shot > 1):
+	if (!is_melee):
 		for i in bullets_per_shot:
 			var instance = hitscan_node.instantiate()
-			#for bullet_emitter in bullet_emitters:
-			# NOTE: set variables here was taken from init. This seems to be the right spot
-			
 			bullet_emitters_base.add_child(instance)
 	
 	
@@ -92,7 +89,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 		bullet_emitter.set_damage(damage)
 		bullet_emitter.set_bodies_to_exclude(bodies_to_exclude)
 		
-		if len(bullet_emitters) > 1 and !is_melee:
+		if !is_melee:
 			original_rotation = bullet_emitter.rotation
 			bullet_emitter.rotation.x += randf_range(-spread,spread)
 			bullet_emitter.rotation.y += randf_range(-spread,spread)
