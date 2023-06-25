@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cqfk51tfpk5wj" path="res://Assets/Characters/Enemies/reptile_monster/reptilemonster_reptilemonster.png" id="2_ta1oj"]
 [ext_resource type="PackedScene" uid="uid://2fkfkqsomktp" path="res://Assets/Characters/hit_box.tscn" id="3_gi4b4"]
 [ext_resource type="Animation" uid="uid://cc3beas6tv5ir" path="res://Assets/Characters/Enemies/reptile_monster/attack.res" id="4_abnis"]
-[ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://health_manager.tscn" id="4_p8pew"]
+[ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="4_p8pew"]
 [ext_resource type="PackedScene" path="res://Assets/Characters/CharacterMover.tscn" id="5_8n7aa"]
 [ext_resource type="Script" path="res://Assets/Characters/CharacterMover.gd" id="6_rj2se"]
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/AimAtObject.gd" id="7_752bs"]

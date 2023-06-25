@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://50rxs1fgdkjq"]
 
-[ext_resource type="Script" path="res://scripts/DamageArea.gd" id="1_qhuk7"]
+[ext_resource type="Script" path="res://scripts/Weapons/DamageArea.gd" id="1_qhuk7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_umges"]
 

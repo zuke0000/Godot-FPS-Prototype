@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Godot Fps Prototype"
-run/main_scene="res://main.tscn"
+run/main_scene="res://Scenes/main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
-global="*res://global_variables.gd"
-GlobalFunctions="*res://global_functions.gd"
+global="*res://scripts/global_variables.gd"
+GlobalFunctions="*res://scripts/global_functions.gd"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 InputBuffer="*res://Autoload Scripts/input_buffer.gd"
 

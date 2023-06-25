@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://osqbjn4ipm30"]
 
-[ext_resource type="Script" path="res://Gibs.gd" id="1_dmfr2"]
+[ext_resource type="Script" path="res://scripts/Enemies/Gibs.gd" id="1_dmfr2"]
 [ext_resource type="PackedScene" uid="uid://iol8124nthxv" path="res://effects/gib.tscn" id="2_akeah"]
-[ext_resource type="Texture2D" uid="uid://cuuokyiwqo8fg" path="res://effects/circle32.png" id="3_a5eym"]
+[ext_resource type="Texture2D" uid="uid://pnn1igccn2v6" path="res://effects/circle32.png" id="3_a5eym"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vl3oy"]
 transparency = 1

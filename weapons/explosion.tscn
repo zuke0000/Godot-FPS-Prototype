@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cvemlyttu0jhh"]
 
 [ext_resource type="Script" path="res://weapons/explosion.gd" id="1_mt3sh"]
-[ext_resource type="Texture2D" uid="uid://pnn1igccn2v6" path="res://circle32.png" id="2_rrmlp"]
+[ext_resource type="Texture2D" uid="uid://cuuokyiwqo8fg" path="res://effects/circle32.png" id="2_rrmlp"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ddjuc"]
 radius = 3.5

@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/Monster.gd" id="1_aojnd"]
 [ext_resource type="PackedScene" uid="uid://bihty4odugwgt" path="res://Assets/Characters/Enemies/bird_monster/birdmonster.glb" id="2_3j3yl"]
 [ext_resource type="PackedScene" uid="uid://2fkfkqsomktp" path="res://Assets/Characters/hit_box.tscn" id="3_n7e5n"]
-[ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://health_manager.tscn" id="4_qu3vx"]
+[ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="4_qu3vx"]
 [ext_resource type="PackedScene" path="res://Assets/Characters/CharacterMover.tscn" id="5_4hulx"]
 [ext_resource type="Script" path="res://Assets/Characters/CharacterMover.gd" id="6_pw5cl"]
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/AimAtObject.gd" id="7_eu44b"]
-[ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://damage_area.tscn" id="8_rroic"]
+[ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://Scenes/damage_area.tscn" id="8_rroic"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m2uxu"]
 
