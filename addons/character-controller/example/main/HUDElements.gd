@@ -4,7 +4,7 @@ var ammo = 0
 var health = 0
 
 func _ready():
-	connect("ammo_changed", update_ammo)
+	pass
 
 func update_ammo(amount):
 	ammo = amount

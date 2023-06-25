@@ -486,6 +486,7 @@ transform = Transform3D(0.231375, 0, 0, 0, 0.231375, 0, 0, 0, 0.231375, 0.258917
 visible = false
 script = ExtResource("8_7u54q")
 automatic = true
+damage = 15
 ammo = 240
 attack_rate = 0.1
 
@@ -536,7 +537,7 @@ libraries = {
 transform = Transform3D(0.0731997, 0, -0.0163339, 0, 0.075, 0, 0.0163339, 0, 0.0731997, 0.077581, 0.067, 0.0669767)
 visible = false
 script = ExtResource("8_7u54q")
-damage = 10
+damage = 15
 ammo = 20
 attack_rate = 0.75
 spread = 0.03
@@ -583,6 +584,8 @@ libraries = {
 [node name="RocketLauncher" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="3"]
 transform = Transform3D(0.985703, -0.00646794, -0.168365, 0, 0.999263, -0.0383878, 0.168489, 0.037839, 0.984977, 0.211985, -0.0815787, -0.323097)
 script = ExtResource("8_7u54q")
+damage = 20
+ammo = 8
 attack_rate = 1.0
 bullets_per_shot = 0
 
@@ -657,9 +660,9 @@ script = ExtResource("25_7fvc4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupManager" index="0"]
 shape = SubResource("SphereShape3D_rsy8f")
 
-[node name="CanvasGroup" type="CanvasLayer" parent="." index="14"]
+[node name="UI" type="CanvasLayer" parent="." index="14"]
 
-[node name="RestartMessage" type="Label" parent="CanvasGroup" index="0"]
+[node name="RestartMessage" type="Label" parent="UI" index="0"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -676,7 +679,7 @@ size_flags_horizontal = 4
 text = "Press any key to continue"
 script = ExtResource("26_5e55j")
 
-[node name="Panel" type="Panel" parent="CanvasGroup/RestartMessage" index="0"]
+[node name="Panel" type="Panel" parent="UI/RestartMessage" index="0"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = -1
@@ -689,7 +692,7 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HUDManager" type="Label" parent="CanvasGroup" index="1"]
+[node name="HUDManager" type="Label" parent="UI" index="1"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -703,7 +706,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("27_s4r2m")
 
-[node name="HealthHUD" type="Label" parent="CanvasGroup/HUDManager" index="0"]
+[node name="HealthHUD" type="Label" parent="UI/HUDManager" index="0"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -714,7 +717,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 
-[node name="AmmoHUD" type="Label" parent="CanvasGroup/HUDManager" index="1"]
+[node name="AmmoHUD" type="Label" parent="UI/HUDManager" index="1"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -725,13 +728,14 @@ offset_right = 72.0
 offset_bottom = -33.0
 grow_vertical = 0
 
-[node name="PickupInfoHUD" type="Label" parent="CanvasGroup/HUDManager" index="2"]
+[node name="PickupInfoHUD" type="Label" parent="UI/HUDManager" index="2"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[connection signal="ammo_changed" from="Head/Camera/WeaponManager" to="CanvasGroup/HUDManager" method="update_ammo"]
+[connection signal="ammo_changed" from="Head/Camera/WeaponManager" to="UI/HUDManager" method="update_ammo"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/Shotgun" to="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
-[connection signal="dead" from="HealthManager" to="CanvasGroup/RestartMessage" method="start_restart_timer"]
-[connection signal="health_changed" from="HealthManager" to="CanvasGroup/HUDManager" method="update_health"]
+[connection signal="dead" from="HealthManager" to="UI/RestartMessage" method="start_restart_timer"]
+[connection signal="health_changed" from="HealthManager" to="UI/HUDManager" method="update_health"]

@@ -109,8 +109,6 @@ func alert_nearby_enemies():
 # TODO: I don't like this hardcoded function. Works for now but
 # will be messy if I have a lot of pickup types
 func get_pickup(pickup_type, ammo):
-	
-	
 	match pickup_type:
 		
 		Pickup.PICKUP_TYPE.MACHINE_GUN:
@@ -145,7 +143,6 @@ func get_pickup(pickup_type, ammo):
 			
 func emit_ammo_changed_signal():
 	emit_signal('ammo_changed', current_weapon.ammo)
-	print('Got pickup for slot: ', current_slot, ' ammo: ', current_weapon.ammo)
 	
 	
 	
