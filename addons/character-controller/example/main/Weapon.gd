@@ -15,7 +15,7 @@ var bodies_to_exclude : Array = []
 @export var attack_rate = 0.2
 @export var spread := 0.01
 @export var bullets_per_shot := 1
-@export var is_hitscan = true
+@export var is_hitscan = true # useless for now, change later
 @export var is_melee = false
 
 # TODO: like in destiny have damage dropoff. Dropoff linearly after distance excedes dropoff distance
@@ -79,6 +79,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	if ammo > 0 and can_attack:
 		ammo -= 1
 	
+	# get 
 	var start_transform = bullet_emitters_base.global_transform
 	bullet_emitters_base.global_transform = fire_point.global_transform
 	
@@ -94,6 +95,11 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 			original_rotation = bullet_emitter.rotation
 			bullet_emitter.rotation.x += randf_range(-spread,spread)
 			bullet_emitter.rotation.y += randf_range(-spread,spread)
+			
+			# TODO: setup cone that extends from player
+			# 
+			# closest enemy
+			# bend bullet torwards closest enemy
 			
 		bullet_emitter.fire()
 		bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation

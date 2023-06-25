@@ -26,6 +26,7 @@ func _ready():
 	attack_timer.one_shot = true
 	add_child(attack_timer)
 	player = get_tree().get_nodes_in_group("player")[0]
+	# setup signals for each hitbox in the bone attach
 	var bone_attachments = $Graphics/Armature/Skeleton3D.get_children()
 	for bone_attachment in bone_attachments:
 		for child in bone_attachment.get_children():
@@ -74,23 +75,7 @@ func set_state_dead():
 func process_state_idle(delta):
 	if can_see_player():
 		set_state_chase()
-"""
-func process_state_chase(delta):
-	var player_position = player.global_transform.origin
-	var our_position = global_transform.origin
-	navigation_path = navigation.get_path_to(player) # parameter is node?
-	var goal_position = player_position
-	goal_position = navigation_path.get_as_property_path()
-	#if navigation_path.get_name_count() > 1:
-	#	goal_position = navigation_path[1]
-	
-		
-	var dir = goal_position - our_position
-	dir.y = 0
-	character_mover.set_move_vec(dir)
-	face_direction(dir, delta)
-	pass
-"""
+
 func process_state_chase(delta):
 	if within_distance_of_player(attack_range) and has_los_player():
 		set_state_attack()
