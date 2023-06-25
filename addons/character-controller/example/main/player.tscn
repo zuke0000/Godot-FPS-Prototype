@@ -689,7 +689,7 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HUDElements" type="Label" parent="CanvasGroup" index="1"]
+[node name="HUDManager" type="Label" parent="CanvasGroup" index="1"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -703,7 +703,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("27_s4r2m")
 
-[node name="HealthHUD" type="Label" parent="CanvasGroup/HUDElements" index="0"]
+[node name="HealthHUD" type="Label" parent="CanvasGroup/HUDManager" index="0"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -714,7 +714,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 
-[node name="AmmoHUD" type="Label" parent="CanvasGroup/HUDElements" index="1"]
+[node name="AmmoHUD" type="Label" parent="CanvasGroup/HUDManager" index="1"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -725,9 +725,13 @@ offset_right = 72.0
 offset_bottom = -33.0
 grow_vertical = 0
 
-[connection signal="ammo_changed" from="Head/Camera/WeaponManager" to="CanvasGroup/HUDElements" method="update_ammo"]
+[node name="PickupInfoHUD" type="Label" parent="CanvasGroup/HUDManager" index="2"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="ammo_changed" from="Head/Camera/WeaponManager" to="CanvasGroup/HUDManager" method="update_ammo"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/Shotgun" to="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
 [connection signal="dead" from="HealthManager" to="CanvasGroup/RestartMessage" method="start_restart_timer"]
-[connection signal="health_changed" from="HealthManager" to="CanvasGroup/HUDElements" method="update_health"]
+[connection signal="health_changed" from="HealthManager" to="CanvasGroup/HUDManager" method="update_health"]
