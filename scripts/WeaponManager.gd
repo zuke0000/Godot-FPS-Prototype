@@ -30,6 +30,7 @@ func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 		if weapon.has_method("init"):
 			weapon.init(_fire_point, _bodies_to_exclude)
 	
+	# hardcoded fire alert values. Should be an export variable instead
 	weapons[WEAPON_SLOTS.MACHINE_GUN].fired.connect(alert_nearby_enemies)
 	weapons[WEAPON_SLOTS.SHOTGUN].fired.connect(alert_nearby_enemies)
 	weapons[WEAPON_SLOTS.ROCKET_LAUNCHER].fired.connect(alert_nearby_enemies)
@@ -43,6 +44,11 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 		current_weapon.attack(attack_input_just_pressed, attack_input_held)	
 	
 func switch_to_next_weapon():
+	# don't allow weapon to switch if attacking
+	current_weapon = get_current_weapon()
+	if current_weapon.can_attack == false:
+		return
+	
 	current_slot = (current_slot + 1) % slots_unlocked.size()
 	if (!slots_unlocked[current_slot]):
 		switch_to_next_weapon()
@@ -50,6 +56,11 @@ func switch_to_next_weapon():
 		switch_to_weapon_slot(current_slot)
 
 func switch_to_last_weapon():
+	# don't allow weapon to switch if attacking
+	current_weapon = get_current_weapon()
+	if current_weapon.can_attack == false:
+		return
+		
 	current_slot = posmod((current_slot -1 ), slots_unlocked.size()) # posmod so there's no negatives
 	if (!slots_unlocked[current_slot]):
 		switch_to_last_weapon()
@@ -67,6 +78,10 @@ func switch_to_weapon_slot(slot_index: int):
 		current_weapon.set_active()
 	else:
 		current_weapon.show() # show anyway even if it cant be active
+
+func get_current_weapon():
+	var current_weapon = weapons[current_slot]
+	return current_weapon
 	
 
 func disable_all_weapons():
