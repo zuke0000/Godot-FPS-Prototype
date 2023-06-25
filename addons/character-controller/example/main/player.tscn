@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://2oxdgu03lnbk"]
+[gd_scene load_steps=47 format=3 uid="uid://2oxdgu03lnbk"]
 
 [ext_resource type="PackedScene" uid="uid://8oy3xm2sff8" path="res://addons/character-controller/fps/fps_controller_3d.tscn" id="1_fbpun"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/player.gd" id="2_8r0nc"]
@@ -25,6 +25,8 @@
 [ext_resource type="Script" path="res://addons/character-controller/example/main/WeaponSway.gd" id="22_r43ch"]
 [ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://health_manager.tscn" id="24_6c21v"]
 [ext_resource type="Script" path="res://Assets/Pickups/PickupManager.gd" id="25_7fvc4"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/RestartMessage.gd" id="26_5e55j"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/HUDElements.gd" id="27_s4r2m"]
 
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
@@ -490,7 +492,7 @@ attack_rate = 0.1
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="0"]
 
 [node name="machinegun" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="0" instance=ExtResource("8_nwbrq")]
-transform = Transform3D(0.999986, 0.000582201, 0.00520355, 0, 0.993797, -0.111191, -0.00523602, 0.11119, 0.993783, -0.30754, 0.380024, 0.728404)
+transform = Transform3D(0.999986, 0.000582201, 0.00520354, 0, 0.993797, -0.111191, -0.00523602, 0.11119, 0.993782, -0.30754, 0.380024, 0.728404)
 
 [node name="MuzzleFlash" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="1"]
 transform = Transform3D(0.478219, 0, 0, 0, 0.478219, 0, 0, 0, 0.478219, -0.335576, 0.9444, -0.879134)
@@ -581,6 +583,7 @@ libraries = {
 [node name="RocketLauncher" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="3"]
 transform = Transform3D(0.985703, -0.00646794, -0.168365, 0, 0.999263, -0.0383878, 0.168489, 0.037839, 0.984977, 0.211985, -0.0815787, -0.323097)
 script = ExtResource("8_7u54q")
+attack_rate = 1.0
 bullets_per_shot = 0
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/RocketLauncher" index="0"]
@@ -654,6 +657,77 @@ script = ExtResource("25_7fvc4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PickupManager" index="0"]
 shape = SubResource("SphereShape3D_rsy8f")
 
+[node name="CanvasGroup" type="CanvasLayer" parent="." index="14"]
+
+[node name="RestartMessage" type="Label" parent="CanvasGroup" index="0"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -13.0
+offset_right = 99.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Press any key to continue"
+script = ExtResource("26_5e55j")
+
+[node name="Panel" type="Panel" parent="CanvasGroup/RestartMessage" index="0"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HUDElements" type="Label" parent="CanvasGroup" index="1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("27_s4r2m")
+
+[node name="HealthHUD" type="Label" parent="CanvasGroup/HUDElements" index="0"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+
+[node name="AmmoHUD" type="Label" parent="CanvasGroup/HUDElements" index="1"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -56.0
+offset_right = 72.0
+offset_bottom = -33.0
+grow_vertical = 0
+
+[connection signal="ammo_changed" from="Head/Camera/WeaponManager" to="CanvasGroup/HUDElements" method="update_ammo"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/MachineGun" to="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/Shotgun" to="Head/Camera/WeaponManager/Weapons/Shotgun/Graphics/MuzzleFlash" method="flash"]
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
+[connection signal="dead" from="HealthManager" to="CanvasGroup/RestartMessage" method="start_restart_timer"]
+[connection signal="health_changed" from="HealthManager" to="CanvasGroup/HUDElements" method="update_health"]

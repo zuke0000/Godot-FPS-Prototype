@@ -38,6 +38,7 @@ func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	
 	for weapon in weapons:
 		weapon.fired.connect(emit_ammo_changed_signal)
+		weapon.swapped_to.connect(emit_ammo_changed_signal)
 	
 func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	if current_weapon.has_method("attack"):

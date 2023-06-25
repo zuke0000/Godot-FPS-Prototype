@@ -39,6 +39,7 @@ var can_attack = true
 
 signal fired
 signal out_of_ammo
+signal swapped_to
 
 
 var hitscan_node = preload("res://effects/hitscan_bullet_emitter.tscn")
@@ -111,6 +112,7 @@ func finish_attack():
 func set_active():
 	show()
 	$Graphics/Crosshair.show()
+	emit_signal("swapped_to")
 	
 func set_inactive():
 	anim_player.play("idle")
