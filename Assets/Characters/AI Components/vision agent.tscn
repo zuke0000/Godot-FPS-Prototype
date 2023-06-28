@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://cc4q01apf5dpr"]
+
+[ext_resource type="Script" path="res://Agent.gd" id="1_lfvh7"]
+[ext_resource type="Script" path="res://Assets/Characters/AI Components/VisionManager.gd" id="2_indu4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6ng6"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.894118, 0.921569, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3ttjp"]
+material = SubResource("StandardMaterial3D_o6ng6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m86rd"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.894118, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_p40iu"]
+material = SubResource("StandardMaterial3D_m86rd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_2twyg"]
+size = Vector3(0.1, 0.1, 2)
+
+[node name="VisionAgent" type="Node3D"]
+script = ExtResource("1_lfvh7")
+
+[node name="Graphics" type="Node3D" parent="."]
+
+[node name="Red" type="MeshInstance3D" parent="Graphics"]
+mesh = SubResource("CapsuleMesh_3ttjp")
+
+[node name="Yellow" type="MeshInstance3D" parent="Graphics"]
+mesh = SubResource("CapsuleMesh_p40iu")
+
+[node name="AngleBar1" type="MeshInstance3D" parent="Graphics"]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 0.9, 0.5, -0.75)
+mesh = SubResource("BoxMesh_2twyg")
+
+[node name="AngleBar2" type="MeshInstance3D" parent="Graphics"]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -0.9, 0.5, -0.75)
+mesh = SubResource("BoxMesh_2twyg")
+
+[node name="VisionManager" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649513, 0)
+script = ExtResource("2_indu4")
