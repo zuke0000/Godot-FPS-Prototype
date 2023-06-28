@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bww6cir0moqmj"]
+
+[ext_resource type="Script" path="res://Assets/Characters/AI Components/FaceTargetY.gd" id="1_2nyyc"]
+
+[node name="FaceTargetY" type="Node3D"]
+script = ExtResource("1_2nyyc")
+
+[node name="FaceTargetX" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_2nyyc")

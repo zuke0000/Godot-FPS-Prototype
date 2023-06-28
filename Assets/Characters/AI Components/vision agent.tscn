@@ -1,44 +1,84 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc4q01apf5dpr"]
+[gd_scene load_steps=12 format=3 uid="uid://cc4q01apf5dpr"]
 
 [ext_resource type="Script" path="res://Agent.gd" id="1_lfvh7"]
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/VisionManager.gd" id="2_indu4"]
+[ext_resource type="Script" path="res://Assets/Characters/AI Components/FaceTargetY.gd" id="3_kisqo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hrpvo"]
+size = Vector3(0.25, 0.2, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6ng6"]
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.894118, 0.921569, 0, 1)
+albedo_color = Color(0.894118, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3ttjp"]
 material = SubResource("StandardMaterial3D_o6ng6")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m86rd"]
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.894118, 0, 0, 1)
+albedo_color = Color(0.894118, 1, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_p40iu"]
 material = SubResource("StandardMaterial3D_m86rd")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o83le"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_r6va4"]
+material = SubResource("StandardMaterial3D_o83le")
+radius = 0.05
+height = 0.1
+is_hemisphere = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_2twyg"]
-size = Vector3(0.1, 0.1, 2)
+size = Vector3(0.1, 0.1, 1.25)
 
 [node name="VisionAgent" type="Node3D"]
 script = ExtResource("1_lfvh7")
 
-[node name="Graphics" type="Node3D" parent="."]
+[node name="FaceTargetY" type="Node3D" parent="."]
+script = ExtResource("3_kisqo")
 
-[node name="Red" type="MeshInstance3D" parent="Graphics"]
+[node name="FaceTargetX" type="Node3D" parent="FaceTargetY"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_kisqo")
+
+[node name="Pointer" type="MeshInstance3D" parent="FaceTargetY/FaceTargetX"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.17, -5.11423e-08, 0)
+mesh = SubResource("BoxMesh_hrpvo")
+skeleton = NodePath("../..")
+
+[node name="Graphics" type="Node3D" parent="FaceTargetY"]
+
+[node name="Red" type="MeshInstance3D" parent="FaceTargetY/Graphics"]
 mesh = SubResource("CapsuleMesh_3ttjp")
 
-[node name="Yellow" type="MeshInstance3D" parent="Graphics"]
+[node name="Yellow" type="MeshInstance3D" parent="FaceTargetY/Graphics"]
 mesh = SubResource("CapsuleMesh_p40iu")
 
-[node name="AngleBar1" type="MeshInstance3D" parent="Graphics"]
+[node name="eyes" type="Node3D" parent="FaceTargetY/Graphics"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FaceTargetY/Graphics/eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0.5, -0.45)
+mesh = SubResource("SphereMesh_r6va4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FaceTargetY/Graphics/eyes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 0.5, -0.45)
+mesh = SubResource("SphereMesh_r6va4")
+
+[node name="AngleBars" type="Node3D" parent="FaceTargetY/Graphics"]
+
+[node name="AngleBar1" type="MeshInstance3D" parent="FaceTargetY/Graphics/AngleBars"]
 transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 0.9, 0.5, -0.75)
 mesh = SubResource("BoxMesh_2twyg")
+skeleton = NodePath("../..")
 
-[node name="AngleBar2" type="MeshInstance3D" parent="Graphics"]
+[node name="AngleBar2" type="MeshInstance3D" parent="FaceTargetY/Graphics/AngleBars"]
 transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -0.9, 0.5, -0.75)
 mesh = SubResource("BoxMesh_2twyg")
+skeleton = NodePath("../..")
 
-[node name="VisionManager" type="Node3D" parent="."]
+[node name="VisionManager" type="Node3D" parent="FaceTargetY"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649513, 0)
 script = ExtResource("2_indu4")
+vision_cone_arc = 60.0

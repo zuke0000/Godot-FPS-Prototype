@@ -1,17 +1,17 @@
 extends Node3D
 
 
-@export var vision_cone_arc := 60.0
+@export var vision_cone_arc := 180.0
 @export var distance := 100
 
 func in_vision_cone(point: Vector3):
 	var forward = -global_transform.basis.z
 	var our_position = global_transform.origin
 	var direction_to_point = point - our_position
-	return rad_to_deg(direction_to_point.angle_to(forward)) <= vision_cone_arc/2.0
+	return (direction_to_point.angle_to(forward)) <= deg_to_rad(vision_cone_arc/2.0)
 
 # line of sight (los) check 
-# NOTE: If expensive and causes performance issues, check every other frame
+# NOTE: If expensive and causes performance issues, run every other frame
 func has_los(point : Vector3):
 	
 	var our_position = global_transform.origin
