@@ -10,7 +10,7 @@ func in_vision_cone(point: Vector3):
 	var direction_to_point = point - our_position
 	return (direction_to_point.angle_to(forward)) <= deg_to_rad(vision_cone_arc/2.0)
 
-# line of sight (los) check 
+# line of sight (los) check by raycast
 # NOTE: If expensive and causes performance issues, run every other frame
 func has_los(point : Vector3):
 	

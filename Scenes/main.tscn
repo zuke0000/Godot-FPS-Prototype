@@ -456,6 +456,7 @@ projectile = ExtResource("16_1jh6i")
 should_override_impact_damage = false
 
 [node name="Timer" type="Timer" parent="DeveloperTests/ProjectileSpawner"]
+autostart = true
 
 [node name="Pickups" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 14)
