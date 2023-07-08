@@ -133,3 +133,5 @@ func heal(amount):
 func kill():
 	dead = true
 	freeze()
+func get_head_pos():
+	return $Head

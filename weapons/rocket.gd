@@ -5,8 +5,16 @@ extends CharacterBody3D
 var explosion = preload("res://weapons/explosion.tscn")
 
 var speed = 40
-var impact_damage = 20 #direct hit damage
+var explosion_damage = 30
+var impact_damage = 10 #direct hit damage
 var exploded = false
+
+func set_speed(_speed):
+	speed = _speed
+func set_impact_damage(_impact_damage):
+	impact_damage = _impact_damage
+func set_explosion_damage(_explosion_damage):
+	explosion_damage = _explosion_damage
 
 func _ready():
 	hide()
@@ -31,6 +39,9 @@ func explode():
 	speed = 0
 	$CollisionShape3D.disabled = true
 	var explosion_instance = explosion.instantiate()
+	if explosion_instance.has_method("set_explosion_damage"):
+		explosion_instance.set_explosion_damage(explosion_damage)
+		
 	get_tree().get_root().add_child(explosion_instance)
 	explosion_instance.global_transform.origin = global_transform.origin
 	explosion_instance.explode()

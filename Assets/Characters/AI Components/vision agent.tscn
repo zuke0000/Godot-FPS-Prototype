@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cc4q01apf5dpr"]
+[gd_scene load_steps=16 format=3 uid="uid://cc4q01apf5dpr"]
 
 [ext_resource type="Script" path="res://Agent.gd" id="1_lfvh7"]
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/VisionManager.gd" id="2_indu4"]
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/FaceTargetY.gd" id="3_kisqo"]
+[ext_resource type="PackedScene" uid="uid://dv1gu17xerdwv" path="res://weapons/ProjectileSpawner.tscn" id="3_n800i"]
+[ext_resource type="PackedScene" uid="uid://d2mudh2qx5tk7" path="res://Assets/Characters/CharacterMover.tscn" id="4_73jxb"]
+[ext_resource type="Script" path="res://Assets/Characters/AI Components/CharacterNavigation.gd" id="5_yqdte"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hrpvo"]
-size = Vector3(0.25, 0.2, 0.5)
+size = Vector3(0.25, 0.2, 4.635)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o6ng6"]
 vertex_color_use_as_albedo = true
@@ -33,20 +36,33 @@ is_hemisphere = true
 [sub_resource type="BoxMesh" id="BoxMesh_2twyg"]
 size = Vector3(0.1, 0.1, 1.25)
 
-[node name="VisionAgent" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5b7ns"]
+
+[node name="VisionAgent" type="CharacterBody3D"]
 script = ExtResource("1_lfvh7")
 
 [node name="FaceTargetY" type="Node3D" parent="."]
 script = ExtResource("3_kisqo")
+turn_speed = 720.0
+turn_threshold = 360
 
 [node name="FaceTargetX" type="Node3D" parent="FaceTargetY"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_kisqo")
+turn_speed = 720.0
+turn_threshold = 360
 
-[node name="Pointer" type="MeshInstance3D" parent="FaceTargetY/FaceTargetX"]
+[node name="ProjectileSpawner" parent="FaceTargetY/FaceTargetX" instance=ExtResource("3_n800i")]
+impact_damage = 1.0
+damage = 1.0
+speed = 20.0
+cooldown = 0.5
+predict_target = true
+
+[node name="Pointer" type="MeshInstance3D" parent="FaceTargetY/FaceTargetX/ProjectileSpawner"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.17, -5.11423e-08, 0)
 mesh = SubResource("BoxMesh_hrpvo")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
 [node name="Graphics" type="Node3D" parent="FaceTargetY"]
 
@@ -81,4 +97,17 @@ skeleton = NodePath("../..")
 [node name="VisionManager" type="Node3D" parent="FaceTargetY"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649513, 0)
 script = ExtResource("2_indu4")
-vision_cone_arc = 60.0
+vision_cone_arc = 360.0
+
+[node name="CharacterMover" parent="." instance=ExtResource("4_73jxb")]
+move_accel = 2
+max_speed = 5
+ignore_rotation = true
+
+[node name="CharacterNavigation" type="Node3D" parent="."]
+script = ExtResource("5_yqdte")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterNavigation"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5b7ns")

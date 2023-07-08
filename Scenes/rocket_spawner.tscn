@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5qtyq1k3d5oy"]
 
-[ext_resource type="Script" path="res://addons/character-controller/example/main/RocketSpawner.gd" id="1_bj5wr"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/ProjectileSpawner.gd" id="1_bj5wr"]
 
 [node name="RocketSpawner" type="Node3D"]
 script = ExtResource("1_bj5wr")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dv1gu17xerdwv"]
 
-[ext_resource type="Script" path="res://addons/character-controller/example/main/RocketSpawner.gd" id="1_6ea3g"]
+[ext_resource type="Script" path="res://addons/character-controller/example/main/ProjectileSpawner.gd" id="1_6ea3g"]
 
 [sub_resource type="TorusMesh" id="TorusMesh_utaaf"]
 

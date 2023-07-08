@@ -3,6 +3,9 @@ extends Area3D
 
 @export var damage = 40
 
+func set_explosion_damage(_damage):
+	damage = _damage
+
 func explode():
 	$GPUParticles3D.emitting = true
 	$GPUParticles3D2.emitting = true

@@ -1,7 +1,8 @@
 extends Node3D
 
 @export var turn_speed = 100.0 # how much to turn
-@export var turn_threshold := 30 # max degrees allowed to turn
+@export var has_turn_threshold := false
+@export var turn_threshold := 60 # max degrees allowed to turn
 
 func face_point(point: Vector3, delta: float):
 		var l_point = to_local(point)
@@ -14,7 +15,7 @@ func face_point(point: Vector3, delta: float):
 		if angle < turn_amount:
 			turn_amount = angle
 		
-		if rad_to_deg(angle) > turn_threshold:
+		if rad_to_deg(angle) > turn_threshold and has_turn_threshold:
 			return
 		#$"..".rotate(Vector3.UP, -turn_amount * turn_direction)
 		rotate_object_local(Vector3.UP, -turn_amount * turn_direction)

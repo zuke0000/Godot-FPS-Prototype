@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dd658nkv2wboh"]
+[gd_scene load_steps=12 format=3 uid="uid://dd658nkv2wboh"]
 
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/Monster.gd" id="1_aojnd"]
 [ext_resource type="PackedScene" uid="uid://bihty4odugwgt" path="res://Assets/Characters/Enemies/bird_monster/birdmonster.glb" id="2_3j3yl"]
 [ext_resource type="PackedScene" uid="uid://2fkfkqsomktp" path="res://Assets/Characters/hit_box.tscn" id="3_n7e5n"]
 [ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="4_qu3vx"]
-[ext_resource type="PackedScene" path="res://Assets/Characters/CharacterMover.tscn" id="5_4hulx"]
-[ext_resource type="Script" path="res://Assets/Characters/CharacterMover.gd" id="6_pw5cl"]
+[ext_resource type="PackedScene" uid="uid://d2mudh2qx5tk7" path="res://Assets/Characters/CharacterMover.tscn" id="5_4hulx"]
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/AimAtObject.gd" id="7_eu44b"]
 [ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://Scenes/damage_area.tscn" id="8_rroic"]
 
@@ -185,11 +184,7 @@ shape = SubResource("CapsuleShape3D_i016r")
 [node name="HealthManager" parent="." instance=ExtResource("4_qu3vx")]
 
 [node name="CharacterMover" parent="." instance=ExtResource("5_4hulx")]
-script = ExtResource("6_pw5cl")
-move_accel = 4
 max_speed = 5
-jump_force = 30
-gravity = 60
 ignore_rotation = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
