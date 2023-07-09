@@ -53,16 +53,18 @@ turn_speed = 720.0
 turn_threshold = 360
 
 [node name="ProjectileSpawner" parent="FaceTargetY/FaceTargetX" instance=ExtResource("3_n800i")]
+visible = false
 impact_damage = 1.0
 damage = 1.0
 speed = 20.0
+gravity = 5.0
 cooldown = 0.5
 predict_target = true
 
-[node name="Pointer" type="MeshInstance3D" parent="FaceTargetY/FaceTargetX/ProjectileSpawner"]
+[node name="Pointer" type="MeshInstance3D" parent="FaceTargetY/FaceTargetX"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.17, -5.11423e-08, 0)
 mesh = SubResource("BoxMesh_hrpvo")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../..")
 
 [node name="Graphics" type="Node3D" parent="FaceTargetY"]
 

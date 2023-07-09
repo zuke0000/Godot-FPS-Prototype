@@ -28,6 +28,7 @@ color_ramp = SubResource("GradientTexture1D_3qk11")
 [sub_resource type="QuadMesh" id="QuadMesh_4hqkl"]
 
 [node name="Rocket" type="CharacterBody3D"]
+collision_layer = 0
 collision_mask = 7
 script = ExtResource("1_5ut4r")
 
@@ -66,5 +67,5 @@ one_shot = true
 
 [connection signal="timeout" from="ShowAfterTimeTimer" to="." method="show"]
 [connection signal="timeout" from="ExplodeAfterTime" to="." method="explode"]
-[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="queue_free"]
 [connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]
+[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="queue_free"]

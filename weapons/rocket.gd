@@ -8,6 +8,7 @@ var speed = 40
 var explosion_damage = 30
 var impact_damage = 10 #direct hit damage
 var exploded = false
+var gravity := 0.0
 
 func set_speed(_speed):
 	speed = _speed
@@ -15,6 +16,8 @@ func set_impact_damage(_impact_damage):
 	impact_damage = _impact_damage
 func set_explosion_damage(_explosion_damage):
 	explosion_damage = _explosion_damage
+func set_gravity(_gravity):
+	gravity = _gravity
 
 func _ready():
 	hide()
@@ -24,14 +27,20 @@ func set_bodies_to_exclude(bodies_to_exclude : Array):
 		add_collision_exception_with(body)
 
 func _physics_process(delta):
+	velocity.y -= gravity * delta
+	
 	var collision : KinematicCollision3D = move_and_collide(
 		-global_transform.basis.z * speed * delta)
+	move_and_slide()
+	if is_on_floor():
+		explode()
+	
 	if collision:
 		var collider = collision.get_collider()
 		if collider.has_method("hurt"):
 			collider.hurt(impact_damage, -global_transform.basis.z, position)
 		explode()
-
+	
 func explode():
 	if exploded:
 		return

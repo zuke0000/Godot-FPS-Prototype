@@ -19,7 +19,6 @@ func _process(delta):
 	var target_point = target.global_transform.origin
 	#face_target_y.face_point(target_point, delta)
 	#face_target_x.face_point(target_point, delta)
-	
 		
 	#print('shoot at: ', point_to_fire)
 	projectile_spawner.fire_with_cooldown()
