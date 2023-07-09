@@ -70,10 +70,14 @@ one_shot = true
 
 [node name="FaceTargetY" type="Node3D" parent="."]
 script = ExtResource("5_ifgmj")
+has_turn_threshold = true
+turn_threshold = 30
 
 [node name="FaceTargetX" type="Node3D" parent="FaceTargetY"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("5_ifgmj")
+has_turn_threshold = true
+turn_threshold = 30
 
 [node name="DirectionReference" type="Node3D" parent="FaceTargetY/FaceTargetX"]
 

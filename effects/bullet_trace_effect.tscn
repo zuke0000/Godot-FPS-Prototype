@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpnb7e5yq2ffb"]
+
+[ext_resource type="Script" path="res://BulletTraceEffect.gd" id="1_h2fng"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yx6sq"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.741176, 0.745098, 1)
+
+[node name="BulletTraceEffect" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_yx6sq")
+cast_shadow = 0
+script = ExtResource("1_h2fng")

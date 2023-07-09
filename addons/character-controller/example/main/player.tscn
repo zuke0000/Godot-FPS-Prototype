@@ -483,7 +483,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
 
 [node name="MachineGun" type="Node3D" parent="Head/Camera/WeaponManager/Weapons" index="1"]
 transform = Transform3D(0.231375, 0, 0, 0, 0.231375, 0, 0, 0, 0.231375, 0.258917, -0.140219, -0.203667)
-visible = false
 script = ExtResource("8_7u54q")
 automatic = true
 damage = 15

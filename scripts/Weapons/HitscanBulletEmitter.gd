@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var hit_effect = preload("res://effects/bullet_hit_effect.tscn") # if using once use load
-
+@onready var trace_effect = preload("res://effects/bullet_trace_effect.tscn")
 
 @export var distance = 10000
 var bodies_to_exclude = []
@@ -13,9 +13,13 @@ func set_damage(_damage : int):
 func set_bodies_to_exclude(_bodies_to_exclude : Array):
 	bodies_to_exclude = _bodies_to_exclude
 
+# NOTE: this function is ugly. 
 func fire():
 	var space_state = get_world_3d().get_direct_space_state() # changed in godot 4
 	var our_position = global_transform.origin
+	var end_position = our_position - global_transform.basis.z * distance
+	var our_trace_position = our_position - global_transform.basis.z * 1
+	create_trace_instance(our_trace_position, end_position)
 	# raycast, also changed in Godot 4
 	#var result = space_state.intersect_ray(
 	#our_position - global_transform.basis.z * distance)
@@ -25,7 +29,7 @@ func fire():
 	var direct_state = get_world_3d().direct_space_state
 	var Parameters = PhysicsRayQueryParameters3D.new()#(our_position, our_position - global_transform.basis.z * distance, (1 + 4), bodies_to_exclude)
 	Parameters.from = our_position
-	Parameters.to = our_position - global_transform.basis.z * distance
+	Parameters.to = end_position
 	Parameters.exclude = bodies_to_exclude
 	Parameters.collision_mask = 1 + 4 # Layers to collide with. 1: Environment and 4: hitboxes
 	Parameters.hit_back_faces = false #
@@ -53,8 +57,11 @@ func fire():
 		
 		hit_effect_instance.global_transform.basis = Basis(x,y,z) # orient correct  way
 		
-	
-	
+func create_trace_instance(from,to):
+	var trace_effect_instance = trace_effect.instantiate()
+	trace_effect_instance.init(from,to)
+	get_tree().get_root().add_child(trace_effect_instance)
+	return
 	
 	
 	
