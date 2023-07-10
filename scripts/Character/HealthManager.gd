@@ -5,30 +5,64 @@ signal healthbar_hurt
 signal healed
 signal health_changed
 signal gibbed
-
-@export var max_health := 100
-var current_health = 1
-
+@export_category("Values")
+@export var max_health := 100.0
+@export var max_shield := 0.0
+@export var shield_gate := false
 @export var gib_at = -10 # gib if overdamaged to -10
+var current_health = 1.0
+var current_shield = 1.0
 
+@export_category("Regeneration")
+@export var should_regen := false
+@export var health_cooldown := 2.0 # time to start regening if no damage taken
+@export var shield_cooldown := 6.0
+@export var health_regen_speed := 3.0 # health regen per second
+@export var shield_regen_speed := 7.5 # shield regen per second
+var regen_health := false # bumps up to cooldown, allows regen at this point
+var regen_shield := false
+var regen_timer := 0.0
+
+@export_category("Scenes")
 @export var blood_spray = preload("res://effects/blood_spray.tscn") 
 @export var gibs = preload("res://effects/gibs.tscn")
 
 func _ready():
-	print('readied')
+	#print('readied')
 	current_health = max_health
+	current_shield = max_shield
 	emit_signal("health_changed", current_health)
 
-func init():
-	print('inited')
-	current_health = max_health
+func init(_max_health = max_health, _max_shield = max_shield):
+	#print('inited')
+	current_health = _max_health
+	current_shield = _max_shield
 	emit_signal("health_changed", current_health)
-#
-func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal", ):
+
+func _process(delta):
+	regen(delta)
+	manage_cooldowns(delta)
+func hurt_shield_or_health(_damage):
+	if max_shield <= 0.0:
+		current_health -= _damage
+		return
+	
+	var remainder = 0.0 # carries over to health if shield is down
+	max_shield -= _damage
+	
+	if max_shield <= 0.0:
+		print('no shield')
+		remainder = abs(max_shield)
+		max_shield = 0.0
+		current_health -= remainder
+	
+func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal"):
 	spawn_blood(dir, pos)
+	
 	if (current_health <=0):
 		return
-	current_health -= damage
+	#current_health -= damage
+	hurt_shield_or_health(damage)
 	if current_health <= gib_at:
 		spawn_gibs(pos)
 		emit_signal("gibbed")
@@ -38,19 +72,27 @@ func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal", ):
 	#emit_signal("hurt")
 	emit_signal("health_changed", current_health)
 	print('hurt ', damage, 'current health ', current_health)
+	reset_regen_cooldown()
 	
-func heal(amount : int):
+func heal(amount : float):
 	if current_health <= 0:
 		return
 	current_health += amount
 	current_health = min(max_health, current_health)
+	#print('amount ', amount)
 	emit_signal("healed")
 	emit_signal("health_changed", current_health)
+
+func heal_shield(amount : float):
+	current_shield += amount
+	current_shield = min(max_health, current_shield)
+	#print('amount ', amount)
+	emit_signal("healed")
+	emit_signal("shield_changed", current_shield)
 
 func spawn_blood(dir, pos):
 	var blood_spray_instance = blood_spray.instantiate()
 	blood_spray_instance.position = pos # move effect to position	
-	#blood_spray_instance.position = global_transform.origin
 	get_tree().get_root().add_child(blood_spray_instance)
 		
 	if dir.angle_to(Vector3.UP) < 0.00005: # dont rotate if shooting floor
@@ -75,3 +117,27 @@ func get_pickup(pickup_type, ammo):
 	match pickup_type:
 		Pickup.PICKUP_TYPE.HEALTH:
 			heal(ammo)
+
+func regen(delta):
+	if should_regen and regen_health:
+		heal(health_regen_speed * delta)
+	if should_regen and regen_shield:
+		heal_shield(shield_regen_speed * delta)
+	
+
+# timer goes up, more
+func manage_cooldowns(delta):
+	if !should_regen:
+		return
+	regen_timer = min(regen_timer+delta, health_cooldown+shield_cooldown)
+	if regen_timer >= health_cooldown:
+		regen_health = true
+	if regen_timer >= shield_cooldown:
+		regen_shield = true
+
+# reset cooldowns when hurt
+func reset_regen_cooldown():
+	regen_health = false
+	regen_shield = false
+	regen_timer = 0.0
+	

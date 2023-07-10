@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cc4q01apf5dpr"]
+[gd_scene load_steps=18 format=3 uid="uid://cc4q01apf5dpr"]
 
 [ext_resource type="Script" path="res://Agent.gd" id="1_lfvh7"]
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/VisionManager.gd" id="2_indu4"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dv1gu17xerdwv" path="res://weapons/ProjectileSpawner.tscn" id="3_n800i"]
 [ext_resource type="PackedScene" uid="uid://d2mudh2qx5tk7" path="res://Assets/Characters/CharacterMover.tscn" id="4_73jxb"]
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/CharacterNavigation.gd" id="5_yqdte"]
+[ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="7_21dhl"]
+[ext_resource type="PackedScene" uid="uid://2fkfkqsomktp" path="res://Assets/Characters/hit_box.tscn" id="8_k0ieo"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hrpvo"]
 size = Vector3(0.25, 0.2, 4.635)
@@ -39,25 +41,25 @@ size = Vector3(0.1, 0.1, 1.25)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5b7ns"]
 
 [node name="VisionAgent" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_lfvh7")
 
 [node name="FaceTargetY" type="Node3D" parent="."]
 script = ExtResource("3_kisqo")
-turn_speed = 720.0
-turn_threshold = 360
+has_turn_threshold = true
 
 [node name="FaceTargetX" type="Node3D" parent="FaceTargetY"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_kisqo")
-turn_speed = 720.0
-turn_threshold = 360
+has_turn_threshold = true
 
 [node name="ProjectileSpawner" parent="FaceTargetY/FaceTargetX" instance=ExtResource("3_n800i")]
 visible = false
 impact_damage = 1.0
 damage = 1.0
-speed = 20.0
-gravity = 5.0
+speed = 40.0
+gravity = 9.8
 cooldown = 0.5
 predict_target = true
 
@@ -99,7 +101,7 @@ skeleton = NodePath("../..")
 [node name="VisionManager" type="Node3D" parent="FaceTargetY"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.649513, 0)
 script = ExtResource("2_indu4")
-vision_cone_arc = 360.0
+vision_cone_arc = 60.0
 
 [node name="CharacterMover" parent="." instance=ExtResource("4_73jxb")]
 move_accel = 2
@@ -111,5 +113,12 @@ script = ExtResource("5_yqdte")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterNavigation"]
 
+[node name="HealthManager" parent="." instance=ExtResource("7_21dhl")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5b7ns")
+
+[node name="HitBox" parent="." instance=ExtResource("8_k0ieo")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("CapsuleShape3D_5b7ns")

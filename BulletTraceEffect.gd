@@ -13,7 +13,7 @@ func init(from,to):
 	draw_mesh.surface_add_vertex(from)
 	draw_mesh.surface_add_vertex(to)
 	draw_mesh.surface_end()
-	await GlobalFunctions.wait_time(0.2)
+	await GlobalFunctions.wait_time(0.15)
 	queue_free()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

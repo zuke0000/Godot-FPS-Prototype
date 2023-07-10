@@ -650,6 +650,7 @@ shape = SubResource("SphereShape3D_kehox")
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
 [node name="HealthManager" parent="." index="12" instance=ExtResource("24_6c21v")]
+should_regen = true
 
 [node name="PickupManager" type="Area3D" parent="." index="13"]
 collision_layer = 0
