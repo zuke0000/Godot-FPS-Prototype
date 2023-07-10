@@ -8,7 +8,7 @@ signal gibbed
 @export_category("Values")
 @export var max_health := 100.0
 @export var max_shield := 0.0
-@export var shield_gate := false
+@export var shield_gate := false # TODO, set an invincible timer when shield pops
 @export var gib_at = -10 # gib if overdamaged to -10
 var current_health = 1.0
 var current_shield = 1.0
@@ -17,10 +17,12 @@ var current_shield = 1.0
 @export var should_regen := false
 @export var health_cooldown := 2.0 # time to start regening if no damage taken
 @export var shield_cooldown := 6.0
+@export var shield_gap_cooldown := 3.0 # cooldown to wait if shield is 0 before it can regen again
 @export var health_regen_speed := 3.0 # health regen per second
-@export var shield_regen_speed := 7.5 # shield regen per second
-var regen_health := false # bumps up to cooldown, allows regen at this point
+@export var shield_regen_speed := 3.0 # shield regen per second
+var regen_health := false # counts up to cooldown, allows regen at this point
 var regen_shield := false
+var shield_gap := true
 var regen_timer := 0.0
 
 @export_category("Scenes")
@@ -45,6 +47,8 @@ func _process(delta):
 func hurt_shield_or_health(_damage):
 	if max_shield <= 0.0:
 		current_health -= _damage
+		#shield_gap = true
+		#regen_timer = 0.0-shield_gap_cooldown
 		return
 	
 	var remainder = 0.0 # carries over to health if shield is down
@@ -72,8 +76,10 @@ func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal"):
 	#emit_signal("hurt")
 	emit_signal("health_changed", current_health)
 	print('hurt ', damage, 'current health ', current_health)
+	if max_shield > 0.0:
+		print('current shield: ', current_shield)
 	reset_regen_cooldown()
-	
+
 func heal(amount : float):
 	if current_health <= 0:
 		return
@@ -132,7 +138,9 @@ func manage_cooldowns(delta):
 	regen_timer = min(regen_timer+delta, health_cooldown+shield_cooldown)
 	if regen_timer >= health_cooldown:
 		regen_health = true
-	if regen_timer >= shield_cooldown:
+	if regen_timer >= health_cooldown+shield_gap_cooldown:
+		regen_shield = true
+	if regen_timer >= shield_cooldown and current_shield != 0.0:
 		regen_shield = true
 
 # reset cooldowns when hurt
