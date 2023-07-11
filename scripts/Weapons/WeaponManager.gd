@@ -18,6 +18,8 @@ var alert_area_los
 
 signal ammo_changed
 
+
+
 func _ready():
 	weapons = $Weapons.get_children()
 	alert_area_hearing = $AlertAreaHearing

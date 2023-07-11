@@ -124,7 +124,6 @@ func unfreeze():
 	
 ## Health stuff
 func hurt(damage, dir, pos=Vector3.ZERO):
-	print('hurt from player called')
 	health_manager.hurt(damage, dir)
 
 func heal(amount):

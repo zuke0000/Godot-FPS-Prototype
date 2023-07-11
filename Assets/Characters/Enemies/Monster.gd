@@ -36,13 +36,10 @@ func _ready():
 	character_mover.init(self)
 	
 	health_manager.gibbed.connect($Graphics.hide)
-	
-
 
 
 # generic state machine setup
 func _process(delta):
-	
 	match current_state:
 		STATES.IDLE:
 			process_state_idle(delta)
@@ -56,7 +53,7 @@ func _process(delta):
 func set_state_idle():
 	current_state = STATES.IDLE
 	animation_player.play('idle')
-	
+
 func set_state_chase():
 	animation_player.play("walk", 0.2)
 	current_state = STATES.CHASE

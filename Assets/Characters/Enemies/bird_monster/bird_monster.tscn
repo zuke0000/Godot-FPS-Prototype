@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dd658nkv2wboh"]
+[gd_scene load_steps=15 format=3 uid="uid://dd658nkv2wboh"]
 
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/Monster.gd" id="1_aojnd"]
 [ext_resource type="PackedScene" uid="uid://bihty4odugwgt" path="res://Assets/Characters/Enemies/bird_monster/birdmonster.glb" id="2_3j3yl"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://d2mudh2qx5tk7" path="res://Assets/Characters/CharacterMover.tscn" id="5_4hulx"]
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/AimAtObject.gd" id="7_eu44b"]
 [ext_resource type="PackedScene" uid="uid://50rxs1fgdkjq" path="res://Scenes/damage_area.tscn" id="8_rroic"]
+[ext_resource type="Script" path="res://Assets/Health Bars/health_bar_2d.gd" id="9_desf6"]
+[ext_resource type="PackedScene" uid="uid://cpnr772nfkqtk" path="res://Assets/Health Bars/HealthBar.tscn" id="9_u6gph"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m2uxu"]
 
@@ -19,7 +21,11 @@ size = Vector3(1.824, 3.464, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xaohv"]
 size = Vector3(1.824, 1.23575, 2.54721)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ewdll"]
+viewport_path = NodePath("HealthBar3D/Viewport")
+
 [node name="BirdMonster" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005, 0, 0)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_aojnd")
@@ -195,5 +201,19 @@ script = ExtResource("7_eu44b")
 
 [node name="DamageArea" parent="AimAtObject" instance=ExtResource("8_rroic")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2804)
+
+[node name="HealthBar3D" type="Node3D" parent="."]
+script = ExtResource("9_desf6")
+
+[node name="Viewport" type="SubViewport" parent="HealthBar3D"]
+transparent_bg = true
+size = Vector2i(295, 295)
+
+[node name="HealthBar" parent="HealthBar3D/Viewport" instance=ExtResource("9_u6gph")]
+
+[node name="Sprite3D" type="Sprite3D" parent="HealthBar3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0542, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_ewdll")
 
 [editable path="Graphics"]

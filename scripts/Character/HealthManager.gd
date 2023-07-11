@@ -1,9 +1,11 @@
 extends Node3D
 
+signal emit_max_health_and_shield
 signal dead
 signal healthbar_hurt
 signal healed
 signal health_changed
+signal shield_changed
 signal gibbed
 @export_category("Values")
 @export var max_health := 100.0
@@ -34,6 +36,7 @@ func _ready():
 	current_health = max_health
 	current_shield = max_shield
 	emit_signal("health_changed", current_health)
+	emit_signal("emit_max_health_and_shield", max_health, max_shield)
 
 func init(_max_health = max_health, _max_shield = max_shield):
 	#print('inited')
@@ -75,7 +78,8 @@ func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal"):
 	#emit_signal("hurt") # signal not in use
 	#emit_signal("hurt")
 	emit_signal("health_changed", current_health)
-	print('hurt ', damage, 'current health ', current_health)
+	emit_signal("shield_changed", current_shield)
+	#print('hurt ', damage, 'current health ', current_health)
 	if max_shield > 0.0:
 		print('current shield: ', current_shield)
 	reset_regen_cooldown()
@@ -140,7 +144,7 @@ func manage_cooldowns(delta):
 		regen_health = true
 	if regen_timer >= health_cooldown+shield_gap_cooldown:
 		regen_shield = true
-	if regen_timer >= shield_cooldown and current_shield != 0.0:
+	if regen_timer >= shield_cooldown and current_shield > 0.0:
 		regen_shield = true
 
 # reset cooldowns when hurt

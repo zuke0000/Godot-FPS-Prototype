@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c4eftgw1qbv2l"]
+[gd_scene load_steps=22 format=3 uid="uid://c4eftgw1qbv2l"]
 
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/Monster.gd" id="1_ueiod"]
 [ext_resource type="Texture2D" uid="uid://cqfk51tfpk5wj" path="res://Assets/Characters/Enemies/reptile_monster/reptilemonster_reptilemonster.png" id="2_ta1oj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Assets/Characters/Enemies/AimAtObject.gd" id="7_752bs"]
 [ext_resource type="PackedScene" uid="uid://dv1gu17xerdwv" path="res://weapons/ProjectileSpawner.tscn" id="8_j8g65"]
 [ext_resource type="PackedScene" uid="uid://dvajcl85d4hp1" path="res://weapons/FireBall.tscn" id="9_nc35y"]
+[ext_resource type="PackedScene" uid="uid://vm5bb8k8v416" path="res://Assets/Health Bars/HealthBar3D.tscn" id="10_sgce4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m2uxu"]
 
@@ -559,3 +560,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.10543e-15, 0, -1.2)
 visible = false
 projectile = ExtResource("9_nc35y")
 speed = 2
+
+[node name="HealthBar3D" parent="." instance=ExtResource("10_sgce4")]

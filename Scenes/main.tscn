@@ -463,11 +463,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 14)
 
 [node name="Pickup" parent="Pickups" instance=ExtResource("16_7grc7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.5122, 1, -4.94935)
-pickup_type = 4
 
 [node name="Pickup2" parent="Pickups" instance=ExtResource("16_7grc7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.6839, 1, -4.35413)
-pickup_type = 5
+pickup_type = 1
 
 [node name="Pickup3" parent="Pickups" instance=ExtResource("16_7grc7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)

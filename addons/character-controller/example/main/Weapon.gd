@@ -9,7 +9,7 @@ extends Node3D
 var fire_point = Node3D
 var bodies_to_exclude : Array = []
 
-@export var damage := 5
+@export var damage := 5.0
 @export var ammo = 30
 
 @export var attack_rate = 0.2
@@ -40,7 +40,7 @@ var can_attack = true
 signal fired
 signal out_of_ammo
 signal swapped_to
-
+@onready var aim_assist_box := $"../../../../../Area3D"
 
 var hitscan_node = preload("res://effects/hitscan_bullet_emitter.tscn")
 
@@ -79,12 +79,25 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 	if ammo > 0 and can_attack:
 		ammo -= 1
 	
-	# get 
-	var start_transform = bullet_emitters_base.global_transform
-	bullet_emitters_base.global_transform = fire_point.global_transform
 	
+	# inherit transform for fired bullets when player fires
+	var start_transform = bullet_emitters_base.global_transform
+	
+	bullet_emitters_base.global_transform = fire_point.global_transform
 	bullet_emitters = bullet_emitters_base.get_children()
 	var original_rotation
+	
+	var bodies = aim_assist_box.get_overlapping_bodies()
+	#result.collider.hurt(damage, result.normal, result.position)
+	
+	# TODO: Rotate bullet torwards enemy
+	if len(bodies) > 0 and bodies[0].has_method("hurt"):
+		var forward = -global_transform.basis.z
+		var our_position = global_transform.origin
+		var enemy_position = bodies[0].global_transform.origin
+		var direction_to_point = enemy_position - our_position
+		# this print will return the angle of degrees off from enemy position
+		#print(rad_to_deg(direction_to_point.angle_to(forward)))
 	
 	#if (is_hitscan or !is_hitscan):
 	for bullet_emitter in bullet_emitters:
@@ -124,7 +137,7 @@ func set_inactive():
 	anim_player.play("idle")
 	hide()
 	$Graphics/Crosshair.hide()
-	
 
 func is_idle():
 	pass
+

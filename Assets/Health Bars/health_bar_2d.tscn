@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpuftbpf8h82g"]
+
+[ext_resource type="Script" path="res://Assets/Health Bars/health_bar_2d.gd" id="1_rwpfv"]
+[ext_resource type="Texture2D" uid="uid://cvy47q7mkbdf" path="res://Assets/Health Bars/Enemy Health Bar Empty.png" id="1_ux6oj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ii6xg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7npcl"]
+bg_color = Color(0.631373, 0.14902, 0.145098, 1)
+
+[sub_resource type="MeshTexture" id="MeshTexture_m6jco"]
+image_size = Vector2(5, 5)
+
+[node name="HealthBar2D" type="Control"]
+layout_mode = 3
+anchor_right = 0.145
+anchor_bottom = 0.015
+offset_right = -167.04
+offset_bottom = -9.72
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rwpfv")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_right = 167.0
+offset_bottom = 8.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_ii6xg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7npcl")
+value = 50.0
+show_percentage = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 262.0
+offset_bottom = 16.0
+texture_over = SubResource("MeshTexture_m6jco")
+
+[node name="Control" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = -2.0
+offset_top = -21.0
+offset_right = 169.0
+offset_bottom = 17.0
+texture = ExtResource("1_ux6oj")
+expand_mode = 5

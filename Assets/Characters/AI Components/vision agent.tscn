@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cc4q01apf5dpr"]
+[gd_scene load_steps=19 format=3 uid="uid://cc4q01apf5dpr"]
 
 [ext_resource type="Script" path="res://Agent.gd" id="1_lfvh7"]
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/VisionManager.gd" id="2_indu4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Assets/Characters/AI Components/CharacterNavigation.gd" id="5_yqdte"]
 [ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="7_21dhl"]
 [ext_resource type="PackedScene" uid="uid://2fkfkqsomktp" path="res://Assets/Characters/hit_box.tscn" id="8_k0ieo"]
+[ext_resource type="PackedScene" uid="uid://vm5bb8k8v416" path="res://Assets/Health Bars/HealthBar3D.tscn" id="9_g8kaw"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_hrpvo"]
 size = Vector3(0.25, 0.2, 4.635)
@@ -65,6 +66,7 @@ predict_target = true
 
 [node name="Pointer" type="MeshInstance3D" parent="FaceTargetY/FaceTargetX"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1.17, -5.11423e-08, 0)
+visible = false
 mesh = SubResource("BoxMesh_hrpvo")
 skeleton = NodePath("../..")
 
@@ -122,3 +124,5 @@ shape = SubResource("CapsuleShape3D_5b7ns")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("CapsuleShape3D_5b7ns")
+
+[node name="HealthBar3D" parent="." instance=ExtResource("9_g8kaw")]
