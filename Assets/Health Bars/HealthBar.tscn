@@ -1,44 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpnr772nfkqtk"]
+[gd_scene load_steps=7 format=3 uid="uid://cpnr772nfkqtk"]
 
-[ext_resource type="Texture2D" uid="uid://cvy47q7mkbdf" path="res://Assets/Health Bars/Enemy Health Bar Empty.png" id="1_lwbqc"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_47cg3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bi355"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnivl"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_34whr"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_giwu2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eq714"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ylqj5"]
+bg_color = Color(0.454902, 0.415686, 0.482353, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ppua2"]
+bg_color = Color(0.988235, 0.85098, 0.458824, 1)
 
 [node name="HealthBar" type="ProgressBar"]
-self_modulate = Color(0.631373, 0.14902, 0.145098, 1)
+self_modulate = Color(1, 0.352941, 0.352941, 1)
 offset_left = 18.0
 offset_top = 23.0
 offset_right = 278.0
 offset_bottom = 43.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_47cg3")
+theme_override_styles/background = SubResource("StyleBoxEmpty_bi355")
 theme_override_styles/fill = SubResource("StyleBoxFlat_dnivl")
-value = 100.0
+value = 50.0
 show_percentage = false
 
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_top = 9.5
-offset_right = 453.0
-offset_bottom = 15.5
-grow_vertical = 2
-texture = SubResource("CanvasTexture_34whr")
-stretch_mode = 6
+[node name="ShieldBar" type="ProgressBar" parent="."]
+offset_top = 16.0
+offset_right = 260.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_giwu2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eq714")
+value = 10.0
+show_percentage = false
 
-[node name="Control" type="TextureRect" parent="."]
-texture_filter = 1
+[node name="DamageBar" type="ProgressBar" parent="."]
+show_behind_parent = true
 layout_mode = 0
-offset_left = -3.0
-offset_top = -16.0
-offset_right = 263.0
-offset_bottom = 30.0
-texture = ExtResource("1_lwbqc")
-expand_mode = 5
+offset_right = 260.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ylqj5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ppua2")
+value = 100.0
+show_percentage = false

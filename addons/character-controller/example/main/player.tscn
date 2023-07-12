@@ -753,7 +753,7 @@ value = 500.0
 texture_under = ExtResource("28_vpc2s")
 texture_progress = ExtResource("29_mb3xn")
 tint_over = Color(1, 1, 1, 0)
-tint_progress = Color(0.105882, 0.619608, 0.694118, 1)
+tint_progress = Color(0.333333, 0.592157, 0.839216, 1)
 
 [node name="Area3D" type="Area3D" parent="." index="15"]
 collision_layer = 0

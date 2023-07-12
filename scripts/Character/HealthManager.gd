@@ -57,12 +57,11 @@ func hurt_shield_or_health(_damage):
 	
 	var remainder = 0.0 # carries over to health if shield is down
 	current_shield -= _damage
-	emit_signal("shield_changed", max(0.0, current_shield))
 	if current_shield <= 0.0:
-		print('no shield')
 		remainder = abs(current_shield)
 		current_shield = 0.0
 		current_health -= remainder
+	emit_signal("shield_changed", max(0.0, current_shield))
 	
 func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal"):
 	spawn_blood(dir, pos)

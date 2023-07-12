@@ -10,7 +10,7 @@ var current_shield
 @onready var health_manager = $"../../HealthManager"
 @onready var health_bar = $HealthBarHUD
 
-@onready var blue_tint = Color(0.11, 0.62, 0.69, 1.0) # shield # full shield color
+@onready var blue_tint = Color(0.33, 0.59, 0.84, 1.0) # shield # full shield color
 @onready var white_tint = Color(1.0, 1.0, 1.0, 1.0) # shield color as it goes down
 @onready var red_tint = Color(0.63137, 0.00289, 0.14509, 1.0) # bar color if shield is down
 
@@ -21,7 +21,7 @@ func _ready():
 	health_manager.dead.connect(hide)
 	health_bar.set_value_no_signal(100.0) # NOTE: might be a problem later 
 	set_max_values()
-	
+
 func _process(delta):
 	var display_prog = health_bar.value
 	var max_value = health_bar.max_value
@@ -95,7 +95,7 @@ func set_bar_alpha():
 		if one_or_zero:
 			value_to_set = 1.0
 		else:
-			value_to_set = 0.0
+			value_to_set = 0.5
 		one_or_zero = !one_or_zero
 		
 		var color_to_set = red_tint

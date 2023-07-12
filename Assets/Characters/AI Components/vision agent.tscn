@@ -116,6 +116,7 @@ script = ExtResource("5_yqdte")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterNavigation"]
 
 [node name="HealthManager" parent="." instance=ExtResource("7_21dhl")]
+max_shield = 50.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5b7ns")

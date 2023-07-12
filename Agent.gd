@@ -56,15 +56,13 @@ func _process(delta):
 	#face_target_y.face_point(target_point, delta)
 	#face_target_x.face_point(target_point, delta)
 	
-	
-	
 	if vision_manager.in_vision_cone(target_point) and vision_manager.has_los(target_point):
-		character_navigation.follow_target(delta, target)
+		#character_navigation.follow_target(delta, target)
 		show_red()
 		var point_to_fire = projectile_spawner.get_aim_prediction_point()
 		face_target_y.face_point(point_to_fire, delta)
 		face_target_x.face_point(point_to_fire, delta)
-		projectile_spawner.fire_with_cooldown()
+		#projectile_spawner.fire_with_cooldown()
 		
 	else:
 		show_yellow()
