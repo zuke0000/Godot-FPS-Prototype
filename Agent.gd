@@ -55,10 +55,11 @@ func _process(delta):
 	var target_point = target.global_transform.origin
 	#face_target_y.face_point(target_point, delta)
 	#face_target_x.face_point(target_point, delta)
-	character_navigation.follow_target(delta, target)
+	
 	
 	
 	if vision_manager.in_vision_cone(target_point) and vision_manager.has_los(target_point):
+		character_navigation.follow_target(delta, target)
 		show_red()
 		var point_to_fire = projectile_spawner.get_aim_prediction_point()
 		face_target_y.face_point(point_to_fire, delta)
@@ -67,7 +68,7 @@ func _process(delta):
 		
 	else:
 		show_yellow()
-		#character_navigation.no_target(delta)
+		character_navigation.no_target(delta)
 		
 	if face_target_y.is_facing_target(target_point) and face_target_x.is_facing_target(target_point) and vision_manager.has_los(target_point):
 		show_red()

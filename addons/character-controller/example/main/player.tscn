@@ -28,7 +28,7 @@
 [ext_resource type="Script" path="res://addons/character-controller/example/main/RestartMessage.gd" id="26_5e55j"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/HUDElements.gd" id="27_s4r2m"]
 [ext_resource type="Texture2D" uid="uid://b7c81tagqg53o" path="res://Assets/Health Bars/HUD Empty.png" id="28_vpc2s"]
-[ext_resource type="Texture2D" uid="uid://naovn1ibvsv7" path="res://Assets/Health Bars/HUD Full.png" id="29_prdja"]
+[ext_resource type="Texture2D" uid="uid://okgrds0bmksu" path="res://Assets/Health Bars/HUD White.png" id="29_mb3xn"]
 
 [sub_resource type="Animation" id="Animation_ksrll"]
 length = 0.001
@@ -650,7 +650,12 @@ shape = SubResource("SphereShape3D_kehox")
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
 [node name="HealthManager" parent="." index="12" instance=ExtResource("24_6c21v")]
+max_health = 50.0
+max_shield = 75.0
 should_regen = true
+shield_cooldown = 3.0
+health_regen_speed = 10.0
+shield_regen_speed = 25.0
 
 [node name="PickupManager" type="Area3D" parent="." index="13"]
 collision_layer = 0
@@ -733,7 +738,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/HUDManager" index="3"]
+[node name="HealthBarHUD" type="TextureProgressBar" parent="UI/HUDManager" index="3"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -743,9 +748,12 @@ offset_top = 10.0
 offset_right = 170.0
 offset_bottom = 50.0
 grow_horizontal = 2
-value = 75.0
+max_value = 1000.0
+value = 500.0
 texture_under = ExtResource("28_vpc2s")
-texture_progress = ExtResource("29_prdja")
+texture_progress = ExtResource("29_mb3xn")
+tint_over = Color(1, 1, 1, 0)
+tint_progress = Color(0.105882, 0.619608, 0.694118, 1)
 
 [node name="Area3D" type="Area3D" parent="." index="15"]
 collision_layer = 0

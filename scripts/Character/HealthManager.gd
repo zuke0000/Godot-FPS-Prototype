@@ -36,6 +36,7 @@ func _ready():
 	current_health = max_health
 	current_shield = max_shield
 	emit_signal("health_changed", current_health)
+	emit_signal("shield_changed", current_shield)
 	emit_signal("emit_max_health_and_shield", max_health, max_shield)
 
 func init(_max_health = max_health, _max_shield = max_shield):
@@ -43,24 +44,24 @@ func init(_max_health = max_health, _max_shield = max_shield):
 	current_health = _max_health
 	current_shield = _max_shield
 	emit_signal("health_changed", current_health)
+	emit_signal("shield_changed", current_shield)
 
-func _process(delta):
+func _physics_process(delta):
 	regen(delta)
 	manage_cooldowns(delta)
+	
 func hurt_shield_or_health(_damage):
-	if max_shield <= 0.0:
+	if current_shield <= 0.0:
 		current_health -= _damage
-		#shield_gap = true
-		#regen_timer = 0.0-shield_gap_cooldown
 		return
 	
 	var remainder = 0.0 # carries over to health if shield is down
-	max_shield -= _damage
-	
-	if max_shield <= 0.0:
+	current_shield -= _damage
+	emit_signal("shield_changed", max(0.0, current_shield))
+	if current_shield <= 0.0:
 		print('no shield')
-		remainder = abs(max_shield)
-		max_shield = 0.0
+		remainder = abs(current_shield)
+		current_shield = 0.0
 		current_health -= remainder
 	
 func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal"):
@@ -89,14 +90,12 @@ func heal(amount : float):
 		return
 	current_health += amount
 	current_health = min(max_health, current_health)
-	#print('amount ', amount)
 	emit_signal("healed")
 	emit_signal("health_changed", current_health)
 
 func heal_shield(amount : float):
 	current_shield += amount
-	current_shield = min(max_health, current_shield)
-	#print('amount ', amount)
+	current_shield = min(max_shield, current_shield)
 	emit_signal("healed")
 	emit_signal("shield_changed", current_shield)
 
@@ -135,7 +134,7 @@ func regen(delta):
 		heal_shield(shield_regen_speed * delta)
 	
 
-# timer goes up, more
+# timer goes up, changes based on if shield was popped or not
 func manage_cooldowns(delta):
 	if !should_regen:
 		return
