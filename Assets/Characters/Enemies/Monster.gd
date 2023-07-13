@@ -30,6 +30,7 @@ func _ready():
 		for child in bone_attachment.get_children():
 			if child is HitBox:
 				child.hitbox_hurt.connect(hurt)
+				child.hitbox_looked_at.connect(looking_at)
 	set_state_idle() # idle when spawning
 	health_manager.dead.connect(set_state_dead)
 	character_mover = $CharacterMover
@@ -162,7 +163,8 @@ func alert(check_los=true):
 func within_distance_of_player(distance: float):
 	return global_transform.origin.distance_to(player.global_transform.origin) < attack_range
 
-
+func looking_at():
+	print('youre looking at me')
 
 
 

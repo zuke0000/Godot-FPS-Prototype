@@ -7,6 +7,7 @@ extends Node3D
 func _ready():
 	cone.set_cone_scale_by_distance(distance)
 	cone.add_exception(exclusion_body)
+	cone.set_self_collision_node(exclusion_body)
 	
 func get_assist_rotation(bullet_emitter, length_threshold):
 	var body = cone.shoot_shapecast()

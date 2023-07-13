@@ -29,6 +29,7 @@ color_ramp = SubResource("GradientTexture1D_3qk11")
 [sub_resource type="QuadMesh" id="QuadMesh_4hqkl"]
 
 [node name="HomingRocket" type="CharacterBody3D"]
+collision_layer = 0
 collision_mask = 7
 script = ExtResource("1_emo73")
 impact_damage = 10

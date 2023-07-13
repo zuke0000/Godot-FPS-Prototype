@@ -10,7 +10,7 @@ signal gibbed
 @export_category("Values")
 @export var max_health := 100.0
 @export var max_shield := 0.0
-@export var shield_gate := false # TODO, set an invincible timer when shield pops
+@export var shield_gate_timer := 0.0
 @export var gib_at = -10 # gib if overdamaged to -10
 var current_health = 1.0
 var current_shield = 1.0
@@ -22,6 +22,7 @@ var current_shield = 1.0
 @export var shield_gap_cooldown := 3.0 # cooldown to wait if shield is 0 before it can regen again
 @export var health_regen_speed := 3.0 # health regen per second
 @export var shield_regen_speed := 3.0 # shield regen per second
+var invincible_shield_gate = false
 var regen_health := false # counts up to cooldown, allows regen at this point
 var regen_shield := false
 var shield_gap := true
@@ -51,6 +52,8 @@ func _physics_process(delta):
 	manage_cooldowns(delta)
 	
 func hurt_shield_or_health(_damage):
+	if invincible_shield_gate:
+		return
 	if current_shield <= 0.0:
 		current_health -= _damage
 		return
@@ -58,6 +61,7 @@ func hurt_shield_or_health(_damage):
 	var remainder = 0.0 # carries over to health if shield is down
 	current_shield -= _damage
 	if current_shield <= 0.0:
+		manage_shield_gate()
 		remainder = abs(current_shield)
 		current_shield = 0.0
 		current_health -= remainder
@@ -65,8 +69,7 @@ func hurt_shield_or_health(_damage):
 	
 func hurt(damage: int, dir: Vector3, pos = position, damage_type="normal"):
 	spawn_blood(dir, pos)
-	
-	if (current_health <=0):
+	if (current_health <=0 or invincible_shield_gate):
 		return
 	#current_health -= damage
 	hurt_shield_or_health(damage)
@@ -151,3 +154,7 @@ func reset_regen_cooldown():
 	regen_shield = false
 	regen_timer = 0.0
 	
+func manage_shield_gate():
+	invincible_shield_gate = true
+	await GlobalFunctions.wait_time(shield_gate_timer)
+	invincible_shield_gate = false

@@ -654,6 +654,7 @@ shape = SubResource("SphereShape3D_kehox")
 [node name="HealthManager" parent="." index="12" instance=ExtResource("24_6c21v")]
 max_health = 50.0
 max_shield = 75.0
+shield_gate_timer = 1.0
 should_regen = true
 shield_cooldown = 3.0
 health_regen_speed = 10.0

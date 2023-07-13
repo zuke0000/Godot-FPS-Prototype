@@ -36,7 +36,7 @@ var bodies_to_exclude : Array = []
 @export var aim_assist_magnetism := 0.5 # percentage of error the bullet will bend towards target
 # For example with these values a player could shoot off by 1 degree but the bullet will bend
 # 0.5 * 1 = 0.5 degrees towards the closest hitbox
-@export var length_threshold = 0.05 # currently what is used for now for limiting aim assist
+@export var length_threshold = 0.075 # currently what is used for now for limiting aim assist
 
 var attack_timer : Timer
 var can_attack = true
@@ -121,9 +121,6 @@ func handle_emitter_transforms():
 	bullet_emitters_base.global_transform = start_transform
 
 func assist_emitter(bullet_emitter):
-	#aim_assist_manager.set_distance(damage_dropoff_distance)
-	#var assist_body = aim_cone.shoot_shapecast()
-	#print("Get rotation function should be in assist_emitter()")
 	bullet_emitter = aim_assist_manager.get_assist_rotation(bullet_emitter, length_threshold)
 	return bullet_emitter
 

@@ -62,7 +62,7 @@ func _process(delta):
 		var point_to_fire = projectile_spawner.get_aim_prediction_point()
 		face_target_y.face_point(point_to_fire, delta)
 		face_target_x.face_point(point_to_fire, delta)
-		#projectile_spawner.fire_with_cooldown()
+		projectile_spawner.fire_with_cooldown()
 		
 	else:
 		show_yellow()
@@ -93,4 +93,6 @@ func hurt(damage: int, dir: Vector3, pos: Vector3):
 
 func set_frozen():
 	frozen = true
-
+	
+func looking_at():
+	print('youre looking at me')
