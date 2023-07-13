@@ -27,6 +27,7 @@ value = 50.0
 show_percentage = false
 
 [node name="ShieldBar" type="ProgressBar" parent="."]
+layout_mode = 0
 offset_top = 16.0
 offset_right = 260.0
 offset_bottom = 20.0

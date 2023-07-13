@@ -498,4 +498,40 @@ pickup_type = 6
 [node name="VisionAgent" parent="." instance=ExtResource("16_clw6v")]
 transform = Transform3D(0.999886, 0, -0.015079, 0, 1, 0, 0.015079, 0, 0.999886, -48.6818, 2.91866, 36.7257)
 
+[node name="ReptileMonster" parent="." instance=ExtResource("15_favka")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -56.6294, 2, 37.9766)
+attack_rate = 600
+
+[node name="ArmUL" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.794582, 0.196513, -0.574476, -0.39124, -0.889262, 0.236948, -0.464296, 0.413033, 0.783475, 0.218738, 1.56265, 0.11293)
+
+[node name="ArmUR" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="2"]
+transform = Transform3D(-0.794582, -0.196513, 0.574476, 0.39124, -0.889262, 0.236948, 0.464296, 0.413033, 0.783475, -0.218738, 1.56265, 0.11293)
+
+[node name="LegUL" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="3"]
+transform = Transform3D(-0.974353, 0.104194, 0.199444, -0.0552488, -0.969979, 0.23683, 0.218133, 0.219737, 0.950858, 0.123436, 0.961497, 1.78814e-07)
+
+[node name="LegUR" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="4"]
+transform = Transform3D(-0.974352, -0.104196, -0.199445, 0.0552497, -0.969979, 0.23683, -0.218135, 0.219737, 0.950857, -0.123436, 0.961497, 1.78814e-07)
+
+[node name="Chest" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="5"]
+transform = Transform3D(1, -4.25214e-08, -2.29664e-07, -4.42133e-08, 0.931049, -0.364893, 2.29344e-07, 0.364893, 0.931049, 2.84689e-18, 1.20205, -0.0421271)
+
+[node name="Head" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="6"]
+transform = Transform3D(1, -4.25214e-08, -2.29664e-07, -4.42133e-08, 0.931049, -0.364893, 2.29344e-07, 0.364893, 0.931049, 2.84689e-18, 1.20205, -0.0421271)
+
+[node name="LegLL" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="7"]
+transform = Transform3D(-0.978013, -0.0485487, 0.20281, 0.0195295, -0.989572, -0.142708, 0.207623, -0.135609, 0.968762, 0.175063, 0.48088, 0.108878)
+
+[node name="LegLR" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="8"]
+transform = Transform3D(-0.978012, 0.048548, -0.202812, -0.0195286, -0.989572, -0.142708, -0.207625, -0.135609, 0.968761, -0.175064, 0.48088, 0.108878)
+
+[node name="ArmLL" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="9"]
+transform = Transform3D(-0.821426, -0.414675, -0.391541, -0.244306, -0.364509, 0.898581, -0.515339, 0.833773, 0.19811, 0.284122, 1.26677, 0.250355)
+
+[node name="ArmLR" parent="ReptileMonster/Graphics/Armature/Skeleton3D" index="10"]
+transform = Transform3D(-0.821426, 0.414674, 0.391541, 0.244306, -0.364509, 0.898581, 0.515338, 0.833774, 0.19811, -0.284122, 1.26677, 0.250355)
+
 [connection signal="timeout" from="DeveloperTests/ProjectileSpawner/Timer" to="DeveloperTests/ProjectileSpawner" method="fire"]
+
+[editable path="ReptileMonster"]

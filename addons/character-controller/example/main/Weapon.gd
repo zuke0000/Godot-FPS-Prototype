@@ -3,7 +3,7 @@ extends Node3D
 @onready var anim_player = $AnimationPlayer
 @onready var bullet_emitters_base : Node3D = $BulletEmitters
 @onready var bullet_emitters = $BulletEmitters.get_children()
-
+@export_category("Values")
 @export var automatic = false
 
 var fire_point = Node3D
@@ -20,19 +20,23 @@ var bodies_to_exclude : Array = []
 
 # TODO: like in destiny have damage dropoff. Dropoff linearly after distance excedes dropoff distance
 # Damage dropoff system
+@export_category("Damage")
 @export var damage_dropoff_distance := 30 
 @export var damage_minimum = 2
 
+@export_category("Reload")
 # TODO: Reload system
 @export var reload_time = 1
 @export var shield_cost = 0
 
+@export_category("Aim Assist")
 # TODO: aim assist system
 @export var aim_assist_degrees := 1 # angles of error allowed for bullets to bend toward target
+
 @export var aim_assist_magnetism := 0.5 # percentage of error the bullet will bend towards target
 # For example with these values a player could shoot off by 1 degree but the bullet will bend
 # 0.5 * 1 = 0.5 degrees towards the closest hitbox
-
+@export var length_threshold = 0.05 # currently what is used for now
 
 var attack_timer : Timer
 var can_attack = true
@@ -40,7 +44,7 @@ var can_attack = true
 signal fired
 signal out_of_ammo
 signal swapped_to
-@onready var aim_assist_box := $"../../../../../Area3D"
+@onready var aim_cone = $"../../../ConeCast"
 
 var hitscan_node = preload("res://effects/hitscan_bullet_emitter.tscn")
 
@@ -65,40 +69,39 @@ func init(_fire_point: Node3D, _bodies_to_exclude: Array):
 	
 		
 func attack(attack_input_just_pressed: bool, attack_input_held: bool):
-	if !can_attack:
-		return
-	if automatic and !attack_input_held:
-		return
-	if !automatic and !attack_input_just_pressed:
-		return
-	if ammo == 0:
-		if attack_input_just_pressed:
-			emit_signal("out_of_ammo")
+	if !should_attack(attack_input_just_pressed, attack_input_held):
 		return
 		
 	if ammo > 0 and can_attack:
 		ammo -= 1
+		
+	handle_emitter_transforms()
 	
+	anim_player.stop()
+	anim_player.play("attack")
+	emit_signal("fired")
+	can_attack = false
+	attack_timer.start()
+
+func should_attack(attack_input_just_pressed, attack_input_held):
+	if !can_attack:
+		return false
+	if automatic and !attack_input_held:
+		return false
+	if !automatic and !attack_input_just_pressed:
+		return false
+	if ammo == 0:
+		if attack_input_just_pressed:
+			emit_signal("out_of_ammo")
+		return false
+	return true
 	
+func handle_emitter_transforms():
 	# inherit transform for fired bullets when player fires
 	var start_transform = bullet_emitters_base.global_transform
-	
 	bullet_emitters_base.global_transform = fire_point.global_transform
 	bullet_emitters = bullet_emitters_base.get_children()
 	var original_rotation
-	
-	var bodies = aim_assist_box.get_overlapping_bodies()
-	#result.collider.hurt(damage, result.normal, result.position)
-	
-	# TODO: Rotate bullet torwards enemy
-	if len(bodies) > 0 and bodies[0].has_method("hurt"):
-		var forward = -global_transform.basis.z
-		var our_position = global_transform.origin
-		var enemy_position = bodies[0].global_transform.origin
-		var direction_to_point = enemy_position - our_position
-		# this print will return the angle of degrees off from enemy position
-		#print(rad_to_deg(direction_to_point.angle_to(forward)))
-	
 	#if (is_hitscan or !is_hitscan):
 	for bullet_emitter in bullet_emitters:
 		bullet_emitter.set_damage(damage)
@@ -106,25 +109,26 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool):
 		
 		if !is_melee:
 			original_rotation = bullet_emitter.rotation
+			
+			assist_emitter(bullet_emitter)
 			bullet_emitter.rotation.x += randf_range(-spread,spread)
 			bullet_emitter.rotation.y += randf_range(-spread,spread)
-			
-			# TODO: setup cone that extends from player
-			# 
-			# closest enemy
-			# bend bullet torwards closest enemy
-			
+		
 		bullet_emitter.fire()
-		bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation
+		#bullet_emitter.rotation = original_rotation if (original_rotation) else bullet_emitter.rotation
+		bullet_emitter.rotation = Vector3(0,0,0)
 		bullet_emitter.bodies_to_exclude = bodies_to_exclude
 	bullet_emitters_base.global_transform = start_transform
-	
-	anim_player.stop()
-	anim_player.play("attack")
-	emit_signal("fired")
-	can_attack = false
-	attack_timer.start()
-	
+
+func assist_emitter(bullet_emitter):
+	var assist_body = aim_cone.shoot_shapecast()
+	if assist_body:
+		bullet_emitter.look_at(assist_body.global_transform.origin)
+	# don't rotate if the aim is too far off
+	if bullet_emitter.rotation.length() > length_threshold:
+		bullet_emitter.rotation = Vector3(0,0,0)
+
+
 func finish_attack():
 	can_attack = true
 
@@ -140,4 +144,24 @@ func set_inactive():
 
 func is_idle():
 	pass
+
+# NOTE: UNUSED
+func get_assist_body(_bullet_emitter):
+	var assist_body = aim_cone.shoot_shapecast()
+	
+	# TODO: Rotate bullet torwards enemy
+	if assist_body:
+		var forward = -global_transform.basis.z
+		var our_position = aim_cone.global_transform.origin
+		#var enemy_position = assist_body.global_transform.origin
+		var enemy_position = aim_cone.get_collision_point(0)
+		var direction_to_point = enemy_position - our_position
+		# this print will return the angle of degrees off from enemy position
+		var angle_correction = direction_to_point.angle_to(forward)
+		#print(angle_correction)
+		#print(rad_to_deg(direction_to_point.angle_to(forward)) / 360)
+		
+		#bullet_emitters[0].rotation.y += direction_to_point.angle_to(enemy_position)
+		return (assist_body)
+	return (false)
 

@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://ppdwkut2rwp6"]
+
+[ext_resource type="Script" path="res://AimCone.gd" id="1_3k526"]
+[ext_resource type="PackedScene" uid="uid://bxtwktqjmfge0" path="res://Assets/Raw Assets/cone.tscn" id="2_52ovh"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_51jp2"]
+points = PackedVector3Array(0, 1, 0, 0.194988, -1, -0.980814, 0, -1, -1, -0.1, -1, -0.981, -0.382733, -1, -0.924041, -0.555599, -1, -0.831637, -0.707126, -1, -0.707126, -0.831637, -1, -0.555599, -0.924041, -1, -0.382733, -0.980814, -1, -0.195184, -1, -1, -0.000195742, -0.980814, -1, 0.194988, -0.924041, -1, 0.382537, -0.831637, -1, 0.555403, -0.707126, -1, 0.70693, -0.555599, -1, 0.831441, -0.382733, -1, 0.923845, -0.195184, -1, 0.980619, -0.000195742, -1, 1, 0.194988, -1, 0.980619, 0.382537, -1, 0.923845, 0.555403, -1, 0.831441, 0.70693, -1, 0.70693, 0.831441, -1, 0.555403, 0.923845, -1, 0.382537, 0.980619, -1, 0.194988, 1, -1, -0.000195742, 0.980619, -1, -0.195184, 0.923845, -1, -0.382733, 0.831441, -1, -0.555599, 0.70693, -1, -0.707126, 0.555403, -1, -0.831637, 0.382537, -1, -0.924041)
+
+[node name="AimCone" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_3k526")
+
+[node name="VisionArea" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1)
+shape = SubResource("ConvexPolygonShape3D_51jp2")
+
+[node name="VisionArea2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1.74846e-06, -1, 0, 40, -4.37114e-08, 0, 0, -40)
+visible = false
+shape = SubResource("ConvexPolygonShape3D_51jp2")
+
+[node name="Cone" parent="." instance=ExtResource("2_52ovh")]
+visible = false
+
+[node name="VisionTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="RayCast" type="RayCast3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, -8.74228e-07, -20, 0, 20, -8.74228e-07, 0, 0, 0)
+visible = false
+collision_mask = 15
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+
+[connection signal="timeout" from="VisionTimer" to="." method="_on_vision_timer_timeout"]

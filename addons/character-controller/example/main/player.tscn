@@ -16,13 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://bx21tsqec0bq4" path="res://Assets/rocketlauncher.glb" id="10_ade2p"]
 [ext_resource type="PackedScene" uid="uid://drxktod3xq4r0" path="res://effects/raw_assets/muzzleflash1.glb" id="11_dkiuv"]
 [ext_resource type="PackedScene" uid="uid://cmxl8rwyftik6" path="res://effects/raw_assets/muzzleflash3.glb" id="14_7esng"]
-[ext_resource type="Texture2D" uid="uid://ckiixauih127k" path="res://Assets/Weapons/crosshair065.png" id="14_soti2"]
 [ext_resource type="PackedScene" uid="uid://c824t2tq33tck" path="res://effects/raw_assets/muzzleflash2.glb" id="16_1sbjd"]
 [ext_resource type="Texture2D" uid="uid://cme82x03hgmhc" path="res://Assets/Weapons/crosshair066.png" id="17_gvtfk"]
 [ext_resource type="PackedScene" uid="uid://b5qtyq1k3d5oy" path="res://Scenes/rocket_spawner.tscn" id="17_sat5l"]
 [ext_resource type="Texture2D" uid="uid://cse5x2rmj02u7" path="res://Assets/Weapons/crosshair026.png" id="18_bkwdr"]
 [ext_resource type="Texture2D" uid="uid://dggfhm07wy6a2" path="res://Assets/Weapons/crosshair001.png" id="20_j6y0y"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/WeaponSway.gd" id="22_r43ch"]
+[ext_resource type="PackedScene" uid="uid://ih0x5k1ehe6g" path="res://Assets/Raw Assets/cone_cast.tscn" id="23_y0nwx"]
 [ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="24_6c21v"]
 [ext_resource type="Script" path="res://Assets/Pickups/PickupManager.gd" id="25_7fvc4"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/RestartMessage.gd" id="26_5e55j"]
@@ -488,13 +488,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
 transform = Transform3D(0.231375, 0, 0, 0, 0.231375, 0, 0, 0, 0.231375, 0.258917, -0.140219, -0.203667)
 script = ExtResource("8_7u54q")
 automatic = true
-ammo = 240
+ammo = 500
 attack_rate = 0.1
 
 [node name="Graphics" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="0"]
 
 [node name="machinegun" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="0" instance=ExtResource("8_nwbrq")]
-transform = Transform3D(0.999986, 0.000582201, 0.00520354, 0, 0.993797, -0.111191, -0.00523602, 0.11119, 0.993782, -0.30754, 0.380024, 0.728404)
+transform = Transform3D(0.999986, 0.000582201, 0.00520353, 0, 0.993797, -0.111191, -0.00523602, 0.11119, 0.993781, -0.30754, 0.380024, 0.728404)
 
 [node name="MuzzleFlash" type="Node3D" parent="Head/Camera/WeaponManager/Weapons/MachineGun/Graphics" index="1"]
 transform = Transform3D(0.478219, 0, 0, 0, 0.478219, 0, 0, 0, 0.478219, -0.335576, 0.9444, -0.879134)
@@ -523,7 +523,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("14_soti2")
+texture = ExtResource("20_j6y0y")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Camera/WeaponManager/Weapons/MachineGun" index="1"]
 root_node = NodePath("../Graphics")
@@ -647,6 +647,8 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera/WeaponManager/AlertAreaLos" index="0"]
 shape = SubResource("SphereShape3D_kehox")
 
+[node name="ConeCast" parent="Head/Camera" index="2" instance=ExtResource("23_y0nwx")]
+
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
 [node name="HealthManager" parent="." index="12" instance=ExtResource("24_6c21v")]
@@ -755,11 +757,11 @@ texture_progress = ExtResource("29_mb3xn")
 tint_over = Color(1, 1, 1, 0)
 tint_progress = Color(0.333333, 0.592157, 0.839216, 1)
 
-[node name="Area3D" type="Area3D" parent="." index="15"]
+[node name="Area3D_UNUSED" type="Area3D" parent="." index="15"]
 collision_layer = 0
 collision_mask = 2
 
-[node name="AimAssistCone" type="CollisionShape3D" parent="Area3D" index="0"]
+[node name="AimAssistCone" type="CollisionShape3D" parent="Area3D_UNUSED" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.40168)
 shape = SubResource("BoxShape3D_5oieb")
 
@@ -769,3 +771,5 @@ shape = SubResource("BoxShape3D_5oieb")
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
 [connection signal="dead" from="HealthManager" to="UI/RestartMessage" method="start_restart_timer"]
 [connection signal="health_changed" from="HealthManager" to="UI/HUDManager" method="update_health"]
+
+[editable path="Head/Camera/ConeCast"]
