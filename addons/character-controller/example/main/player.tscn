@@ -21,8 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://b5qtyq1k3d5oy" path="res://Scenes/rocket_spawner.tscn" id="17_sat5l"]
 [ext_resource type="Texture2D" uid="uid://cse5x2rmj02u7" path="res://Assets/Weapons/crosshair026.png" id="18_bkwdr"]
 [ext_resource type="Texture2D" uid="uid://dggfhm07wy6a2" path="res://Assets/Weapons/crosshair001.png" id="20_j6y0y"]
+[ext_resource type="PackedScene" uid="uid://plefs53y4u2w" path="res://Scenes/aim_assist_manager.tscn" id="22_ih3ee"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/WeaponSway.gd" id="22_r43ch"]
-[ext_resource type="PackedScene" uid="uid://ih0x5k1ehe6g" path="res://Assets/Raw Assets/cone_cast.tscn" id="23_y0nwx"]
 [ext_resource type="PackedScene" uid="uid://dq7011dixvara" path="res://Scenes/health_manager.tscn" id="24_6c21v"]
 [ext_resource type="Script" path="res://Assets/Pickups/PickupManager.gd" id="25_7fvc4"]
 [ext_resource type="Script" path="res://addons/character-controller/example/main/RestartMessage.gd" id="26_5e55j"]
@@ -647,7 +647,7 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Camera/WeaponManager/AlertAreaLos" index="0"]
 shape = SubResource("SphereShape3D_kehox")
 
-[node name="ConeCast" parent="Head/Camera" index="2" instance=ExtResource("23_y0nwx")]
+[node name="AimAssistManager" parent="Head/Camera" index="2" instance=ExtResource("22_ih3ee")]
 
 [node name="Player Audios" parent="." index="11" instance=ExtResource("4_ux8kv")]
 
@@ -771,5 +771,3 @@ shape = SubResource("BoxShape3D_5oieb")
 [connection signal="fired" from="Head/Camera/WeaponManager/Weapons/RocketLauncher" to="Head/Camera/WeaponManager/Weapons/RocketLauncher/Graphics/MuzzleFlash" method="flash"]
 [connection signal="dead" from="HealthManager" to="UI/RestartMessage" method="start_restart_timer"]
 [connection signal="health_changed" from="HealthManager" to="UI/HUDManager" method="update_health"]
-
-[editable path="Head/Camera/ConeCast"]

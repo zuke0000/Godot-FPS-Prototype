@@ -36,7 +36,7 @@ var bodies_to_exclude : Array = []
 @export var aim_assist_magnetism := 0.5 # percentage of error the bullet will bend towards target
 # For example with these values a player could shoot off by 1 degree but the bullet will bend
 # 0.5 * 1 = 0.5 degrees towards the closest hitbox
-@export var length_threshold = 0.05 # currently what is used for now
+@export var length_threshold = 0.05 # currently what is used for now for limiting aim assist
 
 var attack_timer : Timer
 var can_attack = true
@@ -44,7 +44,7 @@ var can_attack = true
 signal fired
 signal out_of_ammo
 signal swapped_to
-@onready var aim_cone = $"../../../ConeCast"
+@onready var aim_assist_manager = $"../../../AimAssistManager"
 
 var hitscan_node = preload("res://effects/hitscan_bullet_emitter.tscn")
 
@@ -121,12 +121,11 @@ func handle_emitter_transforms():
 	bullet_emitters_base.global_transform = start_transform
 
 func assist_emitter(bullet_emitter):
-	var assist_body = aim_cone.shoot_shapecast()
-	if assist_body:
-		bullet_emitter.look_at(assist_body.global_transform.origin)
-	# don't rotate if the aim is too far off
-	if bullet_emitter.rotation.length() > length_threshold:
-		bullet_emitter.rotation = Vector3(0,0,0)
+	#aim_assist_manager.set_distance(damage_dropoff_distance)
+	#var assist_body = aim_cone.shoot_shapecast()
+	#print("Get rotation function should be in assist_emitter()")
+	bullet_emitter = aim_assist_manager.get_assist_rotation(bullet_emitter, length_threshold)
+	return bullet_emitter
 
 
 func finish_attack():
@@ -144,24 +143,4 @@ func set_inactive():
 
 func is_idle():
 	pass
-
-# NOTE: UNUSED
-func get_assist_body(_bullet_emitter):
-	var assist_body = aim_cone.shoot_shapecast()
-	
-	# TODO: Rotate bullet torwards enemy
-	if assist_body:
-		var forward = -global_transform.basis.z
-		var our_position = aim_cone.global_transform.origin
-		#var enemy_position = assist_body.global_transform.origin
-		var enemy_position = aim_cone.get_collision_point(0)
-		var direction_to_point = enemy_position - our_position
-		# this print will return the angle of degrees off from enemy position
-		var angle_correction = direction_to_point.angle_to(forward)
-		#print(angle_correction)
-		#print(rad_to_deg(direction_to_point.angle_to(forward)) / 360)
-		
-		#bullet_emitters[0].rotation.y += direction_to_point.angle_to(enemy_position)
-		return (assist_body)
-	return (false)
 

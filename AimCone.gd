@@ -1,6 +1,6 @@
 extends ShapeCast3D
 
-@onready var self_collision_node = $"../../.."
+@onready var self_collision_node
 @export var distance := 40.0
 @export var y_ratio = 1.0/8.0
 
@@ -10,9 +10,15 @@ func _ready():
 	var scale_y = distance
 	var scale_z = distance * y_ratio
 	set_scale(Vector3(scale_x,scale_y,scale_z))
-	add_exception(self_collision_node)
+	
 
+func set_cone_scale_by_distance(_distance=10.0):
+	var scale_x = _distance * y_ratio
+	var scale_y = _distance
+	var scale_z = _distance * y_ratio
+	set_scale(Vector3(scale_x,scale_y,scale_z))
 
+	
 
 func _on_timer_timeout():
 	

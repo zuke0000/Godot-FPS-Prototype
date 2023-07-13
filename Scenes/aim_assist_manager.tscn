@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://plefs53y4u2w"]
+
+[ext_resource type="PackedScene" uid="uid://ih0x5k1ehe6g" path="res://Assets/Raw Assets/cone_cast.tscn" id="1_5i4in"]
+[ext_resource type="Script" path="res://Scenes/aim_assist_manager.gd" id="1_rat00"]
+
+[node name="AimAssistManager" type="Node3D"]
+script = ExtResource("1_rat00")
+
+[node name="AimCone" parent="." instance=ExtResource("1_5i4in")]
+collision_mask = 6
